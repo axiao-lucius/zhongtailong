@@ -293,9 +293,9 @@ aiKnowledge:{
 '质量':'公司通过ISO9001质量管理体系认证、ISO14001环境管理体系认证。产品合格率保持在99.2%以上，客户投诉率低于0.3%。',
 '供应链':'供应链管理覆盖200+供应商，建立了严格的准入评估和绩效考核机制。核心原材料库存周转天数从45天优化至28天。',
 '生产':'目前拥有3个生产基地，总面积超20万平方米。A车间为智能示范车间，B车间专注定制化生产，C车间负责包装物流。',
-'钉钉':'公司全面采用钉钉作为数字化协同平台，集成OA审批、项目管理、知识库、AI助手等功能。悟空AI企业知识问答已接入公司全部制度文档和生产数据。',
-'AI助手':'钉钉AI助手（悟空AI）支持企业知识库智能问答，可查询公司制度、产品参数、生产数据、人事政策等。支持模糊匹配和多轮对话，响应时间<1秒。',
-'default':'我是中泰龙专属AI助手（基于悟空AI），可以帮您查询公司制度、产品信息、生产数据、人事政策等企业知识。试试问我关于智能工厂、产品线、质量管理等方面的问题吧！'
+'钉钉':'公司全面采用钉钉作为数字化协同平台，集成OA审批、项目管理、知识库、AI助手等功能。千问办公AI企业知识问答已接入公司全部制度文档和生产数据。',
+'AI助手':'钉钉AI助手（千问办公AI）支持企业知识库智能问答，可查询公司制度、产品参数、生产数据、人事政策等。支持模糊匹配和多轮对话，响应时间<1秒。',
+'default':'我是中泰龙专属AI助手（基于千问办公AI），可以帮您查询公司制度、产品信息、生产数据、人事政策等企业知识。试试问我关于智能工厂、产品线、质量管理等方面的问题吧！'
 },
 approvals:[
 {id:'SP20250701001',title:'Q3市场推广费用申请',applicant:'周五',dept:'销售部',amount:'¥180,000',status:'pending',date:'2025-07-01',detail:'用于Q3线上广告投放及展会参展费用'},
@@ -428,7 +428,7 @@ purchase:[{name:'供应链',icon:'supply',color:'#00CEC9',page:'supply'},{name:'
 const NAV=[
 {group:'A区 · 基础协同',items:[
 {id:'message',label:'消息',icon:'message'},
-{id:'ai',label:'中泰龙AI助手',icon:'ai',badge:'悟空AI'},
+{id:'ai',label:'中泰龙AI助手',icon:'ai',badge:'千问办公AI'},
 {id:'workbench',label:'工作台',icon:'workbench'},
 {id:'approval',label:'OA审批',icon:'approval'},
 {id:'contacts',label:'通讯录',icon:'contacts'},
@@ -605,7 +605,7 @@ return h;
 function renderAI(container){
 let h='<div class="chat-container">';
 h+='<div style="padding:12px 0;border-bottom:1px solid var(--border);margin-bottom:12px">';
-h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><div class="avatar" style="background:linear-gradient(135deg,#6C5CE7,#A29BFE)">AI</div><div><div style="font-weight:600;font-size:16px">中泰龙AI助手 <span class="ai-badge">悟空AI</span></div><div style="font-size:12px;color:#999">企业知识问答 · 智能办公助理</div></div></div>';
+h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><div class="avatar" style="background:linear-gradient(135deg,#6C5CE7,#A29BFE)">AI</div><div><div style="font-weight:600;font-size:16px">中泰龙AI助手 <span class="ai-badge">千问办公AI</span></div><div style="font-size:12px;color:#999">企业知识问答 · 智能办公助理</div></div></div>';
 h+='<div class="quick-questions">';
 ['公司有哪些主要产品线？','智能工厂的建设情况如何？','供应商准入标准是什么？','钉钉AI助手能做什么？','公司的质量合格率是多少？'].forEach(q=>{
 h+='<div class="quick-q" data-quick-q="'+q+'">'+q+'</div>';
@@ -613,7 +613,7 @@ h+='<div class="quick-q" data-quick-q="'+q+'">'+q+'</div>';
 h+='</div></div>';
 h+='<div class="chat-messages" id="aiMessages">';
 h+='<div class="chat-msg bot"><div class="avatar" style="background:linear-gradient(135deg,#6C5CE7,#A29BFE);width:28px;height:28px;font-size:11px;flex-shrink:0">AI</div>';
-h+='<div class="chat-bubble">您好！我是中泰龙专属AI助手（基于<b>悟空AI</b>），已接入公司全部制度文档、产品资料和生产数据。<br><br>我可以帮您：<br>📋 查询公司制度和流程<br>📊 了解生产和经营数据<br>🏭 解答产品和工艺问题<br>👥 查询人事和行政信息<br><br>试试点击上方的快捷问题，或直接输入您想了解的内容！</div></div>';
+h+='<div class="chat-bubble">您好！我是中泰龙专属AI助手（基于<b>千问办公AI</b>），已接入公司全部制度文档、产品资料和生产数据。<br><br>我可以帮您：<br>📋 查询公司制度和流程<br>📊 了解生产和经营数据<br>🏭 解答产品和工艺问题<br>👥 查询人事和行政信息<br><br>试试点击上方的快捷问题，或直接输入您想了解的内容！</div></div>';
 h+='</div>';
 h+='<div class="chat-input-area"><input type="text" placeholder="输入您的问题，如：公司产品线有哪些？" id="aiInput"><button class="btn btn-primary" data-action="send-ai" style="border-radius:20px">发送</button></div>';
 h+='</div>';
@@ -626,7 +626,7 @@ for(const[key,val] of Object.entries(D.aiKnowledge)){
 if(key!=='default'&&q.includes(key))return val;
 }
 // Fuzzy match keywords
-const fuzzyMap={'产品':'产品线','办公':'产品线','家具':'产品线','工厂':'智能工厂','黑灯':'智能工厂','产线':'智能工厂','品牌':'品牌荣誉','十大':'品牌荣誉','周年':'四十周年','庆典':'四十周年','鼎捷':'数字化','数字':'数字化','三维家':'三维家','一体':'三维家','员工':'员工','人数':'员工','质量':'质量','合格':'质量','iso':'质量','供应':'供应链','采购':'供应链','生产':'生产','车间':'生产','基地':'生产','钉钉':'钉钉','协同':'钉钉','助手':'AI助手','ai':'AI助手','悟空':'AI助手','知识':'AI助手'};
+const fuzzyMap={'产品':'产品线','办公':'产品线','家具':'产品线','工厂':'智能工厂','黑灯':'智能工厂','产线':'智能工厂','品牌':'品牌荣誉','十大':'品牌荣誉','周年':'四十周年','庆典':'四十周年','鼎捷':'数字化','数字':'数字化','三维家':'三维家','一体':'三维家','员工':'员工','人数':'员工','质量':'质量','合格':'质量','iso':'质量','供应':'供应链','采购':'供应链','生产':'生产','车间':'生产','基地':'生产','钉钉':'钉钉','协同':'钉钉','助手':'AI助手','ai':'AI助手','千问办公':'AI助手','知识':'AI助手'};
 for(const[kw,target] of Object.entries(fuzzyMap)){
 if(q.includes(kw)&&D.aiKnowledge[target])return D.aiKnowledge[target];
 }
@@ -1802,7 +1802,7 @@ didMount = function() {
   addWatermark();
   ResponsiveHandler.init();
   PerfMarks.measure('Total Init', 'init-start');
-  console.log('%c✅ 中泰龙Demo完整加载 | 13页面 | 50+图标 | AI悟空引擎 ','background:#00B894;color:#fff;padding:6px 16px;border-radius:4px;font-size:12px');
+  console.log('%c✅ 中泰龙Demo完整加载 | 13页面 | 50+图标 | AI千问办公引擎 ','background:#00B894;color:#fff;padding:6px 16px;border-radius:4px;font-size:12px');
 };
 
 /* ===== EXPANDED PRODUCTION DATA ===== */
@@ -2482,7 +2482,7 @@ didMount = function() {
   if (savedPage && savedPage !== currentPage) {
     navigate(savedPage);
   }
-  console.log('%c✅ 中泰龙Demo完整加载 | 13页面 | 60+图标 | AI悟空引擎 | 数据校验通过 ', 'background:#00B894;color:#fff;padding:6px 16px;border-radius:4px;font-size:12px');
+  console.log('%c✅ 中泰龙Demo完整加载 | 13页面 | 60+图标 | AI千问办公引擎 | 数据校验通过 ', 'background:#00B894;color:#fff;padding:6px 16px;border-radius:4px;font-size:12px');
 };
 
 /* ===== PAGE VISIBILITY TRACKING ===== */

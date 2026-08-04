@@ -1,0 +1,736 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>中泰龙钉钉数字化平台 CXO 高管汇报</title>
+  <link rel="stylesheet" href="assets/base.css">
+  <link rel="stylesheet" href="assets/themes/dingtalk-collaboration.css">
+  <style>
+    :root {
+      --black: #050505;
+      --black-2: #111111;
+      --white: #f7f4ee;
+      --muted: #bfc7cf;
+      --line: rgba(247, 244, 238, 0.22);
+      --line-strong: rgba(247, 244, 238, 0.48);
+      --orange: #ff4d00;
+      --orange-2: #ff8a1f;
+      --cyan: #4de8ff;
+      --green: #87ff9c;
+      --red: #ff2c55;
+      --steel: #8b96a3;
+      --panel: rgba(255, 255, 255, 0.075);
+      --panel-2: rgba(255, 255, 255, 0.125);
+      --radius: 6px;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; min-height: 100%;
+      background: var(--black); color: var(--white);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      overflow: hidden;
+    }
+    body { display: grid; place-items: center; }
+    button { font: inherit; }
+    .viewport {
+      position: relative; width: 100vw; height: 100vh;
+      display: grid; place-items: center; overflow: hidden;
+      background:
+        radial-gradient(circle at 18% 74%, rgba(255, 77, 0, 0.18), transparent 26%),
+        radial-gradient(circle at 84% 18%, rgba(77, 232, 255, 0.12), transparent 28%),
+        linear-gradient(135deg, #020202, #0b0b0b 48%, #000000);
+    }
+    .deck {
+      position: relative; width: 1280px; height: 720px;
+      overflow: hidden; transform-origin: center center;
+      background: #030303;
+      box-shadow: 0 28px 90px rgba(0, 0, 0, 0.62);
+    }
+    #stars {
+      position: absolute; inset: 0; width: 1280px; height: 720px;
+      z-index: 0; opacity: 0.9;
+    }
+    .slide {
+      position: absolute; inset: 0; display: none;
+      padding: 54px 64px; overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      background-size: 80px 80px;
+      z-index: 1;
+    }
+    .slide.is-active {
+      display: block;
+      animation: slideIn 420ms cubic-bezier(.2, .8, .2, 1);
+    }
+    .slide::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(255, 77, 0, 0.18), transparent 24%, transparent 74%, rgba(77, 232, 255, 0.12)),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 20%, transparent 76%, rgba(255, 255, 255, 0.08));
+      opacity: 0.62; mix-blend-mode: screen;
+    }
+    .slide::after {
+      content: ""; position: absolute; inset: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.12); pointer-events: none;
+    }
+    .slide > * { position: relative; z-index: 2; }
+    .notes { display: none; }
+    .deck-header, .deck-footer {
+      position: absolute; left: 64px; right: 64px; z-index: 4;
+      display: flex; align-items: center; justify-content: space-between;
+      color: rgba(247, 244, 238, 0.72); font-size: 12px;
+      text-transform: uppercase; letter-spacing: 0;
+    }
+    .deck-header { top: 30px; }
+    .deck-footer { bottom: 28px; }
+    .mark {
+      display: inline-flex; align-items: center; gap: 10px;
+      color: var(--white); font-weight: 850;
+    }
+    .mark::before {
+      content: ""; width: 38px; height: 2px;
+      background: linear-gradient(90deg, var(--orange), var(--cyan));
+      box-shadow: 0 0 18px rgba(255, 77, 0, 0.75);
+    }
+    .tag {
+      display: inline-grid; place-items: center;
+      min-width: 88px; height: 28px; padding: 0 12px;
+      border: 1px solid rgba(247, 244, 238, 0.24);
+      background: rgba(0, 0, 0, 0.42);
+      color: rgba(247, 244, 238, 0.76);
+      border-radius: var(--radius); font-size: 11px;
+      text-transform: uppercase; letter-spacing: 0;
+    }
+    h1, h2, h3, p { margin: 0; }
+    .kicker {
+      color: var(--orange-2); font-size: 13px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0; margin-bottom: 16px;
+    }
+    .h1 { max-width: 760px; font-size: 74px; line-height: 0.96; font-weight: 900; text-transform: uppercase; }
+    .h2 { max-width: 760px; font-size: 54px; line-height: 1.02; font-weight: 900; text-transform: uppercase; }
+    .lede {
+      max-width: 620px; margin-top: 22px;
+      color: rgba(247, 244, 238, 0.78); font-size: 20px; line-height: 1.45;
+    }
+    .muted { color: var(--muted); }
+    .orange { color: var(--orange-2); }
+    .cyan { color: var(--cyan); }
+    .green { color: var(--green); }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .panel {
+      border: 1px solid rgba(247, 244, 238, 0.16);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, var(--panel-2), rgba(0, 0, 0, 0.38));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.11);
+    }
+    .label {
+      color: rgba(247, 244, 238, 0.55); font-size: 11px;
+      font-weight: 760; text-transform: uppercase; letter-spacing: 0;
+    }
+    .hairline {
+      width: 100%; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(247, 244, 238, 0.45), transparent);
+    }
+    .slash {
+      position: absolute; width: 410px; height: 760px;
+      border-left: 1px solid rgba(255, 77, 0, 0.36);
+      border-right: 1px solid rgba(77, 232, 255, 0.22);
+      transform: rotate(24deg); opacity: 0.75; pointer-events: none;
+    }
+    /* Hero */
+    .hero { padding: 76px 68px 58px; }
+    .hero .deck-header, .hero .deck-footer { left: 68px; right: 68px; }
+    .hero-copy { position: absolute; left: 68px; top: 116px; width: 660px; }
+    .hero-title {
+      font-size: 88px; line-height: 0.9; font-weight: 950;
+      text-transform: uppercase; letter-spacing: 0;
+    }
+    .hero-title span {
+      display: block; color: transparent;
+      -webkit-text-stroke: 1px rgba(247, 244, 238, 0.9);
+    }
+    .hero-meta {
+      display: flex; align-items: center; gap: 12px; margin-top: 28px;
+      color: rgba(247, 244, 238, 0.78); font-size: 14px;
+      text-transform: uppercase; letter-spacing: 0;
+    }
+    .hero-visual {
+      position: absolute; right: 54px; bottom: -64px;
+      width: 510px; height: 700px; z-index: 2;
+      filter: drop-shadow(0 0 28px rgba(255, 77, 0, 0.25));
+    }
+    .hero-visual svg { width: 100%; height: 100%; overflow: visible; }
+    .burn { animation: burn 920ms ease-in-out infinite alternate; transform-origin: center top; }
+    .telemetry {
+      position: absolute; right: 430px; top: 112px; width: 250px; padding: 14px; z-index: 3;
+    }
+    .telemetry .row {
+      display: flex; justify-content: space-between; gap: 20px; padding: 8px 0;
+      border-bottom: 1px solid rgba(247, 244, 238, 0.12);
+      color: rgba(247, 244, 238, 0.76);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px;
+    }
+    .telemetry .row:last-child { border-bottom: 0; }
+    /* Metrics */
+    .metric-card {
+      min-height: 130px; padding: 18px; display: flex;
+      flex-direction: column; justify-content: space-between;
+    }
+    .metric {
+      font-size: 44px; line-height: 1; font-weight: 920;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .metric small {
+      display: block; margin-top: 8px;
+      color: rgba(247, 244, 238, 0.58); font-size: 12px; line-height: 1.35;
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-weight: 500;
+    }
+    /* Comparison table */
+    .cmp-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .cmp-table th {
+      text-align: left; padding: 10px 12px;
+      border-bottom: 2px solid var(--orange);
+      color: var(--orange-2); font-weight: 800; text-transform: uppercase; font-size: 11px;
+    }
+    .cmp-table td {
+      padding: 9px 12px; border-bottom: 1px solid rgba(247, 244, 238, 0.1);
+      color: rgba(247, 244, 238, 0.78); vertical-align: top;
+    }
+    .cmp-table tr:hover td { background: rgba(255, 255, 255, 0.03); }
+    .cmp-win { color: var(--green); font-weight: 700; }
+    .cmp-lose { color: var(--muted); }
+    /* Architecture */
+    .arch-layer {
+      padding: 14px 18px; border-left: 3px solid var(--orange);
+      display: flex; align-items: center; gap: 14px;
+    }
+    .arch-layer.cyan { border-left-color: var(--cyan); }
+    .arch-layer.green { border-left-color: var(--green); }
+    .arch-tag {
+      min-width: 72px; padding: 4px 10px;
+      border: 1px solid rgba(247, 244, 238, 0.2);
+      border-radius: var(--radius); font-size: 11px;
+      color: var(--orange-2); font-weight: 700; text-transform: uppercase;
+      text-align: center;
+    }
+    .arch-tag.cyan { color: var(--cyan); }
+    .arch-tag.green { color: var(--green); }
+    /* Phase timeline */
+    .phase-row {
+      display: grid; grid-template-columns: 52px 1fr 120px; gap: 14px;
+      align-items: center; padding: 14px 16px; min-height: 72px;
+    }
+    .phase-num {
+      width: 42px; height: 42px; display: grid; place-items: center;
+      border-radius: 50%; border: 1px solid rgba(247, 244, 238, 0.2);
+      color: var(--orange-2); font-weight: 900;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 16px;
+    }
+    /* AI scene cards */
+    .ai-card {
+      padding: 18px; min-height: 140px;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .ai-icon {
+      width: 36px; height: 36px; border-radius: 50%;
+      display: grid; place-items: center;
+      background: linear-gradient(135deg, var(--orange), var(--orange-2));
+      color: #000; font-weight: 900; font-size: 16px; margin-bottom: 10px;
+    }
+    /* ROI bars */
+    .bar-row {
+      display: grid; grid-template-columns: 110px 1fr 50px; gap: 12px;
+      align-items: center; font-size: 12px; color: rgba(247, 244, 238, 0.72);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .bar-track {
+      height: 14px; border: 1px solid rgba(247, 244, 238, 0.16);
+      border-radius: 999px; overflow: hidden; background: rgba(255, 255, 255, 0.06);
+    }
+    .bar-fill {
+      height: 100%; border-radius: inherit;
+      background: linear-gradient(90deg, var(--orange), var(--orange-2), var(--cyan));
+      box-shadow: 0 0 18px rgba(255, 77, 0, 0.34);
+    }
+    /* Closing */
+    .closing { place-items: center; text-align: center; }
+    .slide.closing.is-active { display: grid; }
+    .closing h1 {
+      font-size: 96px; line-height: 0.9; font-weight: 950;
+      text-transform: uppercase; max-width: 980px;
+    }
+    .closing h1 span {
+      color: transparent; -webkit-text-stroke: 1px rgba(247, 244, 238, 0.92);
+    }
+    .closing .lede { margin-left: auto; margin-right: auto; }
+    /* Nav */
+    .nav {
+      position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%);
+      display: flex; gap: 8px; z-index: 10; opacity: 1; transition: opacity 180ms ease;
+    }
+    .nav button {
+      width: 38px; height: 38px;
+      border: 1px solid rgba(247, 244, 238, 0.2); border-radius: 999px;
+      background: rgba(5, 5, 5, 0.8); color: var(--white);
+      display: grid; place-items: center; cursor: pointer;
+      backdrop-filter: blur(10px); box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
+    }
+    .nav button:hover { border-color: rgba(255, 77, 0, 0.7); color: var(--orange-2); }
+    .nav svg {
+      width: 18px; height: 18px; fill: none; stroke: currentColor;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(18px) scale(0.99); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes burn {
+      from { opacity: 0.72; transform: scaleY(0.96); }
+      to { opacity: 1; transform: scaleY(1.05); }
+    }
+    @media print {
+      html, body { overflow: visible; background: #000; }
+      .viewport { display: block; width: auto; height: auto; overflow: visible; }
+      .deck { transform: none !important; box-shadow: none; }
+      .slide { display: block !important; position: relative; page-break-after: always; }
+      .nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="viewport">
+    <main class="deck" id="deck" aria-label="中泰龙钉钉数字化平台CXO高管汇报">
+      <canvas id="stars" width="1280" height="720" aria-hidden="true"></canvas>
+
+      <!-- ====== SLIDE 1: 封面 ====== -->
+      <section class="slide hero is-active" data-title="封面">
+        <div class="deck-header">
+          <span class="mark">中泰龙 × 钉钉</span>
+          <span>CXO 高管汇报 / 16:9</span>
+        </div>
+        <div class="slash" style="right: 178px; top: -112px;"></div>
+        <div class="hero-copy">
+          <p class="kicker">广东中泰龙家具集团 · 数字化转型战略</p>
+          <h1 class="hero-title">智造 <span>协同</span> 新引擎</h1>
+          <p class="lede">基于钉钉AI平台构建统一数字化协同底座，打通CRM/ERP/MES/WMS四大系统，以悟空AI赋能智能制造全链路，驱动43年行业龙头迈向数智化新阶段。</p>
+          <div class="hero-meta">
+            <span class="tag">43年龙头</span>
+            <span class="tag">AI赋能</span>
+            <span class="tag">四阶段落地</span>
+          </div>
+        </div>
+        <div class="telemetry panel">
+          <div class="row"><span>汇报对象</span><strong>CEO / CIO / CFO</strong></div>
+          <div class="row"><span>员工规模</span><strong>≈3,000人</strong></div>
+          <div class="row"><span>生产基地</span><strong>60万㎡</strong></div>
+          <div class="row"><span>市场覆盖</span><strong>40+国家</strong></div>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <svg viewBox="0 0 420 660" role="img">
+            <defs>
+              <linearGradient id="shipBody" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#ffffff"/>
+                <stop offset="0.28" stop-color="#8f969f"/>
+                <stop offset="0.62" stop-color="#f7f4ee"/>
+                <stop offset="1" stop-color="#545b63"/>
+              </linearGradient>
+              <linearGradient id="flame" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0" stop-color="#fff7cc"/>
+                <stop offset="0.28" stop-color="#ff8a1f"/>
+                <stop offset="0.72" stop-color="#ff2c00"/>
+                <stop offset="1" stop-color="rgba(255,44,0,0)"/>
+              </linearGradient>
+              <filter id="glow">
+                <feGaussianBlur stdDeviation="7" result="blur"/>
+                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+            <path d="M214 38 C246 78 261 122 261 190 L261 418 C261 476 238 514 214 530 C190 514 167 476 167 418 L167 190 C167 122 182 78 214 38Z" fill="url(#shipBody)" stroke="rgba(255,255,255,.55)" stroke-width="1.4"/>
+            <path d="M175 246 L120 358 L160 386 L174 334Z" fill="#24272b" stroke="rgba(255,255,255,.28)"/>
+            <path d="M253 246 L308 358 L268 386 L254 334Z" fill="#24272b" stroke="rgba(255,255,255,.28)"/>
+            <path d="M174 418 L254 418 L245 502 L183 502Z" fill="#202225" stroke="rgba(255,255,255,.24)"/>
+            <path d="M188 158 C197 139 231 139 240 158 L240 188 L188 188Z" fill="#111" opacity=".75"/>
+            <g stroke="rgba(0,0,0,.45)" stroke-width="1">
+              <path d="M171 244 H258"/><path d="M171 300 H258"/>
+              <path d="M171 356 H258"/><path d="M177 456 H251"/>
+            </g>
+            <g class="burn" filter="url(#glow)">
+              <path d="M184 502 C174 548 174 594 214 638 C254 594 254 548 244 502Z" fill="url(#flame)" opacity=".95"/>
+              <path d="M202 502 C196 538 198 572 214 603 C230 572 232 538 226 502Z" fill="#fff4c5" opacity=".88"/>
+              <path d="M150 520 C105 574 82 630 68 690" stroke="#ff4d00" stroke-width="12" opacity=".25"/>
+              <path d="M278 520 C323 574 346 630 360 690" stroke="#4de8ff" stroke-width="8" opacity=".18"/>
+            </g>
+          </svg>
+        </div>
+        <div class="deck-footer">
+          <span class="muted">CONFIDENTIAL</span>
+          <span class="muted">2024 Q4</span>
+        </div>
+        <aside class="notes">封面页：面向CEO/CIO/CFO的高管汇报，突出43年龙头地位与钉钉AI平台战略价值。</aside>
+      </section>
+
+
+      <!-- ====== SLIDE 2: 行业龙头地位与数字化现状 ====== -->
+      <section class="slide" data-title="龙头地位与现状">
+        <div class="deck-header">
+          <span class="mark">中泰龙 × 钉钉</span>
+          <span>01 / 企业画像</span>
+        </div>
+        <p class="kicker">43年行业深耕 · 全国前三</p>
+        <h2 class="h2" style="font-size:42px;">行业龙头的<span class="orange">数字化拐点</span></h2>
+        <div class="grid-4" style="margin-top:24px;">
+          <div class="panel metric-card">
+            <span class="label">创立年份</span>
+            <span class="metric orange">1983</span>
+            <small>43年办公家具行业深耕</small>
+          </div>
+          <div class="panel metric-card">
+            <span class="label">员工规模</span>
+            <span class="metric cyan">3,000</span>
+            <small>覆盖研发/生产/销售全链</small>
+          </div>
+          <div class="panel metric-card">
+            <span class="label">生产基地</span>
+            <span class="metric">60万㎡</span>
+            <small>两大智慧产业园</small>
+          </div>
+          <div class="panel metric-card">
+            <span class="label">智能工厂投入</span>
+            <span class="metric orange">10亿</span>
+            <small>4.0黑灯产线已落地</small>
+          </div>
+        </div>
+        <div class="hairline" style="margin:20px 0;"></div>
+        <div class="grid-2" style="gap:20px;">
+          <div class="panel" style="padding:18px;">
+            <span class="label" style="margin-bottom:10px;display:block;">已建系统基座</span>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+              <span class="tag">CRM</span><span class="tag">ERP(鼎捷)</span>
+              <span class="tag">MES</span><span class="tag">WMS</span>
+              <span class="tag">AI物料平台</span>
+            </div>
+            <p style="margin-top:12px;color:rgba(247,244,238,0.6);font-size:13px;line-height:1.45;">合作伙伴：鼎捷软件·三维家·数夫软件；产品远销欧美及东南亚40+国家，市场占有率全国前三。</p>
+          </div>
+          <div class="panel" style="padding:18px;">
+            <span class="label" style="margin-bottom:10px;display:block;color:var(--red);">核心痛点量化</span>
+            <div style="display:grid;gap:6px;font-size:12px;color:rgba(247,244,238,0.72);">
+              <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(247,244,238,0.08);padding:4px 0;"><span>换线时间</span><span class="orange">4h / 产能利用率72%</span></div>
+              <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(247,244,238,0.08);padding:4px 0;"><span>采购周期</span><span class="orange">15-25天 / 周转4.2次/年</span></div>
+              <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(247,244,238,0.08);padding:4px 0;"><span>交付延期率</span><span class="orange">18% / 客诉响应&gt;48h</span></div>
+              <div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(247,244,238,0.08);padding:4px 0;"><span>审批流转</span><span class="orange">3.5天 / 信息丢失30%</span></div>
+              <div style="display:flex;justify-content:space-between;padding:4px 0;"><span>新员工上岗</span><span class="orange">45天 / 流失率22%</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="deck-footer">
+          <span class="muted">CONFIDENTIAL</span>
+          <span class="muted">01</span>
+        </div>
+        <aside class="notes">展示中泰龙43年龙头地位和已有数字化基础，同时用量化数据揭示7大痛点，为后续方案铺垫。</aside>
+      </section>
+
+      <!-- ====== SLIDE 3: 钉钉 vs 飞书六维对比 ====== -->
+      <section class="slide" data-title="钉钉vs飞书六维对比">
+        <div class="deck-header">
+          <span class="mark">中泰龙 × 钉钉</span>
+          <span>02 / 平台选型</span>
+        </div>
+        <p class="kicker">六维度差异化评估</p>
+        <h2 class="h2" style="font-size:38px;">为什么是<span class="orange">钉钉AI平台</span>而非飞书</h2>
+        <div class="panel" style="padding:18px;margin-top:20px;">
+          <table class="cmp-table">
+            <thead>
+              <tr>
+                <th style="width:100px;">维度</th>
+                <th>钉钉 AI 平台</th>
+                <th>飞书</th>
+                <th style="width:80px;">判定</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="label">AI 能力</td>
+                <td>悟空AI原生集成：企业知识问答、文档总结、数据洞察、流程自动化；支持私有化部署</td>
+                <td class="cmp-lose">My AI 偏通用对话，企业知识库深度不足，私有化受限</td>
+                <td class="cmp-win">✓ 钉钉</td>
+              </tr>
+              <tr>
+                <td class="label">低代码</td>
+                <td>宜搭：拖拽搭建工单/采购/质量等应用，连接器直连ERP/MES，零代码+专业模式并存</td>
+                <td class="cmp-lose">多维表格为主，复杂业务流需二次开发，制造业模板少</td>
+                <td class="cmp-win">✓ 钉钉</td>
+              </tr>
+              <tr>
+                <td class="label">系统集成</td>
+                <td>官方连接器+开放API，已验证鼎捷ERP/MES/WMS对接路径，数据实时互通</td>
+                <td class="cmp-lose">集成生态偏互联网/SaaS，传统制造ERP对接案例少</td>
+                <td class="cmp-win">✓ 钉钉</td>
+              </tr>
+              <tr>
+                <td class="label">安全合规</td>
+                <td>专属版：数据隔离、IP白名单、设备管控、审计日志；等保三级认证</td>
+                <td class="cmp-lose">标准版安全能力弱，专属版价格高且制造业适配不足</td>
+                <td class="cmp-win">✓ 钉钉</td>
+              </tr>
+              <tr>
+                <td class="label">生态丰富度</td>
+                <td>ISV市场5000+应用，制造业专属解决方案（数夫/三维家已入驻）</td>
+                <td class="cmp-lose">生态偏协作工具，制造业垂直ISV稀缺</td>
+                <td class="cmp-win">✓ 钉钉</td>
+              </tr>
+              <tr>
+                <td class="label">综合成本</td>
+                <td>专属版+宜搭+悟空AI打包价，3000人规模年费可控；低代码减少定制开发</td>
+                <td class="cmp-lose">同等功能需多产品叠加，总TCO高出20-35%</td>
+                <td class="cmp-win">✓ 钉钉</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="deck-footer">
+          <span class="muted">CONFIDENTIAL</span>
+          <span class="muted">02</span>
+        </div>
+        <aside class="notes">六维度对比表突出钉钉在AI、低代码、系统集成、安全、生态、成本方面的全面优势，每个维度都有具体机制说明而非空话。</aside>
+      </section>
+
+      <!-- ====== SLIDE 4: A区协同+B区业务专项架构 ====== -->
+      <section class="slide" data-title="解决方案架构">
+        <div class="deck-header">
+          <span class="mark">中泰龙 × 钉钉</span>
+          <span>03 / 方案架构</span>
+        </div>
+        <p class="kicker">双区联动 · 协同底座 + 业务专项</p>
+        <h2 class="h2" style="font-size:38px;"><span class="orange">A区协同</span> + <span class="cyan">B区业务</span> 架构全景</h2>
+        <div class="grid-2" style="margin-top:22px;gap:22px;">
+          <!-- A区 -->
+          <div class="panel" style="padding:18px;">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+              <span class="arch-tag">A区</span>
+              <span style="font-size:16px;font-weight:800;text-transform:uppercase;">基础沟通协同（8项固定）</span>
+            </div>
+            <div style="display:grid;gap:8px;">
+              <div class="panel arch-layer"><span class="arch-tag">消息</span><span style="font-size:12px;color:rgba(247,244,238,0.7);">即时通讯·群组·已读未读·文件传输</span></div>
+              <div class="panel arch-layer"><span class="arch-tag">AI助手</span><span style="font-size:12px;color:rgba(247,244,238,0.7);">悟空AI对话·知识问答·文档总结</span></div>
+              <div class="panel arch-layer"><span class="arch-tag">工作台</span><span style="font-size:12px;color:rgba(247,244,238,0.7);">业务入口矩阵·角色Tab·KPI概览</span></div>
+              <div class="panel arch-layer"><span class="arch-tag">OA审批</span><span style="font-size:12px;color:rgba(247,244,238,0.7);">采购/报销/请假/用章·移动端审批</span></div>
+              <div class="panel arch-layer"><span class="arch-tag">通讯录</span><span style="font-size:12px;color:rgba(247,244,238,0.7);">组织架构树·员工搜索·部门导航</span></div>
+              <div class="panel arch-layer"><span class="arch-tag">知识库</span><span style="font-size:12px;color:rgba(247,244,238,0.7);">制度/手册/培训/产品目录分类管理</span></div>
+              <div class="panel arch-layer"><span class="arch-tag">日程</span><span style="font-size:12px;color:rgba(247,244,238,0.7);">个人/团队日程·会议室预约·提醒</span></div>
+              <div class="panel arch-layer"><span class="arch-tag">会议</span><span style="font-size:12px;color:rgba(247,244,238,0.7);">视频会议·AI听记·纪要自动生成</span></div>
+            </div>
+          </div>
+          <!-- B区 -->
+          <div class="panel" style="padding:18px;">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+              <span class="arch-tag cyan">B区</span>
+              <span style="font-size:16px;font-weight:800;text-transform:uppercase;">行业业务专项（5项定制）</span>
+            </div>
+            <div style="display:grid;gap:8px;">
+              <div class="panel arch-layer cyan"><span class="arch-tag cyan">工单</span><span style="font-size:12px;color:rgba(247,244,238,0.7);">下发·进度追踪·报工·异常上报·完工确认</span></div>
+              <div class="panel arch-layer cyan"><span class="arch-tag cyan">供应链</span><span style="font-size:12px;color:rgba(247,244,238,0.7);">采购申请·供应商管理·到货验收·库存预警</span></div>
+              <div class="panel arch-layer cyan"><span class="arch-tag cyan">CRM</span><span style="font-size:12px;color:rgba(247,244,238,0.7);">商机线索·拜访·报价·合同·售后工单</span></div>
+              <div class="panel arch-layer cyan"><span class="arch-tag cyan">质量</span><span style="font-size:12px;color:rgba(247,244,238,0.7);">来料/过程/成品检验·不良品处理·追溯查询</span></div>
+              <div class="panel arch-layer cyan"><span class="arch-tag cyan">驾驶舱</span><span style="font-size:12px;color:rgba(247,244,238,0.7);">经营概览·生产监控·销售分析·质量趋势</span></div>
+            </div>
+            <div class="hairline" style="margin:14px 0;"></div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span class="arch-tag green">集成层</span>
+              <span style="font-size:12px;color:rgba(247,244,238,0.7);">连接器/API → CRM · ERP(鼎捷) · MES · WMS</span>
+            </div>
+          </div>
+        </div>
+        <div class="deck-footer">
+          <span class="muted">CONFIDENTIAL</span>
+          <span class="muted">03</span>
+        </div>
+        <aside class="notes">A区8项固定协同+B区5项行业专项的双区架构图，底部集成层连接四大现有系统。</aside>
+      </section>
+
+
+      <!-- ====== SLIDE 5: 悟空AI赋能智能制造场景 ====== -->
+      <section class="slide" data-title="悟空AI赋能">
+        <div class="deck-header">
+          <span class="mark">中泰龙 × 钉钉</span>
+          <span>04 / AI 赋能</span>
+        </div>
+        <p class="kicker">悟空AI × 制造全链路</p>
+        <h2 class="h2" style="font-size:38px;"><span class="orange">悟空AI</span> 赋能智能制造<span class="cyan">五大场景</span></h2>
+        <div class="grid-3" style="margin-top:22px;gap:16px;">
+          <div class="panel ai-card">
+            <div class="ai-icon">1</div>
+            <h3 style="font-size:16px;text-transform:uppercase;">智能排产助手</h3>
+            <p style="margin-top:8px;color:rgba(247,244,238,0.65);font-size:13px;line-height:1.45;">对接MES排程数据，自然语言查询产线负荷、换线建议；预计换线时间从4h降至2.5h，产能利用率提升至82%。</p>
+            <span class="label" style="margin-top:auto;padding-top:8px;">ROI: 年增产 ≈ 1,200万</span>
+          </div>
+          <div class="panel ai-card">
+            <div class="ai-icon" style="background:linear-gradient(135deg,var(--cyan),#045d75);">2</div>
+            <h3 style="font-size:16px;text-transform:uppercase;">质量异常预警</h3>
+            <p style="margin-top:8px;color:rgba(247,244,238,0.65);font-size:13px;line-height:1.45;">实时分析质检数据流，自动识别不良趋势并推送预警至车间主任；质检数据录入延迟从24h缩至实时，追溯耗时从4h降至15min。</p>
+            <span class="label" style="margin-top:auto;padding-top:8px;">ROI: 不良率降30%</span>
+          </div>
+          <div class="panel ai-card">
+            <div class="ai-icon" style="background:linear-gradient(135deg,var(--green),#045d75);">3</div>
+            <h3 style="font-size:16px;text-transform:uppercase;">供应链智能问答</h3>
+            <p style="margin-top:8px;color:rgba(247,244,238,0.65);font-size:13px;line-height:1.45;">采购员用自然语言查库存、询供应商交期、比价；WMS/ERP数据通过连接器实时喂入AI，采购决策周期缩短40%。</p>
+            <span class="label" style="margin-top:auto;padding-top:8px;">ROI: 采购周期缩至10天</span>
+          </div>
+          <div class="panel ai-card">
+            <div class="ai-icon">4</div>
+            <h3 style="font-size:16px;text-transform:uppercase;">销售智能助理</h3>
+            <p style="margin-top:8px;color:rgba(247,244,238,0.65);font-size:13px;line-height:1.45;">CRM商机跟进提醒、客户画像自动生成、报价历史比对；经销商活跃率从55%提升至75%，窜货率从12%降至5%。</p>
+            <span class="label" style="margin-top:auto;padding-top:8px;">ROI: 转化率提升18%</span>
+          </div>
+          <div class="panel ai-card">
+            <div class="ai-icon" style="background:linear-gradient(135deg,var(--cyan),#045d75);">5</div>
+            <h3 style="font-size:16px;text-transform:uppercase;">知识传承与培训</h3>
+            <p style="margin-top:8px;color:rgba(247,244,238,0.65);font-size:13px;line-height:1.45;">操作手册/SOP自动入库，新员工对话式学习；上岗培训从45天缩至25天，熟练工流失率从22%降至12%。</p>
+            <span class="label" style="margin-top:auto;padding-top:8px;">ROI: 培训成本降45%</span>
+          </div>
+          <div class="panel ai-card" style="border-left:3px solid var(--orange);">
+            <div class="ai-icon" style="background:linear-gradient(135deg,var(--orange),var(--red));">⚡</div>
+            <h3 style="font-size:16px;text-transform:uppercase;">管理驾驶舱AI洞察</h3>
+            <p style="margin-top:8px;color:rgba(247,244,238,0.65);font-size:13px;line-height:1.45;">CEO/CFO自然语言问数："本月营收同比？""哪条产线效率最低？"AI表格实时生成图表+归因分析，替代手工Excel报表。</p>
+            <span class="label" style="margin-top:auto;padding-top:8px;">ROI: 决策响应提速80%</span>
+          </div>
+        </div>
+        <div class="deck-footer">
+          <span class="muted">CONFIDENTIAL</span>
+          <span class="muted">04</span>
+        </div>
+        <aside class="notes">悟空AI五大赋能场景，每个都有具体机制、量化指标和ROI预估，避免空泛描述。</aside>
+      </section>
+
+      <!-- ====== SLIDE 6: 四阶段实施路线图与ROI ====== -->
+      <section class="slide" data-title="实施路线图与ROI">
+        <div class="deck-header">
+          <span class="mark">中泰龙 × 钉钉</span>
+          <span>05 / 落地路径</span>
+        </div>
+        <p class="kicker">8个月四阶段交付 · ROI可量化</p>
+        <h2 class="h2" style="font-size:38px;">实施路线图 & <span class="orange">投资回报</span></h2>
+        <div class="grid-2" style="margin-top:20px;gap:24px;">
+          <!-- 左：路线图 -->
+          <div style="display:grid;gap:10px;">
+            <div class="panel phase-row">
+              <div class="phase-num">1</div>
+              <div>
+                <h3 style="font-size:16px;text-transform:uppercase;">基础协同上线</h3>
+                <p style="color:rgba(247,244,238,0.6);font-size:12px;margin-top:4px;">消息/审批/通讯录/日程/会议 → 全员激活，审批线上化</p>
+              </div>
+              <span class="label">1-2月</span>
+            </div>
+            <div class="panel phase-row">
+              <div class="phase-num" style="color:var(--cyan);border-color:rgba(77,232,255,0.3);">2</div>
+              <div>
+                <h3 style="font-size:16px;text-transform:uppercase;">业务应用搭建</h3>
+                <p style="color:rgba(247,244,238,0.6);font-size:12px;margin-top:4px;">宜搭搭建工单/采购/质量/CRM → 核心流程线上化</p>
+              </div>
+              <span class="label">3-4月</span>
+            </div>
+            <div class="panel phase-row">
+              <div class="phase-num" style="color:var(--green);border-color:rgba(135,255,156,0.3);">3</div>
+              <div>
+                <h3 style="font-size:16px;text-transform:uppercase;">数据+AI+集成</h3>
+                <p style="color:rgba(247,244,238,0.6);font-size:12px;margin-top:4px;">驾驶舱+悟空AI+连接器打通四大系统 → 数据驱动决策</p>
+              </div>
+              <span class="label">5-6月</span>
+            </div>
+            <div class="panel phase-row">
+              <div class="phase-num" style="color:var(--orange-2);border-color:rgba(255,138,31,0.3);">4</div>
+              <div>
+                <h3 style="font-size:16px;text-transform:uppercase;">优化迭代运营</h3>
+                <p style="color:rgba(247,244,238,0.6);font-size:12px;margin-top:4px;">全员培训+持续改进 → 使用率&gt;80%，形成数字化文化</p>
+              </div>
+              <span class="label">7-8月</span>
+            </div>
+          </div>
+          <!-- 右：ROI -->
+          <div class="panel" style="padding:20px;display:flex;flex-direction:column;justify-content:space-between;">
+            <span class="label" style="margin-bottom:14px;display:block;">预期 ROI 量化（年化）</span>
+            <div style="display:grid;gap:14px;">
+              <div class="bar-row">
+                <span>产能利用率</span>
+                <div class="bar-track"><div class="bar-fill" style="width:82%;"></div></div>
+                <span class="orange">+10pp</span>
+              </div>
+              <div class="bar-row">
+                <span>交付准时率</span>
+                <div class="bar-track"><div class="bar-fill" style="width:92%;"></div></div>
+                <span class="orange">+14pp</span>
+              </div>
+              <div class="bar-row">
+                <span>审批时效</span>
+                <div class="bar-track"><div class="bar-fill" style="width:88%;"></div></div>
+                <span class="cyan">-70%</span>
+              </div>
+              <div class="bar-row">
+                <span>库存周转</span>
+                <div class="bar-track"><div class="bar-fill" style="width:75%;"></div></div>
+                <span class="cyan">+25%</span>
+              </div>
+              <div class="bar-row">
+                <span>客诉响应</span>
+                <div class="bar-track"><div class="bar-fill" style="width:90%;"></div></div>
+                <span class="green">&lt;4h</span>
+              </div>
+              <div class="bar-row">
+                <span>培训周期</span>
+                <div class="bar-track"><div class="bar-fill" style="width:70%;"></div></div>
+                <span class="green">-45%</span>
+              </div>
+            </div>
+            <div class="hairline" style="margin:14px 0;"></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span class="label">综合年化收益预估</span>
+              <span class="metric orange" style="font-size:36px;">≈3,500万</span>
+            </div>
+          </div>
+        </div>
+        <div class="deck-footer">
+          <span class="muted">CONFIDENTIAL</span>
+          <span class="muted">05</span>
+        </div>
+        <aside class="notes">左侧四阶段路线图清晰标注时间和交付物，右侧六项ROI指标配进度条可视化，底部汇总年化收益。</aside>
+      </section>
+
+      <!-- ====== SLIDE 7: 结语/行动号召 ====== -->
+      <section class="slide closing" data-title="行动号召">
+        <div class="deck-header">
+          <span class="mark">中泰龙 × 钉钉</span>
+          <span>下一步</span>
+        </div>
+        <div class="slash" style="left: 178px; top: -112px;"></div>
+        <h1>启动 <span>数智</span> 新程</h1>
+        <p class="lede">8个月四阶段落地，年化收益≈3,500万。<br>建议立即启动第一阶段基础协同上线，2个月内实现全员激活与审批线上化。</p>
+        <div style="display:flex;gap:14px;margin-top:32px;justify-content:center;">
+          <span class="tag" style="min-width:140px;height:36px;font-size:13px;border-color:var(--orange);color:var(--orange-2);">批准立项</span>
+          <span class="tag" style="min-width:140px;height:36px;font-size:13px;border-color:var(--cyan);color:var(--cyan);">组建项目组</span>
+          <span class="tag" style="min-width:140px;height:36px;font-size:13px;border-color:var(--green);color:var(--green);">Q1启动</span>
+        </div>
+        <div class="deck-footer">
+          <span class="muted">CONFIDENTIAL</span>
+          <span class="muted">谢谢</span>
+        </div>
+        <aside class="notes">结尾页：明确行动号召，三个下一步动作标签引导决策。</aside>
+      </section>
+
+    </main>
+  </div>
+
+  <nav class="nav" aria-label="翻页导航">
+    <button id="prevBtn" aria-label="上一页">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button id="nextBtn" aria-label="下一页">
+      <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+    </button>
+  </nav>
+
+  <script src="assets/runtime.js"></script>
+</body>
+</html>
