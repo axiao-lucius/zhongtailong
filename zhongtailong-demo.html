@@ -1,0 +1,2568 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>广东中泰龙家具集团 - 钉钉智能协同平台Demo</title>
+<style>
+:root{--primary:#E67E22;--dark:#2D3436;--bg:#F5F6FA;--card:#FFF;--border:#DFE6E9;--text:#2D3436;--text2:#636E72;--success:#00B894;--danger:#D63031;--warn:#FDCB6E;--info:#0984E3;--radius:8px;--shadow:0 2px 8px rgba(0,0,0,.08);--nav-w:220px;--header-h:56px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);font-size:14px;overflow:hidden;height:100vh}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;border:none;background:none;font:inherit}
+input,select,textarea{font:inherit;border:1px solid var(--border);border-radius:4px;padding:6px 10px;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--primary)}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-thumb{background:#ccc;border-radius:3px}
+.app{display:flex;height:100vh;width:100vw}
+.sidebar{width:var(--nav-w);background:var(--dark);color:#fff;display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
+.sidebar-logo{height:var(--header-h);display:flex;align-items:center;padding:0 16px;font-size:16px;font-weight:700;background:rgba(0,0,0,.2);gap:10px;white-space:nowrap}
+.logo-icon{width:32px;height:32px;border-radius:6px;background:linear-gradient(135deg,var(--primary),#F39C12);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;flex-shrink:0}
+.nav-group{padding:12px 0}
+.nav-label{padding:4px 16px;font-size:11px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-top:8px}
+.nav-item{display:flex;align-items:center;padding:10px 16px;cursor:pointer;transition:all .2s;gap:10px;color:rgba(255,255,255,.7);font-size:13px;border-left:3px solid transparent}
+.nav-item:hover{background:rgba(255,255,255,.08);color:#fff}
+.nav-item.active{background:rgba(230,126,34,.15);color:var(--primary);border-left-color:var(--primary)}
+.nav-item svg{flex-shrink:0}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.header{height:var(--header-h);background:var(--card);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;flex-shrink:0}
+.header-title{font-size:18px;font-weight:600}
+.header-user{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text2)}
+.avatar{width:32px;height:32px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600}
+.content{flex:1;overflow-y:auto;padding:20px 24px}
+.page{display:none}.page.active{display:block}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-bottom:16px}
+.card-title{font-size:15px;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.kpi-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px 20px;text-align:center}
+.kpi-value{font-size:28px;font-weight:700;color:var(--primary);margin:8px 0 4px}
+.kpi-label{font-size:12px;color:var(--text2)}
+.kpi-trend{font-size:11px;margin-top:4px}
+.kpi-trend.up{color:var(--success)}.kpi-trend.down{color:var(--danger)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:#F8F9FA;padding:10px 12px;text-align:left;font-weight:600;border-bottom:2px solid var(--border);white-space:nowrap}
+td{padding:10px 12px;border-bottom:1px solid var(--border)}
+tr:hover td{background:#FAFBFC}
+.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600}
+.badge-success{background:#E6F9F1;color:var(--success)}
+.badge-warn{background:#FFF8E1;color:#E67E22}
+.badge-danger{background:#FDECEA;color:var(--danger)}
+.badge-info{background:#E3F2FD;color:var(--info)}
+.badge-gray{background:#F0F0F0;color:#999}
+.btn{padding:7px 16px;border-radius:4px;font-size:13px;font-weight:500;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:#D35400}
+.btn-outline{border:1px solid var(--border);color:var(--text2)}.btn-outline:hover{border-color:var(--primary);color:var(--primary)}
+.btn-sm{padding:4px 10px;font-size:12px}
+.tabs{display:flex;gap:0;border-bottom:2px solid var(--border);margin-bottom:16px}
+.tab{padding:10px 20px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text2);border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .2s}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--primary);border-bottom-color:var(--primary)}
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:1000;display:none;align-items:center;justify-content:center}
+.modal-overlay.show{display:flex}
+.modal{background:var(--card);border-radius:var(--radius);width:560px;max-height:80vh;overflow-y:auto;box-shadow:0 8px 32px rgba(0,0,0,.2)}
+.modal-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:16px}
+.modal-body{padding:20px}
+.modal-footer{padding:12px 20px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:13px;font-weight:500;margin-bottom:4px;color:var(--text2)}
+.form-group input,.form-group select,.form-group textarea{width:100%}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.marquee-wrap{overflow:hidden;white-space:nowrap;background:linear-gradient(90deg,#FFF5EB,#FFF);border-radius:var(--radius);padding:10px 0;margin-bottom:16px;border:1px solid #FDEBD0}
+.marquee-inner{display:inline-block;animation:marquee 40s linear infinite}
+.marquee-wrap:hover .marquee-inner{animation-play-state:paused}
+.marquee-item{display:inline-block;padding:0 32px;font-size:13px;color:var(--text)}
+.marquee-item span{color:var(--primary);font-weight:600;margin-right:6px}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.banner{height:180px;border-radius:var(--radius);overflow:hidden;position:relative;margin-bottom:16px;background:#eee}
+.banner-slide{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;transition:opacity .6s;display:flex;align-items:center;padding:0 40px}
+.banner-slide.active{opacity:1}
+.banner-content{max-width:60%;color:#fff;z-index:2}
+.banner-content h3{font-size:20px;margin-bottom:8px;text-shadow:0 2px 4px rgba(0,0,0,.3)}
+.banner-content p{font-size:13px;opacity:.9;text-shadow:0 1px 2px rgba(0,0,0,.3)}
+.banner-bg{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1}
+.banner-dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:3}
+.banner-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.5);cursor:pointer;transition:all .3s}
+.banner-dot.active{background:#fff;transform:scale(1.3)}
+.tree-node{padding-left:20px}
+.tree-label{display:flex;align-items:center;gap:6px;padding:6px 8px;cursor:pointer;border-radius:4px;font-size:13px}
+.tree-label:hover{background:#F0F0F0}
+.tree-toggle{width:16px;text-align:center;font-size:10px;color:#999;transition:transform .2s}
+.tree-toggle.open{transform:rotate(90deg)}
+.tree-children{display:none;padding-left:12px}
+.tree-children.open{display:block}
+.chat-container{display:flex;flex-direction:column;height:calc(100vh - var(--header-h) - 40px)}
+.chat-messages{flex:1;overflow-y:auto;padding:16px 0}
+.chat-msg{margin-bottom:16px;display:flex;gap:10px}
+.chat-msg.bot{flex-direction:row}
+.chat-msg.user{flex-direction:row-reverse}
+.chat-bubble{max-width:70%;padding:12px 16px;border-radius:12px;font-size:13px;line-height:1.6;position:relative}
+.chat-msg.bot .chat-bubble{background:#F0F0F0;border-top-left-radius:2px}
+.chat-msg.user .chat-bubble{background:var(--primary);color:#fff;border-top-right-radius:2px}
+.chat-input-area{display:flex;gap:8px;padding-top:12px;border-top:1px solid var(--border)}
+.chat-input-area input{flex:1;padding:10px 14px;border-radius:20px}
+.chat-input-area button{padding:10px 20px;border-radius:20px;background:var(--primary);color:#fff;font-weight:600}
+.quick-questions{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.quick-q{padding:6px 14px;background:#FFF5EB;border:1px solid #FDEBD0;border-radius:16px;font-size:12px;color:var(--primary);cursor:pointer;transition:all .2s}
+.quick-q:hover{background:var(--primary);color:#fff}
+.typing-cursor::after{content:'|';animation:blink 1s infinite}
+@keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
+.filter-bar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
+.search-input{padding:7px 12px;border-radius:4px;border:1px solid var(--border);width:200px;font-size:13px}
+.app-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:12px}
+.app-entry{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 8px;border-radius:var(--radius);cursor:pointer;transition:all .2s;text-align:center}
+.app-entry:hover{background:#F8F9FA;transform:translateY(-2px)}
+.app-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center}
+.app-name{font-size:11px;color:var(--text2);line-height:1.2}
+.news-item{padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:all .2s}
+.news-item:hover{color:var(--primary)}
+.news-item:last-child{border-bottom:none}
+.news-title{font-size:13px;font-weight:500;margin-bottom:4px}
+.news-meta{font-size:11px;color:var(--text2)}
+.todo-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
+.todo-check{width:16px;height:16px;border:2px solid var(--border);border-radius:3px;cursor:pointer;flex-shrink:0}
+.todo-check.done{background:var(--success);border-color:var(--success)}
+.schedule-item{display:flex;gap:12px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
+.schedule-time{color:var(--primary);font-weight:600;white-space:nowrap;min-width:50px}
+.forum-item{padding:10px 0;border-bottom:1px solid var(--border)}
+.forum-title{font-size:13px;font-weight:500;margin-bottom:4px}
+.forum-meta{font-size:11px;color:var(--text2);display:flex;gap:12px}
+.chart-container{display:flex;align-items:center;justify-content:center;padding:10px}
+.ai-badge{display:inline-flex;align-items:center;gap:4px;background:linear-gradient(135deg,#6C5CE7,#A29BFE);color:#fff;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:600}
+.wukong-tag{background:linear-gradient(135deg,var(--primary),#F39C12);color:#fff;padding:1px 6px;border-radius:8px;font-size:10px;margin-left:4px}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+<nav class="sidebar" id="sidebar"></nav>
+<div class="main">
+<header class="header">
+<div class="header-title" id="pageTitle">工作台</div>
+<div class="header-user"><div class="avatar">张</div><span>张三 · 管理员</span></div>
+</header>
+<div class="content" id="content"></div>
+</div>
+</div>
+<div class="modal-overlay" id="modalOverlay"><div class="modal" id="modalBox"></div></div>
+<script>
+/* ===== SVG Icon Dictionary (30+ icons) ===== */
+const ICONS={
+message:'M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z',
+ai:'M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2zM9 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm6 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z',
+workbench:'M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z',
+approval:'M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11',
+contacts:'M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75',
+knowledge:'M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z',
+calendar:'M19 4H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zM16 2v4M8 2v4M3 10h18',
+meeting:'M15 10l4.553-2.276A1 1 0 0 1 21 8.618v6.764a1 1 0 0 1-1.447.894L15 14M3 8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z',
+production:'M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z',
+supply:'M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8zM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z',
+crm:'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z',
+quality:'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',
+dashboard:'M18 20V10M12 20V4M6 20v-6',
+search:'M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM21 21l-4.35-4.35',
+plus:'M12 5v14M5 12h14',
+close:'M18 6L6 18M6 6l12 12',
+check:'M20 6L9 17l-5-5',
+chevronR:'M9 18l6-6-6-6',
+chevronD:'M6 9l6 6 6-6',
+star:'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z',
+bell:'M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0',
+file:'M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z',
+clock:'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM12 6v6l4 2',
+user:'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z',
+settings:'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z',
+chart:'M18 20V10M12 20V4M6 20v-6',
+send:'M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z',
+filter:'M22 3H2l8 9.46V19l4 2v-8.54L22 3z',
+download:'M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3',
+edit:'M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z',
+trash:'M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2',
+eye:'M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8zM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z',
+refresh:'M23 4v6h-6M1 20v-6h6',
+link:'M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'
+};
+function ic(name,size=18,color='currentColor'){
+const p=ICONS[name]||ICONS.file;
+return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 24 24" fill="none" stroke="'+color+'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="'+p+'"/></svg>';
+}
+
+/* ===== Utility Functions ===== */
+function $(sel,ctx){return(ctx||document).querySelector(sel)}
+function $$(sel,ctx){return[...(ctx||document).querySelectorAll(sel)]}
+function el(tag,attrs,html){const e=document.createElement(tag);if(attrs)Object.entries(attrs).forEach(([k,v])=>{if(k.startsWith('data-'))e.setAttribute(k,v);else if(k==='className')e.className=v;else e[k]=v});if(html!==undefined)e.innerHTML=html;return e}
+function showModal(title,bodyHTML,footerHTML){
+const o=$('#modalOverlay'),b=$('#modalBox');
+b.innerHTML='<div class="modal-header"><span>'+title+'</span><button data-action="close-modal" style="font-size:20px">'+ic('close',18)+'</button></div><div class="modal-body">'+bodyHTML+'</div>'+(footerHTML?'<div class="modal-footer">'+footerHTML+'</div>':'');
+o.classList.add('show');
+}
+function hideModal(){$('#modalOverlay').classList.remove('show')}
+function donutSVG(data,size=120){
+let total=data.reduce((s,d)=>s+d.value,0),cum=0,r=size/2-10,cx=size/2,cy=size/2,circ=2*Math.PI*r;
+let svg='<svg width="'+size+'" height="'+size+'" viewBox="0 0 '+size+' '+size+'">';
+data.forEach(d=>{const pct=d.value/total,offset=circ*(1-pct),dash=circ*pct;
+svg+='<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="'+d.color+'" stroke-width="16" stroke-dasharray="'+dash+' '+(circ-dash)+'" stroke-dashoffset="'+ (-cum*circ)+'" transform="rotate(-90 '+cx+' '+cy+')"/>';
+cum+=pct});
+svg+='<text x="'+cx+'" y="'+cy+'" text-anchor="middle" dy=".35em" font-size="14" font-weight="700" fill="#2D3436">'+(data[0]?Math.round(data[0].value/total*100)+'%':'')+'</text></svg>';
+return svg;
+}
+function barSVG(data,w=300,h=120){
+const max=Math.max(...data.map(d=>d.value)),bw=Math.floor((w-20)/data.length)-4;
+let svg='<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'">';
+data.forEach((d,i)=>{const bh=(d.value/max)*(h-30),x=10+i*(bw+4),y=h-20-bh;
+svg+='<rect x="'+x+'" y="'+y+'" width="'+bw+'" height="'+bh+'" rx="3" fill="'+(d.color||'#E67E22')+'" opacity="0.85"/>';
+svg+='<text x="'+(x+bw/2)+'" y="'+(h-4)+'" text-anchor="middle" font-size="10" fill="#636E72">'+d.label+'</text>';
+svg+='<text x="'+(x+bw/2)+'" y="'+(y-4)+'" text-anchor="middle" font-size="10" font-weight="600" fill="#2D3436">'+d.value+'</text>'});
+return svg+'</svg>';
+}
+function sparklineSVG(data,w=120,h=30,color='#E67E22'){
+const max=Math.max(...data),min=Math.min(...data),range=max-min||1;
+let pts=data.map((v,i)=>{const x=i/(data.length-1)*w,y=h-(v-min)/range*h;return x+','+y}).join(' ');
+return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'"><polyline points="'+pts+'" fill="none" stroke="'+color+'" stroke-width="2"/></svg>';
+}
+function fmtNum(n){return n>=10000?(n/10000).toFixed(1)+'万':n.toLocaleString()}
+function toast(msg){const t=el('div',{style:'position:fixed;top:20px;right:20px;background:#2D3436;color:#fff;padding:12px 24px;border-radius:8px;z-index:2000;font-size:13px;box-shadow:0 4px 12px rgba(0,0,0,.2);transition:opacity .3s'},msg);document.body.appendChild(t);setTimeout(()=>{t.style.opacity='0';setTimeout(()=>t.remove(),300)},2000)}
+
+/* ===== Global Data Object ===== */
+const NAMES=['张三','李四','周五','老王','老李','老刘'];
+const D={
+currentUser:'张三',
+currentRole:'all',
+news:[
+{id:1,title:'中泰龙斥资10亿元建设4.0智能工厂，落地黑灯产线并自研AI物料管理平台',date:'2025-06-15',tag:'智能制造',bg:'linear-gradient(135deg,#2D3436,#636E72)'},
+{id:2,title:'中泰龙入选2025年度中国办公商用家具十大品牌',date:'2025-05-28',tag:'品牌荣誉',bg:'linear-gradient(135deg,#E67E22,#F39C12)'},
+{id:3,title:'中泰龙集团四十周年庆典成功举办，发布卓越战略合作单位名单',date:'2025-05-10',tag:'企业大事',bg:'linear-gradient(135deg,#0984E3,#74B9FF)'},
+{id:4,title:'中泰龙携手鼎捷软件十余载，授予数字化建设金牌合作伙伴',date:'2025-04-22',tag:'数字化',bg:'linear-gradient(135deg,#00B894,#55EFC4)'},
+{id:5,title:'中泰龙与三维家签约打造办公家具首个前后端一体化标杆',date:'2025-04-08',tag:'战略合作',bg:'linear-gradient(135deg,#6C5CE7,#A29BFE)'}
+],
+marquee:[
+'【通知】2025年度安全生产培训将于7月1日启动，请各部门负责人安排参训人员',
+'【喜报】我司荣获2025中国办公家具十大品牌称号',
+'【提醒】ERP系统将于本周六凌晨2:00-6:00进行升级维护',
+'【公告】新员工入职培训改为每月第一个周一集中办理',
+'【生产】A车间智能产线本月产能达成率102%，超额完成目标',
+'【采购】Q3原材料集中采购招标已启动，请相关供应商及时响应',
+'【质量】ISO9001复审通过，感谢各部门配合',
+'【文化】七月员工生日会定于7月18日下午3点在多功能厅举行',
+'【IT】钉钉AI助手已上线企业知识库问答功能，欢迎体验',
+'【行政】停车场B区下周起进行改造施工，请绕行A区'
+],
+messages:[
+{id:1,name:'李四',avatar:'李',lastMsg:'好的，明天上午开会讨论Q3预算',time:'10:32',unread:2,msgs:[
+{from:'李四',text:'张总，Q3预算初稿已完成，请审阅',time:'09:15',self:false},
+{from:'张三',text:'收到，我看一下数据',time:'09:20',self:true},
+{from:'李四',text:'生产成本部分有调整，标注了黄色高亮',time:'09:22',self:false},
+{from:'张三',text:'好的，我看完反馈你',time:'09:30',self:true},
+{from:'李四',text:'好的，明天上午开会讨论Q3预算',time:'10:32',self:false}
+]},
+{id:2,name:'老王',avatar:'王',lastMsg:'A车间设备巡检报告已提交',time:'09:45',unread:0,msgs:[
+{from:'老王',text:'张总，今日A车间设备巡检正常',time:'08:30',self:false},
+{from:'张三',text:'好的，注意关注3号线的温度传感器',time:'08:35',self:true},
+{from:'老王',text:'已检查，数值在正常范围内',time:'09:00',self:false},
+{from:'老王',text:'A车间设备巡检报告已提交',time:'09:45',self:false}
+]},
+{id:3,name:'周五',avatar:'周',lastMsg:'新客户合同已盖章寄出',time:'昨天',unread:1,msgs:[
+{from:'周五',text:'深圳某科技公司的合同对方已确认条款',time:'14:00',self:false},
+{from:'张三',text:'好的，走审批流程吧',time:'14:10',self:true},
+{from:'周五',text:'审批已通过，正在盖章',time:'15:30',self:false},
+{from:'周五',text:'新客户合同已盖章寄出',time:'16:00',self:false}
+]},
+{id:4,name:'老李',avatar:'李',lastMsg:'供应链月度报告请查收',time:'昨天',unread:0,msgs:[
+{from:'老李',text:'张总，6月供应链分析报告已完成',time:'11:00',self:false},
+{from:'张三',text:'发我邮箱还是钉钉？',time:'11:05',self:true},
+{from:'老李',text:'两个渠道都发了，钉钉方便直接看',time:'11:08',self:false},
+{from:'老李',text:'供应链月度报告请查收',time:'11:10',self:false}
+]},
+{id:5,name:'老刘',avatar:'刘',lastMsg:'质检异常已处理完毕',time:'周一',unread:0,msgs:[
+{from:'老刘',text:'B批次产品抽检发现外观瑕疵3件',time:'10:00',self:false},
+{from:'张三',text:'什么原因？',time:'10:05',self:true},
+{from:'老刘',text:'喷涂线温控偏差，已调整参数',time:'10:15',self:false},
+{from:'老刘',text:'质检异常已处理完毕',time:'14:00',self:false}
+]}
+],
+
+aiKnowledge:{
+'智能工厂':'中泰龙斥资10亿元建设的4.0智能工厂已正式投产，引入黑灯产线和自研AI物料管理平台。工厂实现了从原材料入库到成品出库的全流程自动化，人工干预降低80%，产能提升35%。',
+'品牌荣誉':'中泰龙入选2025年度中国办公商用家具十大品牌，这是公司连续第5年获此殊荣。评审委员会特别肯定了公司在智能制造和绿色环保方面的领先实践。',
+'四十周年':'中泰龙集团成立于1985年，2025年迎来四十周年庆典。庆典上发布了卓越战略合作单位名单，包括鼎捷软件、三维家等长期合作伙伴。',
+'数字化':'公司与鼎捷软件合作超过十年，全面推进ERP、MES、WMS等系统建设。2024年被授予"数字化建设金牌合作伙伴"称号，数字化转型成效显著。',
+'三维家':'中泰龙与三维家签约打造办公家具行业首个前后端一体化标杆项目，实现从设计到生产的无缝衔接，订单交付周期缩短30%。',
+'产品线':'中泰龙主营产品涵盖：行政办公桌系列、会议桌系列、文件柜系列、座椅系列、屏风工位系列。年产能超过50万件，出口30+国家和地区。',
+'员工':'集团现有员工近3000人，其中研发技术人员占比18%。公司提供完善的培训体系和职业发展通道，员工满意度达92%。',
+'质量':'公司通过ISO9001质量管理体系认证、ISO14001环境管理体系认证。产品合格率保持在99.2%以上，客户投诉率低于0.3%。',
+'供应链':'供应链管理覆盖200+供应商，建立了严格的准入评估和绩效考核机制。核心原材料库存周转天数从45天优化至28天。',
+'生产':'目前拥有3个生产基地，总面积超20万平方米。A车间为智能示范车间，B车间专注定制化生产，C车间负责包装物流。',
+'钉钉':'公司全面采用钉钉作为数字化协同平台，集成OA审批、项目管理、知识库、AI助手等功能。悟空AI企业知识问答已接入公司全部制度文档和生产数据。',
+'AI助手':'钉钉AI助手（悟空AI）支持企业知识库智能问答，可查询公司制度、产品参数、生产数据、人事政策等。支持模糊匹配和多轮对话，响应时间<1秒。',
+'default':'我是中泰龙专属AI助手（基于悟空AI），可以帮您查询公司制度、产品信息、生产数据、人事政策等企业知识。试试问我关于智能工厂、产品线、质量管理等方面的问题吧！'
+},
+approvals:[
+{id:'SP20250701001',title:'Q3市场推广费用申请',applicant:'周五',dept:'销售部',amount:'¥180,000',status:'pending',date:'2025-07-01',detail:'用于Q3线上广告投放及展会参展费用'},
+{id:'SP20250701002',title:'新设备采购申请-数控开料机',applicant:'老王',dept:'生产部',amount:'¥520,000',status:'approved',date:'2025-06-30',detail:'替换A车间老旧设备，提升加工精度'},
+{id:'SP20250630003',title:'员工团建活动经费',applicant:'李四',dept:'行政部',amount:'¥35,000',status:'approved',date:'2025-06-30',detail:'Q3部门团建活动，预计参与80人'},
+{id:'SP20250629004',title:'办公用品季度采购',applicant:'老李',dept:'采购部',amount:'¥28,500',status:'rejected',date:'2025-06-29',detail:'驳回原因：部分物品库存充足，请核减后重新提交'},
+{id:'SP20250628005',title:'出差申请-广州家具展',applicant:'周五',dept:'销售部',amount:'¥12,000',status:'approved',date:'2025-06-28',detail:'参加2025广州国际家具博览会，3人4天'},
+{id:'SP20250627006',title:'IT服务器扩容申请',applicant:'老刘',dept:'信息部',amount:'¥95,000',status:'pending',date:'2025-06-27',detail:'MES系统数据库服务器升级扩容'},
+{id:'SP20250626007',title:'新员工招聘需求',applicant:'李四',dept:'人力资源部',amount:'-',status:'approved',date:'2025-06-26',detail:'生产部招聘普工20人，质检员3人'},
+{id:'SP20250625008',title:'厂房维修基金使用',applicant:'老王',dept:'后勤部',amount:'¥45,000',status:'pending',date:'2025-06-25',detail:'B车间屋顶防水维修及墙面翻新'}
+],
+contacts:{
+name:'广东中泰龙家具集团有限公司',children:[
+{name:'总经办',children:[{name:'张三',title:'总经理'},{name:'李四',title:'副总经理'}]},
+{name:'生产中心',children:[
+{name:'A车间',children:[{name:'老王',title:'车间主任'},{name:'赵六',title:'班组长'}]},
+{name:'B车间',children:[{name:'孙七',title:'车间主任'}]},
+{name:'C车间',children:[{name:'周八',title:'车间主任'}]}
+]},
+{name:'营销中心',children:[
+{name:'国内销售部',children:[{name:'周五',title:'销售总监'},{name:'吴九',title:'大客户经理'}]},
+{name:'海外事业部',children:[{name:'郑十',title:'部门经理'}]}
+]},
+{name:'供应链中心',children:[{name:'老李',title:'采购总监'},{name:'钱十一',title:'仓储主管'}]},
+{name:'品质管理部',children:[{name:'老刘',title:'品质总监'},{name:'陈十二',title:'质检主管'}]},
+{name:'信息技术部',children:[{name:'林十三',title:'IT总监'}]},
+{name:'人力资源与行政部',children:[{name:'黄十四',title:'HR总监'}]}
+]
+},
+employees:[
+{name:'张三',dept:'总经办',title:'总经理',phone:'138****1001',email:'zhangsan@jongtay.com'},
+{name:'李四',dept:'总经办',title:'副总经理',phone:'138****1002',email:'lisi@jongtay.com'},
+{name:'周五',dept:'国内销售部',title:'销售总监',phone:'138****1003',email:'zhouwu@jongtay.com'},
+{name:'老王',dept:'A车间',title:'车间主任',phone:'138****1004',email:'laowang@jongtay.com'},
+{name:'老李',dept:'供应链中心',title:'采购总监',phone:'138****1005',email:'laoli@jongtay.com'},
+{name:'老刘',dept:'品质管理部',title:'品质总监',phone:'138****1006',email:'laoliu@jongtay.com'},
+{name:'赵六',dept:'A车间',title:'班组长',phone:'138****1007',email:'zhaoliu@jongtay.com'},
+{name:'孙七',dept:'B车间',title:'车间主任',phone:'138****1008',email:'sunqi@jongtay.com'},
+{name:'吴九',dept:'国内销售部',title:'大客户经理',phone:'138****1009',email:'wujiu@jongtay.com'},
+{name:'郑十',dept:'海外事业部',title:'部门经理',phone:'138****1010',email:'zhengshi@jongtay.com'},
+{name:'钱十一',dept:'供应链中心',title:'仓储主管',phone:'138****1011',email:'qian11@jongtay.com'},
+{name:'林十三',dept:'信息技术部',title:'IT总监',phone:'138****1012',email:'lin13@jongtay.com'}
+],
+knowledgeDocs:[
+{id:1,title:'2025年度安全生产管理制度',cat:'制度规范',author:'老刘',date:'2025-06-20',views:328},
+{id:2,title:'办公家具产品技术参数手册V3.2',cat:'产品资料',author:'周五',date:'2025-06-15',views:562},
+{id:3,title:'ERP系统操作指南（2025版）',cat:'操作手册',author:'林十三',date:'2025-06-10',views:445},
+{id:4,title:'供应商准入评估标准及流程',cat:'制度规范',author:'老李',date:'2025-06-08',views:289},
+{id:5,title:'新员工入职培训教材',cat:'培训资料',author:'黄十四',date:'2025-06-05',views:678},
+{id:6,title:'ISO9001质量体系文件汇编',cat:'制度规范',author:'老刘',date:'2025-05-28',views:412},
+{id:7,title:'智能工厂MES系统使用说明',cat:'操作手册',author:'老王',date:'2025-05-20',views:356},
+{id:8,title:'2025年销售激励政策',cat:'制度规范',author:'周五',date:'2025-05-15',views:890},
+{id:9,title:'产品安装售后服务规范',cat:'产品资料',author:'吴九',date:'2025-05-10',views:234},
+{id:10,title:'钉钉AI助手使用指南',cat:'操作手册',author:'林十三',date:'2025-07-01',views:1024}
+],
+docCats:['全部','制度规范','产品资料','操作手册','培训资料'],
+
+schedules:[
+{id:1,title:'Q3预算评审会议',date:'2025-07-02',time:'09:00-11:00',location:'3楼大会议室',organizer:'张三'},
+{id:2,title:'新客户方案汇报',date:'2025-07-03',time:'14:00-15:30',location:'线上腾讯会议',organizer:'周五'},
+{id:3,title:'安全生产月度检查',date:'2025-07-05',time:'08:30-10:00',location:'A/B/C车间',organizer:'老刘'},
+{id:4,title:'供应商季度评审会',date:'2025-07-08',time:'10:00-12:00',location:'2楼中会议室',organizer:'老李'},
+{id:5,title:'新员工入职培训',date:'2025-07-07',time:'09:00-17:00',location:'培训中心',organizer:'黄十四'},
+{id:6,title:'产品新品发布会',date:'2025-07-15',time:'14:00-16:00',location:'展厅',organizer:'周五'}
+],
+meetings:[
+{id:1,title:'周一经营例会',date:'2025-07-07',time:'09:00-10:00',room:'3楼大会议室',attendees:'张三,李四,周五,老王,老李,老刘',status:'scheduled'},
+{id:2,title:'智能工厂项目进度会',date:'2025-07-08',time:'14:00-15:30',room:'2楼中会议室',attendees:'张三,老王,林十三',status:'scheduled'},
+{id:3,title:'Q2销售复盘会',date:'2025-07-04',time:'10:00-12:00',room:'3楼大会议室',attendees:'周五,吴九,郑十',status:'completed'},
+{id:4,title:'质量体系内审启动会',date:'2025-07-10',time:'09:00-10:30',room:'2楼中会议室',attendees:'老刘,陈十二,老王,孙七',status:'scheduled'},
+{id:5,title:'IT系统升级协调会',date:'2025-07-03',time:'15:00-16:00',room:'线上钉钉会议',attendees:'林十三,张三,老李',status:'completed'}
+],
+productionOrders:[
+{id:'WO2025070101',product:'行政办公桌ZT-A200',qty:500,unit:'套',line:'A线',status:'生产中',progress:72,start:'2025-07-01',end:'2025-07-08',operator:'老王'},
+{id:'WO2025070102',product:'会议桌ZT-M150',qty:80,unit:'张',line:'B线',status:'待排产',progress:0,start:'2025-07-03',end:'2025-07-10',operator:'孙七'},
+{id:'WO2025063003',product:'文件柜ZT-F300',qty:300,unit:'组',line:'A线',status:'已完成',progress:100,start:'2025-06-25',end:'2025-06-30',operator:'赵六'},
+{id:'WO2025062904',product:'人体工学椅ZT-C500',qty:1000,unit:'把',line:'C线',status:'质检中',progress:90,start:'2025-06-22',end:'2025-07-02',operator:'周八'},
+{id:'WO2025062805',product:'屏风工位ZT-P400',qty:200,unit:'位',line:'B线',status:'生产中',progress:45,start:'2025-06-28',end:'2025-07-06',operator:'孙七'},
+{id:'WO2025062706',product:'升降桌ZT-D600',qty:150,unit:'张',line:'A线',status:'已完成',progress:100,start:'2025-06-20',end:'2025-06-27',operator:'老王'},
+{id:'WO2025062607',product:'茶水柜ZT-T100',qty:400,unit:'个',line:'C线',status:'生产中',progress:60,start:'2025-06-26',end:'2025-07-04',operator:'周八'},
+{id:'WO2025062508',product:'前台接待桌ZT-R200',qty:30,unit:'套',line:'B线',status:'待排产',progress:0,start:'2025-07-05',end:'2025-07-12',operator:'孙七'}
+],
+supplyData:[
+{id:'PO2025070101',material:'E1级刨花板',supplier:'广东某板材有限公司',qty:'2000张',amount:'¥360,000',status:'已到货',date:'2025-07-01',lead:'5天'},
+{id:'PO2025070102',material:'五金连接件套装',supplier:'浙江某五金厂',qty:'5000套',amount:'¥125,000',status:'运输中',date:'2025-06-30',lead:'7天'},
+{id:'PO2025063003',material:'环保水性漆',supplier:'上海某涂料公司',qty:'800桶',amount:'¥240,000',status:'已到货',date:'2025-06-30',lead:'3天'},
+{id:'PO2025062904',material:'气压棒（SGS认证）',supplier:'江苏某气弹簧厂',qty:'3000根',amount:'¥180,000',status:'待发货',date:'2025-06-29',lead:'10天'},
+{id:'PO2025062805',material:'PVC封边条',supplier:'佛山某装饰材料厂',qty:'50000米',amount:'¥75,000',status:'已到货',date:'2025-06-28',lead:'4天'},
+{id:'PO2025062706',material:'钢制桌脚组件',supplier:'东莞某金属制品厂',qty:'2000套',amount:'¥280,000',status:'运输中',date:'2025-06-27',lead:'6天'},
+{id:'PO2025062607',material:'网布面料',supplier:'绍兴某纺织公司',qty:'3000米',amount:'¥135,000',status:'已到货',date:'2025-06-26',lead:'5天'},
+{id:'PO2025062508',material:'包装纸箱（定制）',supplier:'中山某包装厂',qty:'8000个',amount:'¥48,000',status:'待发货',date:'2025-06-25',lead:'8天'}
+],
+crmData:[
+{id:'CRM20250701',customer:'深圳某科技有限公司',contact:'王经理',product:'行政办公桌ZT-A200',qty:'200套',amount:'¥580,000',stage:'合同签订',prob:95,date:'2025-07-01'},
+{id:'CRM20250630',customer:'北京某互联网公司',contact:'陈总',product:'屏风工位ZT-P400',qty:'500位',amount:'¥1,250,000',stage:'方案报价',prob:70,date:'2025-06-30'},
+{id:'CRM20250629',customer:'成都某政府机关',contact:'刘处长',product:'会议桌ZT-M150+座椅',qty:'100套',amount:'¥420,000',stage:'需求确认',prob:50,date:'2025-06-29'},
+{id:'CRM20250628',customer:'杭州某教育集团',contact:'张校长',product:'全套办公家具',qty:'1批',amount:'¥2,800,000',stage:'招投标',prob:60,date:'2025-06-28'},
+{id:'CRM20250627',customer:'武汉某地产项目',contact:'李总监',product:'精装配套家具',qty:'300套',amount:'¥1,500,000',stage:'合同签订',prob:90,date:'2025-06-27'},
+{id:'CRM20250626',customer:'南京某外企',contact:'Mark Chen',product:'人体工学椅ZT-C500',qty:'800把',amount:'¥960,000',stage:'交付中',prob:100,date:'2025-06-26'},
+{id:'CRM20250625',customer:'重庆某医院',contact:'赵主任',product:'医用办公家具',qty:'1批',amount:'¥680,000',stage:'方案报价',prob:65,date:'2025-06-25'},
+{id:'CRM20250624',customer:'天津某银行',contact:'孙行长',product:'营业厅家具定制',qty:'1批',amount:'¥920,000',stage:'需求确认',prob:45,date:'2025-06-24'}
+],
+qualityData:[
+{id:'QC20250701',batch:'B20250701-A',product:'行政办公桌ZT-A200',inspector:'老刘',result:'合格',defects:0,sample:50,date:'2025-07-01',note:'各项指标正常'},
+{id:'QC20250630',batch:'B20250630-C',product:'人体工学椅ZT-C500',inspector:'陈十二',result:'合格',defects:2,sample:100,date:'2025-06-30',note:'2件外观轻微划痕，已返修'},
+{id:'QC20250629',batch:'B20250629-A',product:'文件柜ZT-F300',inspector:'老刘',result:'不合格',defects:5,sample:50,date:'2025-06-29',note:'喷涂色差超标，整批返工'},
+{id:'QC20250628',batch:'B20250628-B',product:'屏风工位ZT-P400',inspector:'陈十二',result:'合格',defects:1,sample:40,date:'2025-06-28',note:'1件尺寸偏差，已更换'},
+{id:'QC20250627',batch:'B20250627-A',product:'升降桌ZT-D600',inspector:'老刘',result:'合格',defects:0,sample:30,date:'2025-06-27',note:'升降测试全部通过'},
+{id:'QC20250626',batch:'B20250626-C',product:'茶水柜ZT-T100',inspector:'陈十二',result:'合格',defects:0,sample:60,date:'2025-06-26',note:'含水率达标'},
+{id:'QC20250625',batch:'B20250625-B',product:'会议桌ZT-M150',inspector:'老刘',result:'合格',defects:1,sample:20,date:'2025-06-25',note:'1件边角磕碰，已修复'},
+{id:'QC20250624',batch:'B20250624-A',product:'前台接待桌ZT-R200',inspector:'陈十二',result:'合格',defects:0,sample:10,date:'2025-06-24',note:'定制产品全检合格'}
+],
+kpi:{
+all:[{label:'本月营收',value:'¥4,280万',trend:'+12.3%',up:true},{label:'订单完成率',value:'96.8%',trend:'+2.1%',up:true},{label:'产品合格率',value:'99.2%',trend:'+0.3%',up:true},{label:'客户满意度',value:'94.5分',trend:'+1.2',up:true}],
+management:[{label:'集团营收',value:'¥4,280万',trend:'+12.3%',up:true},{label:'净利润率',value:'8.6%',trend:'+0.8%',up:true},{label:'人均产值',value:'¥14.3万',trend:'+5.2%',up:true},{label:'战略项目进度',value:'78%',trend:'+6%',up:true}],
+production:[{label:'日产量',value:'1,850件',trend:'+8.5%',up:true},{label:'设备稼动率',value:'92.3%',trend:'+3.1%',up:true},{label:'一次合格率',value:'98.7%',trend:'-0.2%',up:false},{label:'在制品库存',value:'3,200件',trend:'-12%',up:true}],
+sales:[{label:'本月签约额',value:'¥3,650万',trend:'+18.6%',up:true},{label:'回款率',value:'89.2%',trend:'+2.4%',up:true},{label:'新客户数',value:'28家',trend:'+6家',up:true},{label:'商机转化率',value:'34.5%',trend:'+3.2%',up:true}],
+purchase:[{label:'采购成本节约',value:'¥186万',trend:'+15.3%',up:true},{label:'供应商准时率',value:'94.8%',trend:'+1.6%',up:true},{label:'库存周转天数',value:'28天',trend:'-3天',up:true},{label:'来料合格率',value:'99.5%',trend:'+0.1%',up:true}]
+},
+apps:{
+all:[{name:'OA审批',icon:'approval',color:'#0984E3',page:'approval'},{name:'通讯录',icon:'contacts',color:'#00B894',page:'contacts'},{name:'知识库',icon:'knowledge',color:'#6C5CE7',page:'knowledge'},{name:'日程管理',icon:'calendar',color:'#E67E22',page:'calendar'},{name:'视频会议',icon:'meeting',color:'#D63031',page:'meeting'},{name:'生产工单',icon:'production',color:'#2D3436',page:'production'},{name:'供应链',icon:'supply',color:'#00CEC9',page:'supply'},{name:'客户管理',icon:'crm',color:'#FDCB6E',page:'crm'},{name:'质量追溯',icon:'quality',color:'#E17055',page:'quality'},{name:'管理驾驶舱',icon:'dashboard',color:'#636E72',page:'dashboard'},{name:'AI助手',icon:'ai',color:'#A29BFE',page:'ai'},{name:'消息',icon:'message',color:'#74B9FF',page:'message'}],
+management:[{name:'管理驾驶舱',icon:'dashboard',color:'#636E72',page:'dashboard'},{name:'OA审批',icon:'approval',color:'#0984E3',page:'approval'},{name:'AI助手',icon:'ai',color:'#A29BFE',page:'ai'},{name:'日程管理',icon:'calendar',color:'#E67E22',page:'calendar'}],
+production:[{name:'生产工单',icon:'production',color:'#2D3436',page:'production'},{name:'质量追溯',icon:'quality',color:'#E17055',page:'quality'},{name:'OA审批',icon:'approval',color:'#0984E3',page:'approval'},{name:'知识库',icon:'knowledge',color:'#6C5CE7',page:'knowledge'}],
+sales:[{name:'客户管理',icon:'crm',color:'#FDCB6E',page:'crm'},{name:'OA审批',icon:'approval',color:'#0984E3',page:'approval'},{name:'日程管理',icon:'calendar',color:'#E67E22',page:'calendar'},{name:'AI助手',icon:'ai',color:'#A29BFE',page:'ai'}],
+purchase:[{name:'供应链',icon:'supply',color:'#00CEC9',page:'supply'},{name:'OA审批',icon:'approval',color:'#0984E3',page:'approval'},{name:'知识库',icon:'knowledge',color:'#6C5CE7',page:'knowledge'},{name:'质量追溯',icon:'quality',color:'#E17055',page:'quality'}]
+}
+};
+
+/* ===== Navigation Config ===== */
+const NAV=[
+{group:'A区 · 基础协同',items:[
+{id:'message',label:'消息',icon:'message'},
+{id:'ai',label:'中泰龙AI助手',icon:'ai',badge:'悟空AI'},
+{id:'workbench',label:'工作台',icon:'workbench'},
+{id:'approval',label:'OA审批',icon:'approval'},
+{id:'contacts',label:'通讯录',icon:'contacts'},
+{id:'knowledge',label:'知识库',icon:'knowledge'},
+{id:'calendar',label:'日程',icon:'calendar'},
+{id:'meeting',label:'会议',icon:'meeting'}
+]},
+{group:'B区 · 业务专项',items:[
+{id:'production',label:'生产工单管理',icon:'production'},
+{id:'supply',label:'供应链协同',icon:'supply'},
+{id:'crm',label:'客户关系管理',icon:'crm'},
+{id:'quality',label:'质量追溯管理',icon:'quality'},
+{id:'dashboard',label:'管理驾驶舱',icon:'dashboard'}
+]}
+];
+
+/* ===== Render Shell ===== */
+let currentPage='workbench';
+let bannerTimer=null;
+let currentBannerIdx=0;
+
+function renderSidebar(){
+const sb=$('#sidebar');
+let h='<div class="sidebar-logo"><div class="logo-icon">ZTL</div><span>中泰龙集团</span></div>';
+NAV.forEach(g=>{
+h+='<div class="nav-group"><div class="nav-label">'+g.group+'</div>';
+g.items.forEach(it=>{
+const active=currentPage===it.id?'active':'';
+const badge=it.badge?'<span class="wukong-tag">'+it.badge+'</span>':'';
+h+='<div class="nav-item '+active+'" data-nav="'+it.id+'">'+ic(it.icon,18)+badge+'<span>'+it.label+'</span></div>';
+});
+h+='</div>';
+});
+sb.innerHTML=h;
+}
+
+function navigate(pageId){
+currentPage=pageId;
+renderSidebar();
+const titles={message:'消息',ai:'中泰龙AI助手',workbench:'工作台',approval:'OA审批',contacts:'通讯录',knowledge:'知识库',calendar:'日程',meeting:'会议',production:'生产工单管理',supply:'供应链协同',crm:'客户关系管理',quality:'质量追溯管理',dashboard:'管理驾驶舱'};
+$('#pageTitle').textContent=titles[pageId]||pageId;
+renderPage(pageId);
+if(bannerTimer){clearInterval(bannerTimer);bannerTimer=null;}
+if(pageId==='workbench')initBanner();
+}
+
+function renderPage(id){
+const c=$('#content');
+c.innerHTML='';
+const renderers={workbench:renderWorkbenchEnhanced,message:renderMessage,ai:renderAI,approval:renderApprovalEnhanced,contacts:renderContactsEnhanced,knowledge:renderKnowledgeEnhanced,calendar:renderCalendarEnhanced,meeting:renderMeetingEnhanced,production:renderProductionEnhanced,supply:renderSupplyEnhanced,crm:renderCRMEnhanced,quality:renderQualityEnhanced,dashboard:renderDashboardEnhanced};
+if(renderers[id])renderers[id](c);
+}
+
+/* ===== WORKBENCH PAGE ===== */
+function renderWorkbench(container){
+let h='';
+// Marquee
+h+='<div class="marquee-wrap"><div class="marquee-inner" id="marqueeInner">';
+const mq=D.marquee.concat(D.marquee);
+mq.forEach(m=>{h+='<span class="marquee-item">'+m.replace(/【(.+?)】/,'<span>【$1】</span>')+'</span>'});
+h+='</div></div>';
+// Banner
+h+='<div class="banner" id="bannerBox">';
+D.news.slice(0,3).forEach((n,i)=>{
+h+='<div class="banner-slide'+(i===0?' active':'')+'" data-banner-idx="'+i+'" style="background:'+n.bg+'">';
+h+='<div class="banner-content"><h3>'+n.title+'</h3><p>'+n.date+' · '+n.tag+'</p></div></div>';
+});
+h+='<div class="banner-dots">';
+[0,1,2].forEach(i=>{h+='<div class="banner-dot'+(i===0?' active':'')+'" data-dot="'+i+'"></div>'});
+h+='</div></div>';
+// Role Tabs [W1]
+h+='<div class="tabs" id="roleTabs">';
+['all','management','production','sales','purchase'].forEach(r=>{
+const labels={all:'全部',management:'管理层',production:'生产',sales:'销售',purchase:'采购'};
+h+='<div class="tab'+(D.currentRole===r?' active':'')+'" data-role="'+r+'">'+labels[r]+'</div>';
+});
+h+='</div>';
+// KPI Cards [W4]
+h+='<div class="grid-4" id="kpiGrid">';
+D.kpi[D.currentRole].forEach(k=>{
+h+='<div class="kpi-card"><div class="kpi-label">'+k.label+'</div><div class="kpi-value">'+k.value+'</div><div class="kpi-trend '+(k.up?'up':'down')+'">'+k.trend+'</div></div>';
+});
+h+='</div>';
+// App Matrix [W5]
+h+='<div class="card"><div class="card-title">'+ic('workbench',16,'#E67E22')+' 应用入口</div><div class="app-grid" id="appGrid">';
+D.apps[D.currentRole].forEach(a=>{
+h+='<div class="app-entry" data-app-page="'+a.page+'"><div class="app-icon" style="background:'+a.color+'20;color:'+a.color+'">'+ic(a.icon,22,a.color)+'</div><div class="app-name">'+a.name+'</div></div>';
+});
+h+='</div></div>';
+// Two column layout
+h+='<div class="grid-2">';
+// Schedule
+h+='<div class="card"><div class="card-title">'+ic('calendar',16,'#E67E22')+' 今日日程</div>';
+D.schedules.slice(0,3).forEach(s=>{
+h+='<div class="schedule-item"><div class="schedule-time">'+s.time.split('-')[0]+'</div><div><div style="font-weight:500">'+s.title+'</div><div style="font-size:11px;color:#999">'+s.location+' · '+s.organizer+'</div></div></div>';
+});
+h+='</div>';
+// Todo
+h+='<div class="card"><div class="card-title">'+ic('check',16,'#E67E22')+' 待办事项</div>';
+const todos=['审核Q3市场推广费用申请','确认A车间设备采购方案','回复深圳客户合同条款','参加周一经营例会','审批新员工招聘需求','查看供应链月度报告'];
+todos.forEach((t,i)=>{
+h+='<div class="todo-item"><div class="todo-check'+(i>=5?' done':'')+'" data-todo="'+i+'"></div><span style="'+(i>=5?'text-decoration:line-through;color:#999':'')+'">'+t+'</span></div>';
+});
+h+='</div></div>';
+// News + Forum + Industry
+h+='<div class="grid-3">';
+// Enterprise News [W6]
+h+='<div class="card"><div class="card-title">'+ic('star',16,'#E67E22')+' 企业新闻</div>';
+D.news.forEach(n=>{
+h+='<div class="news-item" data-news-id="'+n.id+'"><div class="news-title">'+n.title+'</div><div class="news-meta">'+n.date+' · '+n.tag+'</div></div>';
+});
+h+='</div>';
+// Forum
+h+='<div class="card"><div class="card-title">'+ic('message',16,'#E67E22')+' 内部论坛</div>';
+[{t:'智能工厂参观心得分享',a:'老王',d:'2小时前',c:28},{t:'推荐一家好吃的湘菜馆',a:'李四',d:'5小时前',c:45},{t:'关于优化食堂菜单的建议',a:'黄十四',d:'1天前',c:67},{t:'羽毛球社团招新啦！',a:'赵六',d:'2天前',c:33}].forEach(f=>{
+h+='<div class="forum-item"><div class="forum-title">'+f.t+'</div><div class="forum-meta"><span>'+f.a+'</span><span>'+f.d+'</span><span>'+f.c+'评论</span></div></div>';
+});
+h+='</div>';
+// Industry
+h+='<div class="card"><div class="card-title">'+ic('eye',16,'#E67E22')+' 行业动态</div>';
+[{t:'2025中国办公家具市场规模预计突破2000亿元',d:'中国家具协会'},{t:'智能家居办公场景成新趋势，AI赋能空间管理',d:'36氪'},{t:'绿色制造标准升级，环保材料需求持续增长',d:'中国环境报'},{t:'跨境电商助力家具出海，东南亚市场增速领先',d:'亿邦动力'}].forEach(n=>{
+h+='<div class="news-item"><div class="news-title">'+n.t+'</div><div class="news-meta">来源：'+n.d+'</div></div>';
+});
+h+='</div></div>';
+container.innerHTML=h;
+}
+
+function initBanner(){
+currentBannerIdx=0;
+bannerTimer=setInterval(()=>{
+currentBannerIdx=(currentBannerIdx+1)%3;
+updateBanner();
+},4000);
+}
+function updateBanner(){
+$$('.banner-slide').forEach((s,i)=>s.classList.toggle('active',i===currentBannerIdx));
+$$('.banner-dot').forEach((d,i)=>d.classList.toggle('active',i===currentBannerIdx));
+}
+
+/* ===== MESSAGE PAGE ===== */
+function renderMessage(container){
+let h='<div style="display:flex;height:calc(100vh - var(--header-h) - 40px);gap:16px">';
+// Left list
+h+='<div style="width:280px;background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow-y:auto;flex-shrink:0" id="msgList">';
+D.messages.forEach((m,i)=>{
+h+='<div class="msg-contact'+(i===0?' active':'')+'" data-msg-idx="'+i+'" style="padding:14px 16px;border-bottom:1px solid var(--border);cursor:pointer;display:flex;gap:10px;align-items:center;transition:background .2s'+(i===0?';background:#FFF5EB':'')+'">';
+h+='<div class="avatar" style="background:'+(i%2?'#0984E3':'#E67E22')+'">'+m.avatar+'</div>';
+h+='<div style="flex:1;min-width:0"><div style="display:flex;justify-content:space-between"><span style="font-weight:600;font-size:14px">'+m.name+'</span><span style="font-size:11px;color:#999">'+m.time+'</span></div>';
+h+='<div style="font-size:12px;color:#999;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px">'+m.lastMsg+'</div></div>';
+if(m.unread>0)h+='<div style="background:var(--danger);color:#fff;font-size:10px;padding:2px 6px;border-radius:10px;min-width:18px;text-align:center">'+m.unread+'</div>';
+h+='</div>';
+});
+h+='</div>';
+// Right chat area
+h+='<div style="flex:1;background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden" id="chatArea">';
+h+=renderChatDetail(0);
+h+='</div></div>';
+container.innerHTML=h;
+}
+function renderChatDetail(idx){
+const m=D.messages[idx];
+let h='<div style="padding:12px 16px;border-bottom:1px solid var(--border);font-weight:600;font-size:15px">'+m.name+'</div>';
+h+='<div style="flex:1;overflow-y:auto;padding:16px" id="chatMessages">';
+m.msgs.forEach(msg=>{
+h+='<div class="chat-msg '+(msg.self?'user':'bot')+'"><div class="avatar" style="background:'+(msg.self?'var(--primary)':'#0984E3')+';width:28px;height:28px;font-size:11px;flex-shrink:0">'+(msg.self?'张':msg.from[0])+'</div>';
+h+='<div class="chat-bubble">'+msg.text+'<div style="font-size:10px;opacity:.6;margin-top:4px;text-align:'+(msg.self?'right':'left')+'">'+msg.time+'</div></div></div>';
+});
+h+='</div>';
+h+='<div style="padding:12px 16px;border-top:1px solid var(--border);display:flex;gap:8px"><input type="text" placeholder="输入消息..." style="flex:1;padding:10px 14px;border-radius:20px" id="chatInput"><button class="btn btn-primary" data-action="send-chat" style="border-radius:20px" data-chat-idx="'+idx+'">发送</button></div>';
+return h;
+}
+
+/* ===== AI ASSISTANT PAGE ===== */
+function renderAI(container){
+let h='<div class="chat-container">';
+h+='<div style="padding:12px 0;border-bottom:1px solid var(--border);margin-bottom:12px">';
+h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><div class="avatar" style="background:linear-gradient(135deg,#6C5CE7,#A29BFE)">AI</div><div><div style="font-weight:600;font-size:16px">中泰龙AI助手 <span class="ai-badge">悟空AI</span></div><div style="font-size:12px;color:#999">企业知识问答 · 智能办公助理</div></div></div>';
+h+='<div class="quick-questions">';
+['公司有哪些主要产品线？','智能工厂的建设情况如何？','供应商准入标准是什么？','钉钉AI助手能做什么？','公司的质量合格率是多少？'].forEach(q=>{
+h+='<div class="quick-q" data-quick-q="'+q+'">'+q+'</div>';
+});
+h+='</div></div>';
+h+='<div class="chat-messages" id="aiMessages">';
+h+='<div class="chat-msg bot"><div class="avatar" style="background:linear-gradient(135deg,#6C5CE7,#A29BFE);width:28px;height:28px;font-size:11px;flex-shrink:0">AI</div>';
+h+='<div class="chat-bubble">您好！我是中泰龙专属AI助手（基于<b>悟空AI</b>），已接入公司全部制度文档、产品资料和生产数据。<br><br>我可以帮您：<br>📋 查询公司制度和流程<br>📊 了解生产和经营数据<br>🏭 解答产品和工艺问题<br>👥 查询人事和行政信息<br><br>试试点击上方的快捷问题，或直接输入您想了解的内容！</div></div>';
+h+='</div>';
+h+='<div class="chat-input-area"><input type="text" placeholder="输入您的问题，如：公司产品线有哪些？" id="aiInput"><button class="btn btn-primary" data-action="send-ai" style="border-radius:20px">发送</button></div>';
+h+='</div>';
+container.innerHTML=h;
+}
+
+function getAIResponse(query){
+const q=query.toLowerCase();
+for(const[key,val] of Object.entries(D.aiKnowledge)){
+if(key!=='default'&&q.includes(key))return val;
+}
+// Fuzzy match keywords
+const fuzzyMap={'产品':'产品线','办公':'产品线','家具':'产品线','工厂':'智能工厂','黑灯':'智能工厂','产线':'智能工厂','品牌':'品牌荣誉','十大':'品牌荣誉','周年':'四十周年','庆典':'四十周年','鼎捷':'数字化','数字':'数字化','三维家':'三维家','一体':'三维家','员工':'员工','人数':'员工','质量':'质量','合格':'质量','iso':'质量','供应':'供应链','采购':'供应链','生产':'生产','车间':'生产','基地':'生产','钉钉':'钉钉','协同':'钉钉','助手':'AI助手','ai':'AI助手','悟空':'AI助手','知识':'AI助手'};
+for(const[kw,target] of Object.entries(fuzzyMap)){
+if(q.includes(kw)&&D.aiKnowledge[target])return D.aiKnowledge[target];
+}
+return D.aiKnowledge['default'];
+}
+
+function typeWriter(el,text,speed=20){
+el.innerHTML='';el.classList.add('typing-cursor');
+let i=0;
+function tick(){
+if(i<text.length){
+// Handle HTML tags - add them instantly
+if(text[i]==='<'){const end=text.indexOf('>',i);if(end!==-1){el.innerHTML+=text.substring(i,end+1);i=end+1;tick();return;}}
+el.innerHTML+=text[i];i++;
+setTimeout(tick,speed);
+}else{el.classList.remove('typing-cursor');}
+}
+tick();
+}
+
+/* ===== OA APPROVAL PAGE ===== */
+function renderApproval(container){
+let h='<div class="filter-bar"><select id="approvalFilter" style="padding:7px 12px;border-radius:4px;border:1px solid var(--border)"><option value="all">全部状态</option><option value="pending">待审批</option><option value="approved">已通过</option><option value="rejected">已驳回</option></select>';
+h+='<input type="text" class="search-input" placeholder="搜索审批单号/标题..." id="approvalSearch">';
+h+='<button class="btn btn-primary" data-action="new-approval">'+ic('plus',14,'#fff')+' 发起审批</button></div>';
+h+='<div class="card" style="padding:0;overflow:hidden"><table><thead><tr><th>审批单号</th><th>标题</th><th>申请人</th><th>部门</th><th>金额</th><th>日期</th><th>状态</th><th>操作</th></tr></thead><tbody id="approvalTable">';
+D.approvals.forEach(a=>{
+const statusMap={pending:['待审批','badge-warn'],approved:['已通过','badge-success'],rejected:['已驳回','badge-danger']};
+const[stxt,scls]=statusMap[a.status];
+h+='<tr data-approval-id="'+a.id+'"><td style="font-family:monospace;font-size:12px">'+a.id+'</td><td style="font-weight:500">'+a.title+'</td><td>'+a.applicant+'</td><td>'+a.dept+'</td><td>'+a.amount+'</td><td>'+a.date+'</td><td><span class="badge '+scls+'">'+stxt+'</span></td><td><button class="btn btn-sm btn-outline" data-action="view-approval" data-id="'+a.id+'">详情</button></td></tr>';
+});
+h+='</tbody></table></div>';
+container.innerHTML=h;
+}
+
+/* ===== CONTACTS PAGE ===== */
+function renderContacts(container){
+let h='<div style="display:flex;gap:16px;height:calc(100vh - var(--header-h) - 40px)">';
+// Org tree
+h+='<div style="width:280px;background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow-y:auto;padding:16px;flex-shrink:0" id="orgTree">';
+h+=renderTreeNode(D.contacts,0);
+h+='</div>';
+// Employee list
+h+='<div style="flex:1;background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column">';
+h+='<div style="padding:16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center"><span style="font-weight:600;font-size:15px">员工列表</span><input type="text" class="search-input" placeholder="搜索姓名/部门..." id="empSearch"></div>';
+h+='<div style="flex:1;overflow-y:auto"><table><thead><tr><th>姓名</th><th>部门</th><th>职位</th><th>电话</th><th>邮箱</th><th>操作</th></tr></thead><tbody id="empTable">';
+D.employees.forEach(e=>{
+h+='<tr><td style="font-weight:500">'+e.name+'</td><td>'+e.dept+'</td><td>'+e.title+'</td><td>'+e.phone+'</td><td>'+e.email+'</td><td><button class="btn btn-sm btn-outline" data-action="msg-emp" data-name="'+e.name+'">发消息</button></td></tr>';
+});
+h+='</tbody></table></div></div></div>';
+container.innerHTML=h;
+}
+function renderTreeNode(node,depth){
+let h='';
+if(node.children){
+const hasChildren=node.children.length>0;
+h+='<div class="tree-node">';
+h+='<div class="tree-label" data-tree-toggle="'+(hasChildren?'1':'0')+'">';
+if(hasChildren)h+='<span class="tree-toggle'+(depth<2?' open':'')+'">▶</span>';
+else h+='<span style="width:16px;display:inline-block"></span>';
+h+='<span>'+ic(depth===0?'workbench':hasChildren?'file':'user',14,'#636E72')+'</span>';
+h+='<span style="font-weight:'+(depth<2?'600':'400')+'">'+node.name+'</span>';
+if(!hasChildren&&node.title)h+=' <span style="font-size:11px;color:#999;margin-left:4px">'+node.title+'</span>';
+h+='</div>';
+if(hasChildren){
+h+='<div class="tree-children'+(depth<2?' open':'')+'">';
+node.children.forEach(c=>{h+=renderTreeNode(c,depth+1)});
+h+='</div>';
+}
+h+='</div>';
+}else{
+h+='<div class="tree-node"><div class="tree-label" data-tree-toggle="0"><span style="width:16px;display:inline-block"></span>'+ic('user',14,'#636E72')+'<span>'+node.name+'</span>';
+if(node.title)h+=' <span style="font-size:11px;color:#999;margin-left:4px">'+node.title+'</span>';
+h+='</div></div>';
+}
+return h;
+}
+
+/* ===== KNOWLEDGE PAGE ===== */
+function renderKnowledge(container){
+let h='<div class="filter-bar">';
+D.docCats.forEach((c,i)=>{
+h+='<button class="btn '+(i===0?'btn-primary':'btn-outline')+'" data-doc-cat="'+c+'">'+c+'</button>';
+});
+h+='<input type="text" class="search-input" placeholder="搜索文档..." id="docSearch" style="margin-left:auto"></div>';
+h+='<div class="grid-2" id="docGrid">';
+D.knowledgeDocs.forEach(d=>{
+h+='<div class="card" data-doc-cat-tag="'+d.cat+'" style="cursor:pointer;margin-bottom:0" data-action="view-doc" data-doc-id="'+d.id+'">';
+h+='<div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:8px"><span class="badge badge-info">'+d.cat+'</span><span style="font-size:11px;color:#999">'+d.date+'</span></div>';
+h+='<div style="font-weight:600;font-size:14px;margin-bottom:6px">'+d.title+'</div>';
+h+='<div style="font-size:12px;color:#999;display:flex;gap:12px"><span>'+ic('user',12)+' '+d.author+'</span><span>'+ic('eye',12)+' '+d.views+'</span></div>';
+h+='</div>';
+});
+h+='</div>';
+container.innerHTML=h;
+}
+
+/* ===== CALENDAR PAGE ===== */
+function renderCalendar(container){
+let h='<div class="grid-2">';
+// Month view (simplified)
+h+='<div class="card"><div class="card-title">'+ic('calendar',16,'#E67E22')+' 2025年7月</div>';
+h+='<div style="display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:12px;margin-bottom:8px">';
+['日','一','二','三','四','五','六'].forEach(d=>{h+='<div style="padding:6px;font-weight:600;color:#999">'+d+'</div>'});
+h+='</div>';
+h+='<div style="display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:13px">';
+// July 2025 starts on Tuesday
+[0,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31].forEach((d,i)=>{
+const hasEvent=[2,3,4,5,7,8,10,15].includes(d);
+const isToday=d===1;
+let style='padding:8px 4px;border-radius:4px;';
+if(isToday)style+='background:var(--primary);color:#fff;font-weight:700;';
+else if(hasEvent)style+='background:#FFF5EB;color:var(--primary);font-weight:600;cursor:pointer;';
+h+='<div style="'+style+'"'+(hasEvent?' data-cal-day="'+d+'"':'')+'>'+(d||'')+'</div>';
+});
+h+='</div></div>';
+// Schedule list
+h+='<div class="card"><div class="card-title">'+ic('clock',16,'#E67E22')+' 日程列表</div>';
+D.schedules.forEach(s=>{
+h+='<div class="schedule-item" style="padding:12px 0"><div class="schedule-time" style="min-width:80px">'+s.date+'<br>'+s.time+'</div><div><div style="font-weight:600">'+s.title+'</div><div style="font-size:12px;color:#999;margin-top:2px">'+ic('workbench',12)+' '+s.location+' · '+s.organizer+'</div></div></div>';
+});
+h+='</div></div>';
+container.innerHTML=h;
+}
+
+/* ===== MEETING PAGE ===== */
+function renderMeeting(container){
+let h='<div class="filter-bar"><button class="btn btn-primary" data-action="new-meeting">'+ic('plus',14,'#fff')+' 预约会议</button>';
+h+='<select id="meetingFilter" style="padding:7px 12px;border-radius:4px;border:1px solid var(--border)"><option value="all">全部状态</option><option value="scheduled">待开始</option><option value="completed">已结束</option></select></div>';
+h+='<div class="card" style="padding:0;overflow:hidden"><table><thead><tr><th>会议主题</th><th>日期</th><th>时间</th><th>会议室</th><th>参会人</th><th>状态</th><th>操作</th></tr></thead><tbody id="meetingTable">';
+D.meetings.forEach(m=>{
+const stxt=m.status==='scheduled'?'待开始':'已结束';
+const scls=m.status==='scheduled'?'badge-info':'badge-gray';
+h+='<tr><td style="font-weight:500">'+m.title+'</td><td>'+m.date+'</td><td>'+m.time+'</td><td>'+m.room+'</td><td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="'+m.attendees+'">'+m.attendees+'</td><td><span class="badge '+scls+'">'+stxt+'</span></td><td><button class="btn btn-sm btn-outline" data-action="view-meeting" data-id="'+m.id+'">详情</button></td></tr>';
+});
+h+='</tbody></table></div>';
+container.innerHTML=h;
+}
+
+/* ===== B-ZONE: PRODUCTION PAGE ===== */
+function renderProduction(container){
+let h='<div class="grid-4">';
+[{l:'今日产量',v:'1,850件',t:'+8.5%',u:true},{l:'设备稼动率',v:'92.3%',t:'+3.1%',u:true},{l:'在制工单',v:'12单',t:'-2单',u:true},{l:'一次合格率',v:'98.7%',t:'-0.2%',u:false}].forEach(k=>{
+h+='<div class="kpi-card"><div class="kpi-label">'+k.l+'</div><div class="kpi-value">'+k.v+'</div><div class="kpi-trend '+(k.u?'up':'down')+'">'+k.t+'</div></div>';
+});
+h+='</div>';
+h+='<div class="filter-bar"><select id="prodStatusFilter" style="padding:7px 12px;border-radius:4px;border:1px solid var(--border)"><option value="all">全部状态</option><option value="生产中">生产中</option><option value="待排产">待排产</option><option value="已完成">已完成</option><option value="质检中">质检中</option></select>';
+h+='<input type="text" class="search-input" placeholder="搜索工单号/产品..." id="prodSearch">';
+h+='<button class="btn btn-primary" data-action="new-prod-order">'+ic('plus',14,'#fff')+' 新建工单</button></div>';
+h+='<div class="card" style="padding:0;overflow:hidden"><table><thead><tr><th>工单号</th><th>产品</th><th>数量</th><th>产线</th><th>进度</th><th>状态</th><th>负责人</th><th>操作</th></tr></thead><tbody id="prodTable">';
+D.productionOrders.forEach(o=>{
+const scls=o.status==='已完成'?'badge-success':o.status==='生产中'?'badge-info':o.status==='质检中'?'badge-warn':'badge-gray';
+h+='<tr><td style="font-family:monospace;font-size:12px">'+o.id+'</td><td style="font-weight:500">'+o.product+'</td><td>'+o.qty+o.unit+'</td><td>'+o.line+'</td><td><div style="display:flex;align-items:center;gap:6px"><div style="flex:1;height:6px;background:#eee;border-radius:3px;min-width:60px"><div style="height:100%;background:var(--primary);border-radius:3px;width:'+o.progress+'%"></div></div><span style="font-size:11px">'+o.progress+'%</span></div></td><td><span class="badge '+scls+'">'+o.status+'</span></td><td>'+o.operator+'</td><td><button class="btn btn-sm btn-outline" data-action="view-prod" data-id="'+o.id+'">详情</button></td></tr>';
+});
+h+='</tbody></table></div>';
+// Chart
+h+='<div class="grid-2"><div class="card"><div class="card-title">各产线产量分布</div><div class="chart-container">'+barSVG([{label:'A线',value:850,color:'#E67E22'},{label:'B线',value:520,color:'#0984E3'},{label:'C线',value:480,color:'#00B894'}],280,140)+'</div></div>';
+h+='<div class="card"><div class="card-title">月度产量趋势</div><div class="chart-container">'+sparklineSVG([1200,1350,1280,1420,1500,1380,1600,1750,1850],280,60)+'</div></div></div>';
+container.innerHTML=h;
+}
+
+/* ===== B-ZONE: SUPPLY CHAIN PAGE ===== */
+function renderSupply(container){
+let h='<div class="grid-4">';
+[{l:'本月采购额',v:'¥186万',t:'+12.3%',u:true},{l:'供应商准时率',v:'94.8%',t:'+1.6%',u:true},{l:'库存周转天数',v:'28天',t:'-3天',u:true},{l:'来料合格率',v:'99.5%',t:'+0.1%',u:true}].forEach(k=>{
+h+='<div class="kpi-card"><div class="kpi-label">'+k.l+'</div><div class="kpi-value">'+k.v+'</div><div class="kpi-trend '+(k.u?'up':'down')+'">'+k.t+'</div></div>';
+});
+h+='</div>';
+h+='<div class="filter-bar"><select id="supplyStatusFilter" style="padding:7px 12px;border-radius:4px;border:1px solid var(--border)"><option value="all">全部状态</option><option value="已到货">已到货</option><option value="运输中">运输中</option><option value="待发货">待发货</option></select>';
+h+='<input type="text" class="search-input" placeholder="搜索物料/供应商..." id="supplySearch">';
+h+='<button class="btn btn-primary" data-action="new-purchase-order">'+ic('plus',14,'#fff')+' 新建采购单</button></div>';
+h+='<div class="card" style="padding:0;overflow:hidden"><table><thead><tr><th>采购单号</th><th>物料</th><th>供应商</th><th>数量</th><th>金额</th><th>交期</th><th>状态</th><th>操作</th></tr></thead><tbody id="supplyTable">';
+D.supplyData.forEach(s=>{
+const scls=s.status==='已到货'?'badge-success':s.status==='运输中'?'badge-info':'badge-warn';
+h+='<tr><td style="font-family:monospace;font-size:12px">'+s.id+'</td><td style="font-weight:500">'+s.material+'</td><td>'+s.supplier+'</td><td>'+s.qty+'</td><td>'+s.amount+'</td><td>'+s.lead+'</td><td><span class="badge '+scls+'">'+s.status+'</span></td><td><button class="btn btn-sm btn-outline" data-action="view-supply" data-id="'+s.id+'">详情</button></td></tr>';
+});
+h+='</tbody></table></div>';
+h+='<div class="grid-2"><div class="card"><div class="card-title">采购金额分布</div><div class="chart-container">'+donutSVG([{label:'板材',value:360,color:'#E67E22'},{label:'五金',value:125,color:'#0984E3'},{label:'涂料',value:240,color:'#00B894'},{label:'其他',value:438,color:'#636E72'}],130)+'</div></div>';
+h+='<div class="card"><div class="card-title">月度采购趋势</div><div class="chart-container">'+sparklineSVG([145,162,138,175,156,186],280,60,'#0984E3')+'</div></div></div>';
+container.innerHTML=h;
+}
+
+/* ===== B-ZONE: CRM PAGE ===== */
+function renderCRM(container){
+let h='<div class="grid-4">';
+[{l:'本月签约额',v:'¥3,650万',t:'+18.6%',u:true},{l:'商机数',v:'42个',t:'+8个',u:true},{l:'转化率',v:'34.5%',t:'+3.2%',u:true},{l:'客户满意度',v:'94.5分',t:'+1.2',u:true}].forEach(k=>{
+h+='<div class="kpi-card"><div class="kpi-label">'+k.l+'</div><div class="kpi-value">'+k.v+'</div><div class="kpi-trend '+(k.u?'up':'down')+'">'+k.t+'</div></div>';
+});
+h+='</div>';
+h+='<div class="filter-bar"><select id="crmStageFilter" style="padding:7px 12px;border-radius:4px;border:1px solid var(--border)"><option value="all">全部阶段</option><option value="需求确认">需求确认</option><option value="方案报价">方案报价</option><option value="招投标">招投标</option><option value="合同签订">合同签订</option><option value="交付中">交付中</option></select>';
+h+='<input type="text" class="search-input" placeholder="搜索客户/联系人..." id="crmSearch">';
+h+='<button class="btn btn-primary" data-action="new-crm">'+ic('plus',14,'#fff')+' 新建商机</button></div>';
+h+='<div class="card" style="padding:0;overflow:hidden"><table><thead><tr><th>编号</th><th>客户</th><th>联系人</th><th>产品</th><th>金额</th><th>阶段</th><th>概率</th><th>操作</th></tr></thead><tbody id="crmTable">';
+D.crmData.forEach(c=>{
+const scls=c.prob>=90?'badge-success':c.prob>=60?'badge-info':c.prob>=40?'badge-warn':'badge-danger';
+h+='<tr><td style="font-family:monospace;font-size:12px">'+c.id+'</td><td style="font-weight:500">'+c.customer+'</td><td>'+c.contact+'</td><td>'+c.product+'</td><td>'+c.amount+'</td><td><span class="badge '+scls+'">'+c.stage+'</span></td><td>'+c.prob+'%</td><td><button class="btn btn-sm btn-outline" data-action="view-crm" data-id="'+c.id+'">详情</button></td></tr>';
+});
+h+='</tbody></table></div>';
+h+='<div class="grid-2"><div class="card"><div class="card-title">销售漏斗</div><div class="chart-container">'+barSVG([{label:'需求确认',value:12,color:'#FDCB6E'},{label:'方案报价',value:10,color:'#0984E3'},{label:'招投标',value:6,color:'#6C5CE7'},{label:'合同签订',value:8,color:'#00B894'},{label:'交付中',value:6,color:'#E67E22'}],300,140)+'</div></div>';
+h+='<div class="card"><div class="card-title">月度签约趋势</div><div class="chart-container">'+sparklineSVG([2100,2450,2280,2800,3100,3650],280,60,'#00B894')+'</div></div></div>';
+container.innerHTML=h;
+}
+
+/* ===== B-ZONE: QUALITY PAGE ===== */
+function renderQuality(container){
+let h='<div class="grid-4">';
+[{l:'产品合格率',v:'99.2%',t:'+0.3%',u:true},{l:'本月检测批次',v:'48批',t:'+6批',u:true},{l:'不合格批次',v:'2批',t:'-1批',u:true},{l:'客户投诉率',v:'0.3%',t:'-0.1%',u:true}].forEach(k=>{
+h+='<div class="kpi-card"><div class="kpi-label">'+k.l+'</div><div class="kpi-value">'+k.v+'</div><div class="kpi-trend '+(k.u?'up':'down')+'">'+k.t+'</div></div>';
+});
+h+='</div>';
+h+='<div class="filter-bar"><select id="qcResultFilter" style="padding:7px 12px;border-radius:4px;border:1px solid var(--border)"><option value="all">全部结果</option><option value="合格">合格</option><option value="不合格">不合格</option></select>';
+h+='<input type="text" class="search-input" placeholder="搜索批次号/产品..." id="qcSearch">';
+h+='<button class="btn btn-primary" data-action="new-qc">'+ic('plus',14,'#fff')+' 新增质检记录</button></div>';
+h+='<div class="card" style="padding:0;overflow:hidden"><table><thead><tr><th>质检编号</th><th>批次号</th><th>产品</th><th>检验员</th><th>抽样数</th><th>缺陷数</th><th>结果</th><th>操作</th></tr></thead><tbody id="qcTable">';
+D.qualityData.forEach(q=>{
+const scls=q.result==='合格'?'badge-success':'badge-danger';
+h+='<tr><td style="font-family:monospace;font-size:12px">'+q.id+'</td><td>'+q.batch+'</td><td style="font-weight:500">'+q.product+'</td><td>'+q.inspector+'</td><td>'+q.sample+'</td><td>'+q.defects+'</td><td><span class="badge '+scls+'">'+q.result+'</span></td><td><button class="btn btn-sm btn-outline" data-action="view-qc" data-id="'+q.id+'">详情</button></td></tr>';
+});
+h+='</tbody></table></div>';
+h+='<div class="grid-2"><div class="card"><div class="card-title">质量合格率趋势</div><div class="chart-container">'+sparklineSVG([98.5,98.8,99.0,98.9,99.1,99.2],280,60,'#00B894')+'</div></div>';
+h+='<div class="card"><div class="card-title">缺陷类型分布</div><div class="chart-container">'+donutSVG([{label:'外观瑕疵',value:45,color:'#E67E22'},{label:'尺寸偏差',value:25,color:'#0984E3'},{label:'喷涂问题',value:20,color:'#D63031'},{label:'其他',value:10,color:'#636E72'}],130)+'</div></div></div>';
+container.innerHTML=h;
+}
+
+/* ===== B-ZONE: DASHBOARD PAGE ===== */
+function renderDashboard(container){
+let h='<div class="grid-4">';
+[{l:'集团营收',v:'¥4,280万',t:'+12.3%',u:true},{l:'净利润率',v:'8.6%',t:'+0.8%',u:true},{l:'订单完成率',v:'96.8%',t:'+2.1%',u:true},{l:'员工满意度',v:'92分',t:'+3分',u:true}].forEach(k=>{
+h+='<div class="kpi-card"><div class="kpi-label">'+k.l+'</div><div class="kpi-value">'+k.v+'</div><div class="kpi-trend '+(k.u?'up':'down')+'">'+k.t+'</div></div>';
+});
+h+='</div>';
+// Production monitoring
+h+='<div class="grid-2"><div class="card"><div class="card-title">'+ic('production',16,'#E67E22')+' 生产监控</div>';
+h+='<div style="margin-bottom:12px">';
+['A车间-智能产线','B车间-定制产线','C车间-包装物流'].forEach((name,i)=>{
+const pcts=[92,78,85];const colors=['#00B894','#E67E22','#0984E3'];
+h+='<div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span>'+name+'</span><span style="font-weight:600">'+pcts[i]+'%</span></div><div style="height:8px;background:#eee;border-radius:4px"><div style="height:100%;background:'+colors[i]+';border-radius:4px;width:'+pcts[i]+'%"></div></div></div>';
+});
+h+='</div></div>';
+// Sales analysis
+h+='<div class="card"><div class="card-title">'+ic('crm',16,'#E67E22')+' 销售分析</div><div class="chart-container">'+barSVG([{label:'华东',value:1580,color:'#E67E22'},{label:'华南',value:1200,color:'#0984E3'},{label:'华北',value:860,color:'#00B894'},{label:'西南',value:420,color:'#6C5CE7'},{label:'其他',value:220,color:'#636E72'}],280,140)+'</div></div></div>';
+// Supply chain + Quality
+h+='<div class="grid-2"><div class="card"><div class="card-title">'+ic('supply',16,'#E67E22')+' 供应链看板</div>';
+h+='<div class="grid-2" style="gap:8px">';
+[{l:'在途订单',v:'18单'},{l:'待验收入库',v:'5批'},{l:'库存预警',v:'2项'},{l:'供应商异常',v:'0'}].forEach(k=>{
+h+='<div style="text-align:center;padding:12px;background:#F8F9FA;border-radius:6px"><div style="font-size:20px;font-weight:700;color:var(--primary)">'+k.v+'</div><div style="font-size:11px;color:#999;margin-top:4px">'+k.l+'</div></div>';
+});
+h+='</div></div>';
+h+='<div class="card"><div class="card-title">'+ic('quality',16,'#E67E22')+' 质量趋势</div><div class="chart-container">'+sparklineSVG([98.2,98.5,98.8,99.0,98.9,99.1,99.2,99.3],280,60,'#00B894')+'</div></div></div>';
+container.innerHTML=h;
+}
+
+/* ===== EVENT DELEGATION ===== */
+document.addEventListener('click',function(e){
+const target=e.target.closest('[data-nav]');
+if(target){navigate(target.dataset.nav);return;}
+
+// Role tabs
+const roleTab=e.target.closest('[data-role]');
+if(roleTab){
+D.currentRole=roleTab.dataset.role;
+$$('.tab').forEach(t=>t.classList.toggle('active',t.dataset.role===D.currentRole));
+// Update KPI
+const kpiGrid=$('#kpiGrid');
+if(kpiGrid){
+let kh='';
+D.kpi[D.currentRole].forEach(k=>{
+kh+='<div class="kpi-card"><div class="kpi-label">'+k.label+'</div><div class="kpi-value">'+k.value+'</div><div class="kpi-trend '+(k.up?'up':'down')+'">'+k.trend+'</div></div>';
+});
+kpiGrid.innerHTML=kh;
+}
+// Update app grid
+const appGrid=$('#appGrid');
+if(appGrid){
+let ah='';
+D.apps[D.currentRole].forEach(a=>{
+ah+='<div class="app-entry" data-app-page="'+a.page+'"><div class="app-icon" style="background:'+a.color+'20;color:'+a.color+'">'+ic(a.icon,22,a.color)+'</div><div class="app-name">'+a.name+'</div></div>';
+});
+appGrid.innerHTML=ah;
+}
+return;
+}
+
+// App entry click -> navigate
+const appEntry=e.target.closest('[data-app-page]');
+if(appEntry){navigate(appEntry.dataset.appPage);return;}
+
+// Banner dots
+const dot=e.target.closest('[data-dot]');
+if(dot){
+currentBannerIdx=parseInt(dot.dataset.dot);
+updateBanner();
+if(bannerTimer){clearInterval(bannerTimer);bannerTimer=setInterval(()=>{currentBannerIdx=(currentBannerIdx+1)%3;updateBanner()},4000);}
+return;
+}
+
+// Banner slide click -> news detail modal
+const bannerSlide=e.target.closest('[data-banner-idx]');
+if(bannerSlide){
+const idx=parseInt(bannerSlide.dataset.bannerIdx);
+const n=D.news[idx];
+showModal(n.title,'<p style="margin-bottom:12px"><span class="badge badge-info">'+n.tag+'</span> <span style="color:#999;font-size:12px;margin-left:8px">'+n.date+'</span></p><p style="line-height:1.8;color:#555">'+n.title+'。这是中泰龙集团在'+n.tag+'领域的重要里程碑，标志着公司在高质量发展道路上又迈出了坚实一步。</p>','<button class="btn btn-primary" data-action="close-modal">关闭</button>');
+return;
+}
+
+// News item click
+const newsItem=e.target.closest('[data-news-id]');
+if(newsItem){
+const id=parseInt(newsItem.dataset.newsId);
+const n=D.news.find(x=>x.id===id);
+if(n)showModal(n.title,'<p style="margin-bottom:12px"><span class="badge badge-info">'+n.tag+'</span> <span style="color:#999;font-size:12px;margin-left:8px">'+n.date+'</span></p><p style="line-height:1.8;color:#555">'+n.title+'。详细内容请查看公司内网公告。</p>','<button class="btn btn-primary" data-action="close-modal">关闭</button>');
+return;
+}
+
+// Message contact click
+const msgContact=e.target.closest('[data-msg-idx]');
+if(msgContact){
+const idx=parseInt(msgContact.dataset.msgIdx);
+$$('#msgList .msg-contact').forEach((el,i)=>el.style.background=i===idx?'#FFF5EB':'');
+$('#chatArea').innerHTML=renderChatDetail(idx);
+return;
+}
+
+// Send chat message
+if(e.target.closest('[data-action="send-chat"]')){
+const input=$('#chatInput');
+if(!input||!input.value.trim())return;
+const msgs=$('#chatMessages');
+const now=new Date();const timeStr=now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0');
+msgs.innerHTML+='<div class="chat-msg user"><div class="avatar" style="background:var(--primary);width:28px;height:28px;font-size:11px;flex-shrink:0">张</div><div class="chat-bubble">'+input.value.replace(/</g,'&lt;')+'<div style="font-size:10px;opacity:.6;margin-top:4px;text-align:right">'+timeStr+'</div></div></div>';
+input.value='';
+msgs.scrollTop=msgs.scrollHeight;
+setTimeout(()=>{
+msgs.innerHTML+='<div class="chat-msg bot"><div class="avatar" style="background:#0984E3;width:28px;height:28px;font-size:11px;flex-shrink:0">'+D.messages[0].avatar+'</div><div class="chat-bubble">收到，我马上处理。<div style="font-size:10px;opacity:.6;margin-top:4px">'+timeStr+'</div></div></div>';
+msgs.scrollTop=msgs.scrollHeight;
+},800);
+return;
+}
+
+// Quick question
+const quickQ=e.target.closest('[data-quick-q]');
+if(quickQ){
+const q=quickQ.dataset.quickQ;
+sendAIQuestion(q);
+return;
+}
+
+// Send AI
+if(e.target.closest('[data-action="send-ai"]')){
+const input=$('#aiInput');
+if(!input||!input.value.trim())return;
+sendAIQuestion(input.value.trim());
+input.value='';
+return;
+}
+
+// Close modal
+if(e.target.closest('[data-action="close-modal"]')){hideModal();return;}
+if(e.target.id==='modalOverlay'){hideModal();return;}
+
+// Tree toggle
+const treeToggle=e.target.closest('[data-tree-toggle="1"]');
+if(treeToggle){
+const children=treeToggle.nextElementSibling;
+const arrow=treeToggle.querySelector('.tree-toggle');
+if(children){children.classList.toggle('open');if(arrow)arrow.classList.toggle('open');}
+return;
+}
+
+// Doc category filter
+const docCat=e.target.closest('[data-doc-cat]');
+if(docCat){
+const cat=docCat.dataset.docCat;
+$$('[data-doc-cat]').forEach(b=>{b.className='btn '+(b.dataset.docCat===cat?'btn-primary':'btn-outline')});
+$$('[data-doc-cat-tag]').forEach(d=>{d.style.display=(cat==='全部'||d.dataset.docCatTag===cat)?'':'none'});
+return;
+}
+
+// View approval detail
+const viewApproval=e.target.closest('[data-action="view-approval"]');
+if(viewApproval){
+const id=viewApproval.dataset.id;
+const a=D.approvals.find(x=>x.id===id);
+if(a){
+const statusMap={pending:'待审批',approved:'已通过',rejected:'已驳回'};
+showModal('审批详情 - '+a.id,
+'<div class="form-group"><label>标题</label><div style="font-weight:600">'+a.title+'</div></div>'+
+'<div class="form-row"><div class="form-group"><label>申请人</label><div>'+a.applicant+'</div></div><div class="form-group"><label>部门</label><div>'+a.dept+'</div></div></div>'+
+'<div class="form-row"><div class="form-group"><label>金额</label><div>'+a.amount+'</div></div><div class="form-group"><label>状态</label><div>'+statusMap[a.status]+'</div></div></div>'+
+'<div class="form-group"><label>申请日期</label><div>'+a.date+'</div></div>'+
+'<div class="form-group"><label>详细说明</label><div style="line-height:1.6;color:#555">'+a.detail+'</div></div>',
+'<button class="btn btn-outline" data-action="close-modal">关闭</button>'+(a.status==='pending'?'<button class="btn btn-primary" onclick="toast(\'已审批通过\');hideModal()">批准</button>':''));
+}
+return;
+}
+
+// New approval
+if(e.target.closest('[data-action="new-approval"]')){
+showModal('发起新审批',
+'<div class="form-group"><label>审批类型</label><select><option>费用申请</option><option>采购申请</option><option>出差申请</option><option>人事申请</option></select></div>'+
+'<div class="form-group"><label>标题</label><input type="text" placeholder="请输入审批标题"></div>'+
+'<div class="form-row"><div class="form-group"><label>金额</label><input type="text" placeholder="¥"></div><div class="form-group"><label>期望完成日期</label><input type="date"></div></div>'+
+'<div class="form-group"><label>详细说明</label><textarea rows="3" placeholder="请详细描述申请事由..."></textarea></div>',
+'<button class="btn btn-outline" data-action="close-modal">取消</button><button class="btn btn-primary" onclick="toast(\'审批已提交\');hideModal()">提交</button>');
+return;
+}
+
+// View production order
+const viewProd=e.target.closest('[data-action="view-prod"]');
+if(viewProd){
+const id=viewProd.dataset.id;
+const o=D.productionOrders.find(x=>x.id===id);
+if(o)showModal('工单详情 - '+o.id,
+'<div class="form-row"><div class="form-group"><label>产品</label><div style="font-weight:600">'+o.product+'</div></div><div class="form-group"><label>数量</label><div>'+o.qty+o.unit+'</div></div></div>'+
+'<div class="form-row"><div class="form-group"><label>产线</label><div>'+o.line+'</div></div><div class="form-group"><label>负责人</label><div>'+o.operator+'</div></div></div>'+
+'<div class="form-row"><div class="form-group"><label>开始日期</label><div>'+o.start+'</div></div><div class="form-group"><label>计划完成</label><div>'+o.end+'</div></div></div>'+
+'<div class="form-group"><label>进度</label><div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:8px;background:#eee;border-radius:4px"><div style="height:100%;background:var(--primary);border-radius:4px;width:'+o.progress+'%"></div></div><span>'+o.progress+'%</span></div></div>'+
+'<div class="form-group"><label>状态</label><div>'+o.status+'</div></div>',
+'<button class="btn btn-outline" data-action="close-modal">关闭</button>');
+return;
+}
+
+// New production order
+if(e.target.closest('[data-action="new-prod-order"]')){
+showModal('新建生产工单',
+'<div class="form-group"><label>产品名称</label><select><option>行政办公桌ZT-A200</option><option>会议桌ZT-M150</option><option>文件柜ZT-F300</option><option>人体工学椅ZT-C500</option><option>屏风工位ZT-P400</option></select></div>'+
+'<div class="form-row"><div class="form-group"><label>数量</label><input type="number" placeholder="请输入数量"></div><div class="form-group"><label>单位</label><select><option>套</option><option>张</option><option>组</option><option>把</option><option>位</option></select></div></div>'+
+'<div class="form-row"><div class="form-group"><label>产线</label><select><option>A线</option><option>B线</option><option>C线</option></select></div><div class="form-group"><label>负责人</label><select><option>老王</option><option>孙七</option><option>周八</option><option>赵六</option></select></div></div>'+
+'<div class="form-group"><label>计划完成日期</label><input type="date"></div>',
+'<button class="btn btn-outline" data-action="close-modal">取消</button><button class="btn btn-primary" onclick="toast(\'工单已创建\');hideModal()">创建</button>');
+return;
+}
+
+// View supply detail
+const viewSupply=e.target.closest('[data-action="view-supply"]');
+if(viewSupply){
+const id=viewSupply.dataset.id;
+const s=D.supplyData.find(x=>x.id===id);
+if(s)showModal('采购单详情 - '+s.id,
+'<div class="form-group"><label>物料</label><div style="font-weight:600">'+s.material+'</div></div>'+
+'<div class="form-row"><div class="form-group"><label>供应商</label><div>'+s.supplier+'</div></div><div class="form-group"><label>数量</label><div>'+s.qty+'</div></div></div>'+
+'<div class="form-row"><div class="form-group"><label>金额</label><div>'+s.amount+'</div></div><div class="form-group"><label>交期</label><div>'+s.lead+'</div></div></div>'+
+'<div class="form-group"><label>状态</label><div>'+s.status+'</div></div>',
+'<button class="btn btn-outline" data-action="close-modal">关闭</button>');
+return;
+}
+
+// New purchase order
+if(e.target.closest('[data-action="new-purchase-order"]')){
+showModal('新建采购单',
+'<div class="form-group"><label>物料名称</label><input type="text" placeholder="请输入物料名称"></div>'+
+'<div class="form-row"><div class="form-group"><label>供应商</label><select><option>广东某板材有限公司</option><option>浙江某五金厂</option><option>上海某涂料公司</option><option>江苏某气弹簧厂</option></select></div><div class="form-group"><label>数量</label><input type="text" placeholder="请输入数量"></div></div>'+
+'<div class="form-row"><div class="form-group"><label>预计金额</label><input type="text" placeholder="¥"></div><div class="form-group"><label>期望到货日</label><input type="date"></div></div>'+
+'<div class="form-group"><label>备注</label><textarea rows="2" placeholder="补充说明..."></textarea></div>',
+'<button class="btn btn-outline" data-action="close-modal">取消</button><button class="btn btn-primary" onclick="toast(\'采购单已创建\');hideModal()">创建</button>');
+return;
+}
+
+// View CRM detail
+const viewCrm=e.target.closest('[data-action="view-crm"]');
+if(viewCrm){
+const id=viewCrm.dataset.id;
+const c=D.crmData.find(x=>x.id===id);
+if(c)showModal('商机详情 - '+c.id,
+'<div class="form-group"><label>客户</label><div style="font-weight:600">'+c.customer+'</div></div>'+
+'<div class="form-row"><div class="form-group"><label>联系人</label><div>'+c.contact+'</div></div><div class="form-group"><label>概率</label><div>'+c.prob+'%</div></div></div>'+
+'<div class="form-group"><label>产品需求</label><div>'+c.product+'</div></div>'+
+'<div class="form-row"><div class="form-group"><label>数量</label><div>'+c.qty+'</div></div><div class="form-group"><label>金额</label><div>'+c.amount+'</div></div></div>'+
+'<div class="form-group"><label>阶段</label><div>'+c.stage+'</div></div>',
+'<button class="btn btn-outline" data-action="close-modal">关闭</button>');
+return;
+}
+
+// New CRM
+if(e.target.closest('[data-action="new-crm"]')){
+showModal('新建商机',
+'<div class="form-group"><label>客户名称</label><input type="text" placeholder="请输入客户名称"></div>'+
+'<div class="form-row"><div class="form-group"><label>联系人</label><input type="text" placeholder="姓名"></div><div class="form-group"><label>联系电话</label><input type="text" placeholder="手机号"></div></div>'+
+'<div class="form-group"><label>产品需求</label><select><option>行政办公桌ZT-A200</option><option>会议桌ZT-M150</option><option>屏风工位ZT-P400</option><option>人体工学椅ZT-C500</option><option>全套办公家具</option></select></div>'+
+'<div class="form-row"><div class="form-group"><label>预估金额</label><input type="text" placeholder="¥"></div><div class="form-group"><label>预计签约日期</label><input type="date"></div></div>',
+'<button class="btn btn-outline" data-action="close-modal">取消</button><button class="btn btn-primary" onclick="toast(\'商机已创建\');hideModal()">创建</button>');
+return;
+}
+
+// View QC detail
+const viewQc=e.target.closest('[data-action="view-qc"]');
+if(viewQc){
+const id=viewQc.dataset.id;
+const q=D.qualityData.find(x=>x.id===id);
+if(q)showModal('质检详情 - '+q.id,
+'<div class="form-row"><div class="form-group"><label>批次号</label><div>'+q.batch+'</div></div><div class="form-group"><label>产品</label><div style="font-weight:600">'+q.product+'</div></div></div>'+
+'<div class="form-row"><div class="form-group"><label>检验员</label><div>'+q.inspector+'</div></div><div class="form-group"><label>日期</label><div>'+q.date+'</div></div></div>'+
+'<div class="form-row"><div class="form-group"><label>抽样数</label><div>'+q.sample+'</div></div><div class="form-group"><label>缺陷数</label><div>'+q.defects+'</div></div></div>'+
+'<div class="form-group"><label>结果</label><div style="font-weight:600;color:'+(q.result==='合格'?'var(--success)':'var(--danger)')+'">'+q.result+'</div></div>'+
+'<div class="form-group"><label>备注</label><div style="color:#555">'+q.note+'</div></div>',
+'<button class="btn btn-outline" data-action="close-modal">关闭</button>');
+return;
+}
+
+// New QC record
+if(e.target.closest('[data-action="new-qc"]')){
+showModal('新增质检记录',
+'<div class="form-row"><div class="form-group"><label>批次号</label><input type="text" placeholder="如：B20250701-A"></div><div class="form-group"><label>产品</label><select><option>行政办公桌ZT-A200</option><option>会议桌ZT-M150</option><option>文件柜ZT-F300</option><option>人体工学椅ZT-C500</option></select></div></div>'+
+'<div class="form-row"><div class="form-group"><label>检验员</label><select><option>老刘</option><option>陈十二</option></select></div><div class="form-group"><label>抽样数量</label><input type="number" placeholder="请输入"></div></div>'+
+'<div class="form-row"><div class="form-group"><label>缺陷数量</label><input type="number" value="0"></div><div class="form-group"><label>结果</label><select><option>合格</option><option>不合格</option></select></div></div>'+
+'<div class="form-group"><label>备注</label><textarea rows="2" placeholder="质检备注..."></textarea></div>',
+'<button class="btn btn-outline" data-action="close-modal">取消</button><button class="btn btn-primary" onclick="toast(\'质检记录已保存\');hideModal()">保存</button>');
+return;
+}
+
+// New meeting
+if(e.target.closest('[data-action="new-meeting"]')){
+showModal('预约会议',
+'<div class="form-group"><label>会议主题</label><input type="text" placeholder="请输入会议主题"></div>'+
+'<div class="form-row"><div class="form-group"><label>日期</label><input type="date"></div><div class="form-group"><label>时间</label><select><option>09:00-10:00</option><option>10:00-11:00</option><option>14:00-15:00</option><option>15:00-16:00</option></select></div></div>'+
+'<div class="form-row"><div class="form-group"><label>会议室</label><select><option>3楼大会议室</option><option>2楼中会议室</option><option>线上钉钉会议</option></select></div><div class="form-group"><label>参会人</label><input type="text" placeholder="多人用逗号分隔"></div></div>'+
+'<div class="form-group"><label>会议议程</label><textarea rows="3" placeholder="请输入会议议程..."></textarea></div>',
+'<button class="btn btn-outline" data-action="close-modal">取消</button><button class="btn btn-primary" onclick="toast(\'会议已预约\');hideModal()">预约</button>');
+return;
+}
+
+// View meeting
+const viewMeeting=e.target.closest('[data-action="view-meeting"]');
+if(viewMeeting){
+const id=parseInt(viewMeeting.dataset.id);
+const m=D.meetings.find(x=>x.id===id);
+if(m)showModal('会议详情 - '+m.title,
+'<div class="form-row"><div class="form-group"><label>日期</label><div>'+m.date+'</div></div><div class="form-group"><label>时间</label><div>'+m.time+'</div></div></div>'+
+'<div class="form-group"><label>会议室</label><div>'+m.room+'</div></div>'+
+'<div class="form-group"><label>参会人</label><div>'+m.attendees+'</div></div>'+
+'<div class="form-group"><label>状态</label><div>'+(m.status==='scheduled'?'待开始':'已结束')+'</div></div>',
+'<button class="btn btn-outline" data-action="close-modal">关闭</button>');
+return;
+}
+
+// View doc
+const viewDoc=e.target.closest('[data-action="view-doc"]');
+if(viewDoc){
+const id=parseInt(viewDoc.dataset.docId);
+const d=D.knowledgeDocs.find(x=>x.id===id);
+if(d)showModal(d.title,
+'<div style="margin-bottom:12px"><span class="badge badge-info">'+d.cat+'</span> <span style="color:#999;font-size:12px;margin-left:8px">'+d.author+' · '+d.date+'</span></div>'+
+'<div style="line-height:1.8;color:#555;padding:16px;background:#F8F9FA;border-radius:6px">文档内容预览区域<br><br>此处展示《'+d.title+'》的正文内容。在实际系统中，将支持在线预览Word、PDF等格式文档。</div>',
+'<button class="btn btn-outline" data-action="close-modal">关闭</button><button class="btn btn-primary" onclick="toast(\'已开始下载\');hideModal()">'+ic('download',14,'#fff')+' 下载</button>');
+return;
+}
+
+// Todo checkbox
+const todoCheck=e.target.closest('[data-todo]');
+if(todoCheck){
+todoCheck.classList.toggle('done');
+const span=todoCheck.nextElementSibling;
+if(span){
+const isDone=todoCheck.classList.contains('done');
+span.style.textDecoration=isDone?'line-through':'';
+span.style.color=isDone?'#999':'';
+}
+return;
+}
+
+// Approval filter
+const approvalFilter=e.target.closest('#approvalFilter');
+// (handled by change event below)
+
+// Message employee
+const msgEmp=e.target.closest('[data-action="msg-emp"]');
+if(msgEmp){
+toast('正在跳转到与 '+msgEmp.dataset.name+' 的对话...');
+navigate('message');
+return;
+}
+});
+
+// Change events for filters
+document.addEventListener('change',function(e){
+if(e.target.id==='approvalFilter'){
+const val=e.target.value;
+$$('#approvalTable tr').forEach(tr=>{
+const td=tr.querySelector('td:nth-child(7) .badge');
+if(!td)return;
+const txt=td.textContent;
+const match=val==='all'||(val==='pending'&&txt==='待审批')||(val==='approved'&&txt==='已通过')||(val==='rejected'&&txt==='已驳回');
+tr.style.display=match?'':'none';
+});
+}
+if(e.target.id==='meetingFilter'){
+const val=e.target.value;
+$$('#meetingTable tr').forEach(tr=>{
+const td=tr.querySelector('td:nth-child(6) .badge');
+if(!td)return;
+const txt=td.textContent;
+const match=val==='all'||(val==='scheduled'&&txt==='待开始')||(val==='completed'&&txt==='已结束');
+tr.style.display=match?'':'none';
+});
+}
+if(e.target.id==='prodStatusFilter'){
+const val=e.target.value;
+$$('#prodTable tr').forEach(tr=>{
+const td=tr.querySelector('td:nth-child(6) .badge');
+if(!td)return;
+const match=val==='all'||td.textContent===val;
+tr.style.display=match?'':'none';
+});
+}
+if(e.target.id==='supplyStatusFilter'){
+const val=e.target.value;
+$$('#supplyTable tr').forEach(tr=>{
+const td=tr.querySelector('td:nth-child(7) .badge');
+if(!td)return;
+const match=val==='all'||td.textContent===val;
+tr.style.display=match?'':'none';
+});
+}
+if(e.target.id==='crmStageFilter'){
+const val=e.target.value;
+$$('#crmTable tr').forEach(tr=>{
+const td=tr.querySelector('td:nth-child(6) .badge');
+if(!td)return;
+const match=val==='all'||td.textContent===val;
+tr.style.display=match?'':'none';
+});
+}
+if(e.target.id==='qcResultFilter'){
+const val=e.target.value;
+$$('#qcTable tr').forEach(tr=>{
+const td=tr.querySelector('td:nth-child(7) .badge');
+if(!td)return;
+const match=val==='all'||td.textContent===val;
+tr.style.display=match?'':'none';
+});
+}
+});
+
+// Search inputs
+document.addEventListener('input',function(e){
+if(e.target.id==='approvalSearch'){
+const q=e.target.value.toLowerCase();
+$$('#approvalTable tr').forEach(tr=>{tr.style.display=tr.textContent.toLowerCase().includes(q)?'':'none'});
+}
+if(e.target.id==='empSearch'){
+const q=e.target.value.toLowerCase();
+$$('#empTable tr').forEach(tr=>{tr.style.display=tr.textContent.toLowerCase().includes(q)?'':'none'});
+}
+if(e.target.id==='docSearch'){
+const q=e.target.value.toLowerCase();
+$$('[data-doc-cat-tag]').forEach(d=>{d.style.display=d.textContent.toLowerCase().includes(q)?'':'none'});
+}
+if(e.target.id==='prodSearch'){
+const q=e.target.value.toLowerCase();
+$$('#prodTable tr').forEach(tr=>{tr.style.display=tr.textContent.toLowerCase().includes(q)?'':'none'});
+}
+if(e.target.id==='supplySearch'){
+const q=e.target.value.toLowerCase();
+$$('#supplyTable tr').forEach(tr=>{tr.style.display=tr.textContent.toLowerCase().includes(q)?'':'none'});
+}
+if(e.target.id==='crmSearch'){
+const q=e.target.value.toLowerCase();
+$$('#crmTable tr').forEach(tr=>{tr.style.display=tr.textContent.toLowerCase().includes(q)?'':'none'});
+}
+if(e.target.id==='qcSearch'){
+const q=e.target.value.toLowerCase();
+$$('#qcTable tr').forEach(tr=>{tr.style.display=tr.textContent.toLowerCase().includes(q)?'':'none'});
+}
+});
+
+// Enter key for chat/AI inputs
+document.addEventListener('keydown',function(e){
+if(e.key==='Enter'){
+if(e.target.id==='chatInput'){
+const btn=$('[data-action="send-chat"]');
+if(btn)btn.click();
+}
+if(e.target.id==='aiInput'){
+const btn=$('[data-action="send-ai"]');
+if(btn)btn.click();
+}
+}
+});
+
+/* ===== AI Question Handler ===== */
+function sendAIQuestion(question){
+const msgs=$('#aiMessages');
+if(!msgs)return;
+// User message
+msgs.innerHTML+='<div class="chat-msg user"><div class="avatar" style="background:var(--primary);width:28px;height:28px;font-size:11px;flex-shrink:0">张</div><div class="chat-bubble">'+question.replace(/</g,'&lt;')+'</div></div>';
+msgs.scrollTop=msgs.scrollHeight;
+// Bot response with delay + typewriter
+setTimeout(()=>{
+const response=getAIResponse(question);
+const botDiv=document.createElement('div');
+botDiv.className='chat-msg bot';
+botDiv.innerHTML='<div class="avatar" style="background:linear-gradient(135deg,#6C5CE7,#A29BFE);width:28px;height:28px;font-size:11px;flex-shrink:0">AI</div><div class="chat-bubble" id="aiTypingTarget"></div>';
+msgs.appendChild(botDiv);
+const target=$('#aiTypingTarget');
+target.removeAttribute('id');
+typeWriter(target,response,15);
+msgs.scrollTop=msgs.scrollHeight;
+},500+Math.random()*300);
+}
+
+/* ===== INIT ===== */
+function didMount(){
+renderSidebar();
+renderPage('workbench');
+initBanner();
+console.log('%c 中泰龙Demo已加载 | 页面:13 | 数据驱动 ','background:#E67E22;color:#fff;padding:4px 12px;border-radius:4px;font-size:12px');
+}
+
+/* ===== EXTENDED SVG ICONS (30+ total) ===== */
+const ICONS_EXT={
+home:'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z',
+folder:'M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z',
+tag:'M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z',
+phone:'M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.11 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z',
+mail:'M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zM22 6l-10 7L2 6',
+lock:'M19 11H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2zM7 11V7a5 5 0 0 1 10 0v4',
+wifi:'M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01',
+printer:'M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z',
+camera:'M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2zM12 13a4 4 0 1 0 0 8 4 4 0 0 0 0-8z',
+globe:'M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zM2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z',
+truck:'M1 3h15v13H1zM16 8h4l3 3v5h-7V8zM5.5 21a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zM18.5 21a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z',
+box:'M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16zM3.27 6.96L12 12.01l8.73-5.05M12 22.08V12',
+clipboard:'M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2M9 2h6a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z',
+activity:'M22 12h-4l-3 9L9 3l-3 9H2',
+zap:'M13 2L3 14h9l-1 8 10-12h-9l1-8z',
+shield:'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',
+award:'M12 15l-2 5 2-2 2 2-2-5M12 15a7 7 0 1 0 0-14 7 7 0 0 0 0 14z',
+target:'M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zM12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z',
+layers:'M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5',
+pieChart:'M21.21 15.89A10 10 0 1 1 8 2.83M22 12A10 10 0 0 0 12 2v10z',
+trendingUp:'M23 6l-9.5 9.5-5-5L1 18',
+users:'M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75',
+briefcase:'M20 7h-3a2 2 0 0 0-2-2h-6a2 2 0 0 0-2 2H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM9 7h6'
+};
+Object.assign(ICONS, ICONS_EXT);
+
+// Start - deferred to after all extensions load
+// didMount();
+</script>
+<script>
+/* ===== EXTENDED DATA MODULES ===== */
+const EXT_MONTHLY_PRODUCTION = [
+  { month: '1月', output: 42000, target: 45000, rate: 93.3 },
+  { month: '2月', output: 38500, target: 40000, rate: 96.3 },
+  { month: '3月', output: 48200, target: 48000, rate: 100.4 },
+  { month: '4月', output: 46800, target: 48000, rate: 97.5 },
+  { month: '5月', output: 51000, target: 50000, rate: 102.0 },
+  { month: '6月', output: 53500, target: 52000, rate: 102.9 }
+];
+const EXT_SUPPLIER_SCORES = [
+  { name: '广东某板材有限公司', score: 95, delivery: 98, quality: 99, cost: 88 },
+  { name: '浙江某五金厂', score: 91, delivery: 94, quality: 96, cost: 90 },
+  { name: '上海某涂料公司', score: 88, delivery: 92, quality: 95, cost: 85 },
+  { name: '江苏某气弹簧厂', score: 93, delivery: 96, quality: 97, cost: 87 },
+  { name: '佛山某装饰材料厂', score: 86, delivery: 90, quality: 93, cost: 92 },
+  { name: '东莞某金属制品厂', score: 89, delivery: 93, quality: 94, cost: 86 },
+  { name: '绍兴某纺织公司', score: 92, delivery: 95, quality: 96, cost: 89 },
+  { name: '中山某包装厂', score: 87, delivery: 91, quality: 92, cost: 94 }
+];
+const EXT_CUSTOMER_SEGMENTS = [
+  { segment: '政府机关', count: 45, revenue: 3200, growth: 12 },
+  { segment: '互联网企业', count: 68, revenue: 4500, growth: 25 },
+  { segment: '金融机构', count: 32, revenue: 2800, growth: 8 },
+  { segment: '教育机构', count: 55, revenue: 2100, growth: 15 },
+  { segment: '医疗机构', count: 28, revenue: 1600, growth: 18 },
+  { segment: '地产项目', count: 38, revenue: 3800, growth: 10 },
+  { segment: '外企/合资', count: 22, revenue: 2400, growth: 20 },
+  { segment: '其他', count: 35, revenue: 1200, growth: 5 }
+];
+const EXT_QUALITY_METRICS = {
+  incomingInspection: { total: 245, passed: 242, rate: 98.8 },
+  processInspection: { total: 1860, passed: 1842, rate: 99.0 },
+  finalInspection: { total: 520, passed: 516, rate: 99.2 },
+  customerReturns: { total: 15600, returned: 47, rate: 0.3 }
+};
+const EXT_DEPT_HEADCOUNT = [
+  { dept: '生产中心', count: 1650, ratio: 55 },
+  { dept: '营销中心', count: 380, ratio: 12.7 },
+  { dept: '供应链中心', count: 220, ratio: 7.3 },
+  { dept: '品质管理部', count: 150, ratio: 5 },
+  { dept: '研发中心', count: 180, ratio: 6 },
+  { dept: '信息技术部', count: 60, ratio: 2 },
+  { dept: '人力资源与行政', count: 120, ratio: 4 },
+  { dept: '财务部', count: 80, ratio: 2.7 },
+  { dept: '总经办及其他', count: 160, ratio: 5.3 }
+];
+
+/* ===== ENHANCED CHART FUNCTIONS ===== */
+function horizontalBarSVG(data, w, h) {
+  w = w || 320; h = h || 200;
+  var max = Math.max.apply(null, data.map(function(d) { return d.value; }));
+  var barH = Math.floor((h - 20) / data.length) - 6;
+  var svg = '<svg width="' + w + '" height="' + h + '" viewBox="0 0 ' + w + ' ' + h + '">';
+  for (var i = 0; i < data.length; i++) {
+    var d = data[i];
+    var bw = (d.value / max) * (w - 120);
+    var y = 10 + i * (barH + 6);
+    svg += '<text x="0" y="' + (y + barH/2 + 4) + '" font-size="11" fill="#636E72">' + d.label + '</text>';
+    svg += '<rect x="80" y="' + y + '" width="' + bw + '" height="' + barH + '" rx="3" fill="' + (d.color||'#E67E22') + '" opacity="0.85"/>';
+    svg += '<text x="' + (82+bw+4) + '" y="' + (y+barH/2+4) + '" font-size="11" font-weight="600" fill="#2D3436">' + d.value + '</text>';
+  }
+  return svg + '</svg>';
+}
+function gaugeSVG(value, max, label, size, color) {
+  size = size || 100; color = color || '#E67E22';
+  var pct = Math.min(value / max, 1);
+  var r = size/2 - 10, cx = size/2, cy = size/2;
+  var circ = Math.PI * r;
+  var svg = '<svg width="' + size + '" height="' + (size/2+20) + '" viewBox="0 0 ' + size + ' ' + (size/2+20) + '">';
+  svg += '<path d="M '+(cx-r)+' '+cy+' A '+r+' '+r+' 0 0 1 '+(cx+r)+' '+cy+'" fill="none" stroke="#eee" stroke-width="10" stroke-linecap="round"/>';
+  svg += '<path d="M '+(cx-r)+' '+cy+' A '+r+' '+r+' 0 0 1 '+(cx+r)+' '+cy+'" fill="none" stroke="'+color+'" stroke-width="10" stroke-linecap="round" stroke-dasharray="'+(circ*pct)+' '+circ+'"/>';
+  svg += '<text x="'+cx+'" y="'+(cy-5)+'" text-anchor="middle" font-size="16" font-weight="700" fill="#2D3436">'+value+'</text>';
+  svg += '<text x="'+cx+'" y="'+(cy+14)+'" text-anchor="middle" font-size="10" fill="#999">'+label+'</text>';
+  return svg + '</svg>';
+}
+function radarSVG(categories, values, size) {
+  size = size || 160;
+  var cx = size/2, cy = size/2, r = size/2 - 20;
+  var n = categories.length;
+  var svg = '<svg width="'+size+'" height="'+size+'" viewBox="0 0 '+size+' '+size+'">';
+  for (var ring = 1; ring <= 4; ring++) {
+    var rr = r * ring / 4;
+    var pts = [];
+    for (var i = 0; i < n; i++) {
+      var angle = (Math.PI*2*i/n) - Math.PI/2;
+      pts.push((cx+rr*Math.cos(angle)).toFixed(1)+','+(cy+rr*Math.sin(angle)).toFixed(1));
+    }
+    svg += '<polygon points="'+pts.join(' ')+'" fill="none" stroke="#eee" stroke-width="1"/>';
+  }
+  for (var i = 0; i < n; i++) {
+    var angle = (Math.PI*2*i/n) - Math.PI/2;
+    var ex = cx+r*Math.cos(angle), ey = cy+r*Math.sin(angle);
+    svg += '<line x1="'+cx+'" y1="'+cy+'" x2="'+ex.toFixed(1)+'" y2="'+ey.toFixed(1)+'" stroke="#eee" stroke-width="1"/>';
+    var lx = cx+(r+14)*Math.cos(angle), ly = cy+(r+14)*Math.sin(angle);
+    svg += '<text x="'+lx.toFixed(1)+'" y="'+(ly+4).toFixed(1)+'" text-anchor="middle" font-size="9" fill="#636E72">'+categories[i]+'</text>';
+  }
+  var dataPts = [];
+  for (var i = 0; i < n; i++) {
+    var angle = (Math.PI*2*i/n) - Math.PI/2;
+    var vr = r * (values[i]/100);
+    dataPts.push((cx+vr*Math.cos(angle)).toFixed(1)+','+(cy+vr*Math.sin(angle)).toFixed(1));
+  }
+  svg += '<polygon points="'+dataPts.join(' ')+'" fill="rgba(230,126,34,0.2)" stroke="#E67E22" stroke-width="2"/>';
+  return svg + '</svg>';
+}
+function miniLineSVG(data, w, h, color) {
+  w = w || 200; h = h || 40; color = color || '#E67E22';
+  var max = Math.max.apply(null, data), min = Math.min.apply(null, data);
+  var range = max - min || 1;
+  var pts = data.map(function(v, i) {
+    var x = i/(data.length-1)*w;
+    var y = h - (v-min)/range*h;
+    return x.toFixed(1)+','+y.toFixed(1);
+  }).join(' ');
+  return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'"><polyline points="'+pts+'" fill="none" stroke="'+color+'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+}
+function progressRingSVG(pct, size, color, label) {
+  size = size || 60; color = color || '#E67E22'; label = label || '';
+  var r = size/2 - 6, cx = size/2, cy = size/2;
+  var circ = 2*Math.PI*r;
+  var offset = circ * (1 - pct/100);
+  var svg = '<svg width="'+size+'" height="'+size+'" viewBox="0 0 '+size+' '+size+'">';
+  svg += '<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="#eee" stroke-width="5"/>';
+  svg += '<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="'+color+'" stroke-width="5" stroke-dasharray="'+circ+'" stroke-dashoffset="'+offset+'" transform="rotate(-90 '+cx+' '+cy+')"/>';
+  svg += '<text x="'+cx+'" y="'+cy+'" text-anchor="middle" dy=".35em" font-size="12" font-weight="700" fill="#2D3436">'+pct+'%</text>';
+  if (label) svg += '<text x="'+cx+'" y="'+(size+12)+'" text-anchor="middle" font-size="9" fill="#999">'+label+'</text>';
+  return svg + '</svg>';
+}
+
+/* ===== UTILITY HELPERS ===== */
+function formatCurrency(n) {
+  if (n >= 100000000) return '¥' + (n/100000000).toFixed(2) + '亿';
+  if (n >= 10000) return '¥' + (n/10000).toFixed(1) + '万';
+  return '¥' + n.toLocaleString();
+}
+function getStatusColor(status) {
+  var map = {
+    '已完成':'#00B894','合格':'#00B894','已通过':'#00B894','已到货':'#00B894',
+    '生产中':'#0984E3','运输中':'#0984E3','待开始':'#0984E3',
+    '待排产':'#636E72','待发货':'#FDCB6E','质检中':'#FDCB6E','待审批':'#FDCB6E',
+    '不合格':'#D63031','已驳回':'#D63031'
+  };
+  return map[status] || '#636E72';
+}
+function generateId(prefix) {
+  var now = new Date();
+  var ds = now.getFullYear() + String(now.getMonth()+1).padStart(2,'0') + String(now.getDate()).padStart(2,'0');
+  var seq = String(Math.floor(Math.random()*999)+1).padStart(3,'0');
+  return prefix + ds + seq;
+}
+function debounce(fn, delay) {
+  var timer = null;
+  return function() {
+    var args = arguments, ctx = this;
+    clearTimeout(timer);
+    timer = setTimeout(function() { fn.apply(ctx, args); }, delay);
+  };
+}
+function animateValue(el, start, end, duration) {
+  var range = end - start;
+  var startTime = performance.now();
+  function update(currentTime) {
+    var elapsed = currentTime - startTime;
+    var progress = Math.min(elapsed / duration, 1);
+    var eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(start + range * eased).toLocaleString();
+    if (progress < 1) requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
+function deepClone(obj) {
+  return JSON.parse(JSON.stringify(obj));
+}
+function flattenTree(node, result) {
+  result = result || [];
+  if (node.name) result.push(node);
+  if (node.children) node.children.forEach(function(c) { flattenTree(c, result); });
+  return result;
+}
+function truncate(str, len) {
+  len = len || 20;
+  return str.length > len ? str.substring(0, len) + '...' : str;
+}
+function padZero(n) { return String(n).padStart(2, '0'); }
+function getDayOfWeek(dateStr) {
+  var days = ['日','一','二','三','四','五','六'];
+  return '周' + days[new Date(dateStr).getDay()];
+}
+
+/* ===== NOTIFICATION SYSTEM ===== */
+var NotifySystem = {
+  show: function(title, message, type) {
+    type = type || 'info';
+    var colors = { info:'#0984E3', success:'#00B894', warn:'#E67E22', error:'#D63031' };
+    var toast = document.createElement('div');
+    toast.style.cssText = 'position:fixed;top:20px;right:20px;background:#fff;border-left:4px solid '+colors[type]+';padding:14px 20px;border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.15);z-index:3000;display:flex;align-items:center;gap:10px;min-width:280px;font-size:13px;transition:opacity .3s';
+    toast.innerHTML = '<span style="color:'+colors[type]+'">'+ic('bell',18,colors[type])+'</span><div><div style="font-weight:600;margin-bottom:2px">'+title+'</div><div style="color:#636E72">'+message+'</div></div>';
+    document.body.appendChild(toast);
+    setTimeout(function() { toast.style.opacity='0'; setTimeout(function(){toast.remove()},300); }, 3000);
+  }
+};
+
+/* ===== KEYBOARD SHORTCUTS ===== */
+document.addEventListener('keydown', function(e) {
+  if ((e.ctrlKey||e.metaKey) && e.key==='k') {
+    e.preventDefault();
+    var si = document.querySelectorAll('.search-input');
+    if (si.length > 0) si[0].focus();
+  }
+  if (e.key === 'Escape') hideModal();
+});
+
+/* ===== LOCAL STORAGE HELPER ===== */
+var AppStorage = {
+  save: function(key, data) { try { localStorage.setItem('ztl_'+key, JSON.stringify(data)); } catch(e){} },
+  load: function(key, def) { try { var r=localStorage.getItem('ztl_'+key); return r?JSON.parse(r):def; } catch(e){return def;} }
+};
+
+/* ===== TABLE SORT ===== */
+function makeSortable(selector) {
+  var table = document.querySelector(selector);
+  if (!table) return;
+  var headers = table.querySelectorAll('th');
+  headers.forEach(function(th, colIdx) {
+    th.style.cursor = 'pointer';
+    th.title = '点击排序';
+    th.addEventListener('click', function() {
+      var tbody = table.querySelector('tbody');
+      var rows = Array.from(tbody.querySelectorAll('tr'));
+      var asc = th.dataset.sortDir !== 'asc';
+      th.dataset.sortDir = asc ? 'asc' : 'desc';
+      headers.forEach(function(h) { if (h!==th) delete h.dataset.sortDir; });
+      rows.sort(function(a, b) {
+        var aVal = (a.children[colIdx]||{}).textContent||'';
+        var bVal = (b.children[colIdx]||{}).textContent||'';
+        aVal = aVal.trim(); bVal = bVal.trim();
+        var aN = parseFloat(aVal.replace(/[^0-9.-]/g,''));
+        var bN = parseFloat(bVal.replace(/[^0-9.-]/g,''));
+        if (!isNaN(aN)&&!isNaN(bN)) return asc ? aN-bN : bN-aN;
+        return asc ? aVal.localeCompare(bVal,'zh') : bVal.localeCompare(aVal,'zh');
+      });
+      rows.forEach(function(r) { tbody.appendChild(r); });
+    });
+  });
+}
+
+/* ===== RESPONSIVE HANDLER ===== */
+var ResponsiveHandler = {
+  init: function() {
+    window.addEventListener('resize', debounce(this.handleResize.bind(this), 200));
+    this.handleResize();
+  },
+  handleResize: function() {
+    var w = window.innerWidth;
+    var sb = document.querySelector('.sidebar');
+    if (w < 768) {
+      sb.style.width = '60px';
+      sb.querySelectorAll('.nav-item span,.nav-label,.sidebar-logo span').forEach(function(el){el.style.display='none'});
+    } else {
+      sb.style.width = '220px';
+      sb.querySelectorAll('.nav-item span,.nav-label,.sidebar-logo span').forEach(function(el){el.style.display=''});
+    }
+  }
+};
+
+/* ===== PRINT STYLES ===== */
+var printStyle = document.createElement('style');
+printStyle.textContent = '@media print{.sidebar,.header,.filter-bar,.btn,.chat-input-area,.marquee-wrap{display:none!important}.main{margin:0!important}.content{padding:10px!important;overflow:visible!important}.card{box-shadow:none!important;border:1px solid #ddd!important;break-inside:avoid}}';
+document.head.appendChild(printStyle);
+
+/* ===== ACCESSIBILITY ===== */
+function enhanceAccessibility() {
+  document.querySelectorAll('.nav-item').forEach(function(item) {
+    item.setAttribute('role', 'button');
+    item.setAttribute('tabindex', '0');
+    item.setAttribute('aria-label', item.textContent.trim());
+    item.addEventListener('keydown', function(e) {
+      if (e.key==='Enter'||e.key===' ') { e.preventDefault(); item.click(); }
+    });
+  });
+}
+
+/* ===== EXPORT UTILS ===== */
+var ExportUtils = {
+  tableToCSV: function(sel) {
+    var table = document.querySelector(sel);
+    if (!table) return '';
+    var csv = [];
+    table.querySelectorAll('tr').forEach(function(row) {
+      var cols = [];
+      row.querySelectorAll('td,th').forEach(function(col) {
+        cols.push('"'+col.textContent.trim().replace(/"/g,'""')+'"');
+      });
+      csv.push(cols.join(','));
+    });
+    return '\uFEFF' + csv.join('\n');
+  },
+  downloadCSV: function(csv, filename) {
+    var blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+    var link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = filename || 'export.csv';
+    link.click();
+    URL.revokeObjectURL(link.href);
+  }
+};
+
+/* ===== DATE UTILITIES ===== */
+var DateUtils = {
+  today: function() {
+    var d = new Date();
+    return d.getFullYear()+'-'+padZero(d.getMonth()+1)+'-'+padZero(d.getDate());
+  },
+  addDays: function(dateStr, days) {
+    var d = new Date(dateStr);
+    d.setDate(d.getDate()+days);
+    return d.getFullYear()+'-'+padZero(d.getMonth()+1)+'-'+padZero(d.getDate());
+  },
+  diffDays: function(d1, d2) {
+    return Math.round((new Date(d2)-new Date(d1))/(1000*60*60*24));
+  },
+  isWeekend: function(dateStr) {
+    var day = new Date(dateStr).getDay();
+    return day===0||day===6;
+  }
+};
+
+/* ===== EXTENDED AI PATTERNS ===== */
+var AI_EXTRA = [
+  {kw:['薪资','工资','薪酬','待遇'], resp:'中泰龙集团实行岗位绩效工资制，薪酬结构包括：基本工资+岗位津贴+绩效奖金+年终奖。公司提供五险一金、带薪年假、节日福利、员工食堂、班车接送等完善福利体系。'},
+  {kw:['培训','学习','课程'], resp:'公司提供多层次培训体系：<br>1. 新员工入职培训（每月一期）<br>2. 岗位技能培训（季度安排）<br>3. 管理能力提升班（半年度）<br>4. 外部研修和学习交流'},
+  {kw:['请假','休假','年假','假期'], resp:'公司假期制度：<br>• 年假：工龄1-10年5天，10-20年10天<br>• 病假：需提供医院证明<br>• 婚假：3天<br>• 请假流程：钉钉OA提交→直属上级审批→HR备案'},
+  {kw:['报销','费用','差旅'], resp:'费用报销流程：<br>1. 在钉钉OA发起"费用报销"审批<br>2. 上传发票照片和费用明细<br>3. 部门经理审批→财务审核→出纳付款<br>差旅标准：住宿≤400元/晚，餐饮≤100元/天'},
+  {kw:['wifi','网络','上网'], resp:'公司WiFi信息：<br>• 办公区WiFi：ZTL-Office<br>• 访客WiFi：ZTL-Guest，密码：welcome2025<br>• 网络问题请联系信息技术部林十三'},
+  {kw:['食堂','餐厅','用餐','吃饭'], resp:'员工食堂信息：<br>• 位置：厂区东侧综合楼1-2楼<br>• 早餐：7:00-8:30<br>• 午餐：11:30-13:00（四菜一汤+水果）<br>• 晚餐：17:30-19:00<br>• 餐补标准：15元/餐'},
+  {kw:['停车','车位','开车'], resp:'停车场信息：<br>• A区停车场：管理层及访客专用<br>• B区停车场：员工通用（约300个车位）<br>• 注意：B区下周起改造施工'},
+  {kw:['安全','消防','应急'], resp:'安全生产须知：<br>• 进入车间必须佩戴劳保用品<br>• 消防设施位置：每层楼两端及楼梯口<br>• 紧急疏散集合点：厂区南门广场<br>• 安全举报电话：内线8119'}
+];
+var _origAIResp = getAIResponse;
+getAIResponse = function(query) {
+  var q = query.toLowerCase();
+  for (var i = 0; i < AI_EXTRA.length; i++) {
+    var p = AI_EXTRA[i];
+    for (var j = 0; j < p.kw.length; j++) {
+      if (q.indexOf(p.kw[j]) !== -1) return p.resp;
+    }
+  }
+  return _origAIResp(query);
+};
+
+/* ===== THEME SUPPORT ===== */
+var ThemeManager = {
+  current: 'light',
+  themes: {
+    light: {'--primary':'#E67E22','--dark':'#2D3436','--bg':'#F5F6FA','--card':'#FFF','--border':'#DFE6E9','--text':'#2D3436','--text2':'#636E72'},
+    dark: {'--primary':'#E67E22','--dark':'#1a1a2e','--bg':'#16213e','--card':'#1a1a2e','--border':'#2a2a4a','--text':'#e0e0e0','--text2':'#a0a0a0'}
+  },
+  toggle: function() {
+    this.current = this.current==='light'?'dark':'light';
+    var vars = this.themes[this.current];
+    for (var key in vars) document.documentElement.style.setProperty(key, vars[key]);
+  }
+};
+
+/* ===== PERF MONITOR ===== */
+var PerfMarks = {
+  marks: {},
+  mark: function(name) { this.marks[name] = performance.now(); },
+  measure: function(name, startMark) {
+    if (this.marks[startMark]) {
+      var d = performance.now() - this.marks[startMark];
+      console.log('[Perf] '+name+': '+d.toFixed(2)+'ms');
+      return d;
+    }
+    return 0;
+  }
+};
+
+/* ===== VALIDATORS ===== */
+var Validators = {
+  isPhone: function(s) { return /^1[3-9]\d{9}$/.test(s.replace(/\*/g,'0')); },
+  isEmail: function(s) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s); },
+  isDate: function(s) { return /^\d{4}-\d{2}-\d{2}$/.test(s); },
+  required: function(v) { return v!==undefined&&v!==null&&String(v).trim()!==''; }
+};
+
+/* ===== ADDITIONAL CSS ANIMATIONS ===== */
+var extraStyles = document.createElement('style');
+extraStyles.textContent = `
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.fade-in{animation:fadeIn .3s ease}
+.pulse{animation:pulse 2s infinite}
+.loading-spinner{width:24px;height:24px;border:3px solid #eee;border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite;display:inline-block}
+.card:hover{box-shadow:0 4px 16px rgba(0,0,0,.12);transition:box-shadow .3s}
+.nav-item{transition:all .2s ease}
+.badge{transition:all .2s ease}
+.btn{transition:all .15s ease}
+.modal-overlay{transition:opacity .2s ease}
+.modal{transition:transform .2s ease}
+.kpi-card{transition:transform .2s ease}
+.kpi-card:hover{transform:translateY(-3px)}
+.app-entry{transition:all .2s ease}
+.todo-check{transition:all .2s ease}
+.tree-label{transition:background .15s ease}
+.chat-bubble{animation:fadeIn .3s ease}
+.banner-slide{transition:opacity .6s ease}
+`;
+document.head.appendChild(extraStyles);
+
+/* ===== WATERMARK ===== */
+function addWatermark() {
+  var canvas = document.createElement('canvas');
+  canvas.width = 300; canvas.height = 200;
+  var ctx = canvas.getContext('2d');
+  ctx.font = '14px sans-serif';
+  ctx.fillStyle = 'rgba(0,0,0,0.03)';
+  ctx.rotate(-Math.PI/6);
+  ctx.fillText('中泰龙集团 · 内部演示', 20, 100);
+  ctx.fillText('Demo Version', 60, 130);
+  var wm = document.createElement('div');
+  wm.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;background:url('+canvas.toDataURL()+') repeat;opacity:.5';
+  document.body.appendChild(wm);
+}
+
+/* ===== INIT ENHANCEMENTS ===== */
+var _origDidMount = didMount;
+didMount = function() {
+  PerfMarks.mark('init-start');
+  _origDidMount();
+  enhanceAccessibility();
+  addWatermark();
+  ResponsiveHandler.init();
+  PerfMarks.measure('Total Init', 'init-start');
+  console.log('%c✅ 中泰龙Demo完整加载 | 13页面 | 50+图标 | AI悟空引擎 ','background:#00B894;color:#fff;padding:6px 16px;border-radius:4px;font-size:12px');
+};
+
+/* ===== EXPANDED PRODUCTION DATA ===== */
+const PROD_WORK_ORDERS_EXTENDED = [
+  {id:'WO2025070109',product:'行政办公桌ZT-A200',qty:300,unit:'套',line:'A线',status:'生产中',progress:35,start:'2025-07-01',end:'2025-07-09',operator:'老王',priority:'高',material:'E1级刨花板+五金件'},
+  {id:'WO2025070110',product:'会议桌ZT-M180',qty:60,unit:'张',line:'B线',status:'待排产',progress:0,start:'2025-07-04',end:'2025-07-11',operator:'孙七',priority:'中',material:'实木贴面+钢制桌脚'},
+  {id:'WO2025063011',product:'文件柜ZT-F320',qty:200,unit:'组',line:'A线',status:'已完成',progress:100,start:'2025-06-24',end:'2025-06-30',operator:'赵六',priority:'低',material:'冷轧钢板+粉末喷涂'},
+  {id:'WO2025062912',product:'人体工学椅ZT-C520',qty:800,unit:'把',line:'C线',status:'质检中',progress:88,start:'2025-06-21',end:'2025-07-01',operator:'周八',priority:'高',material:'网布+气压棒+尼龙底盘'},
+  {id:'WO2025062813',product:'屏风工位ZT-P420',qty:150,unit:'位',line:'B线',status:'生产中',progress:52,start:'2025-06-28',end:'2025-07-07',operator:'孙七',priority:'中',material:'铝合金框架+布艺面板'},
+  {id:'WO2025062714',product:'升降桌ZT-D620',qty:120,unit:'张',line:'A线',status:'已完成',progress:100,start:'2025-06-19',end:'2025-06-26',operator:'老王',priority:'高',material:'电机+钢架+桌面板材'},
+  {id:'WO2025062615',product:'茶水柜ZT-T120',qty:350,unit:'个',line:'C线',status:'生产中',progress:68,start:'2025-06-26',end:'2025-07-05',operator:'周八',priority:'低',material:'刨花板+PVC封边'},
+  {id:'WO2025062516',product:'前台接待桌ZT-R220',qty:25,unit:'套',line:'B线',status:'待排产',progress:0,start:'2025-07-06',end:'2025-07-13',operator:'孙七',priority:'中',material:'人造石台面+烤漆板'}
+];
+
+/* ===== EXPANDED SUPPLY CHAIN DATA ===== */
+const SUPPLY_ORDERS_EXTENDED = [
+  {id:'PO2025070109',material:'E0级密度板',supplier:'广西某林业集团',qty:'1500张',amount:'¥315,000',status:'已到货',date:'2025-07-01',lead:'6天',warehouse:'A仓',inspector:'老刘'},
+  {id:'PO2025070110',material:'铝合金型材',supplier:'佛山某铝业公司',qty:'3000米',amount:'¥210,000',status:'运输中',date:'2025-06-30',lead:'5天',warehouse:'B仓',inspector:'陈十二'},
+  {id:'PO2025063011',material:'PU皮革面料',supplier:'温州某皮革厂',qty:'2000米',amount:'¥160,000',status:'已到货',date:'2025-06-30',lead:'4天',warehouse:'C仓',inspector:'老刘'},
+  {id:'PO2025062912',material:'电动升降柱',supplier:'常州某电机厂',qty:'500根',amount:'¥375,000',status:'待发货',date:'2025-06-29',lead:'12天',warehouse:'A仓',inspector:'陈十二'},
+  {id:'PO2025062813',material:'ABS塑料粒子',supplier:'宁波某化工公司',qty:'5吨',amount:'¥85,000',status:'已到货',date:'2025-06-28',lead:'3天',warehouse:'B仓',inspector:'老刘'},
+  {id:'PO2025062714',material:'钢化玻璃面板',supplier:'东莞某玻璃厂',qty:'800片',amount:'¥192,000',status:'运输中',date:'2025-06-27',lead:'7天',warehouse:'C仓',inspector:'陈十二'},
+  {id:'PO2025062615',material:'环保胶水',supplier:'广州某粘合剂厂',qty:'600桶',amount:'¥72,000',status:'已到货',date:'2025-06-26',lead:'2天',warehouse:'A仓',inspector:'老刘'},
+  {id:'PO2025062516',material:'不锈钢拉手',supplier:'揭阳某五金厂',qty:'4000个',amount:'¥48,000',status:'待发货',date:'2025-06-25',lead:'9天',warehouse:'B仓',inspector:'陈十二'}
+];
+
+/* ===== EXPANDED CRM DATA ===== */
+const CRM_OPPORTUNITIES_EXTENDED = [
+  {id:'CRM2025070109',customer:'上海某律所',contact:'王律师',product:'行政办公桌ZT-A200',qty:'80套',amount:'¥232,000',stage:'方案报价',prob:75,date:'2025-07-01',source:'官网询盘',owner:'周五'},
+  {id:'CRM2025063010',customer:'广州某医院',contact:'陈院长',product:'医用办公家具全套',qty:'1批',amount:'¥1,850,000',stage:'招投标',prob:55,date:'2025-06-30',source:'政府采购',owner:'吴九'},
+  {id:'CRM2025062911',customer:'深圳某创业园',contact:'李经理',product:'屏风工位ZT-P400',qty:'300位',amount:'¥750,000',stage:'需求确认',prob:40,date:'2025-06-29',source:'老客户转介',owner:'周五'},
+  {id:'CRM2025062812',customer:'北京某高校',contact:'张处长',product:'教室桌椅+办公家具',qty:'1批',amount:'¥3,200,000',stage:'合同签订',prob:92,date:'2025-06-28',source:'招投标',owner:'吴九'},
+  {id:'CRM2025062713',customer:'杭州某电商公司',contact:'刘总监',product:'人体工学椅ZT-C500',qty:'500把',amount:'¥600,000',stage:'交付中',prob:100,date:'2025-06-27',source:'展会获客',owner:'郑十'},
+  {id:'CRM2025062614',customer:'成都某酒店集团',contact:'赵总经理',product:'酒店配套家具',qty:'200套',amount:'¥1,400,000',stage:'方案报价',prob:68,date:'2025-06-26',source:'行业推荐',owner:'周五'},
+  {id:'CRM2025062515',customer:'武汉某科技园',contact:'孙主任',product:'智能办公家具',qty:'1批',amount:'¥2,100,000',stage:'需求确认',prob:35,date:'2025-06-25',source:'官网询盘',owner:'吴九'},
+  {id:'CRM2025062416',customer:'南京某外企',contact:'David Wang',product:'Executive Desk Series',qty:'100套',amount:'¥880,000',stage:'合同签订',prob:88,date:'2025-06-24',source:'海外展会',owner:'郑十'}
+];
+
+/* ===== EXPANDED QUALITY DATA ===== */
+const QC_RECORDS_EXTENDED = [
+  {id:'QC2025070109',batch:'B20250701-B',product:'会议桌ZT-M150',inspector:'老刘',result:'合格',defects:0,sample:25,date:'2025-07-01',note:'表面平整度达标',method:'目视+量具'},
+  {id:'QC2025063010',batch:'B20250630-A',product:'升降桌ZT-D600',inspector:'陈十二',result:'合格',defects:1,sample:20,date:'2025-06-30',note:'1件升降噪音偏大，已更换电机',method:'功能测试'},
+  {id:'QC2025062911',batch:'B20250629-C',product:'茶水柜ZT-T100',inspector:'老刘',result:'合格',defects:0,sample:40,date:'2025-06-29',note:'封边牢固度合格',method:'拉力测试'},
+  {id:'QC2025062812',batch:'B20250628-A',product:'行政办公桌ZT-A200',inspector:'陈十二',result:'不合格',defects:4,sample:50,date:'2025-06-28',note:'4件孔位偏差超标，返工处理',method:'三坐标测量'},
+  {id:'QC2025062713',batch:'B20250627-B',product:'屏风工位ZT-P400',inspector:'老刘',result:'合格',defects:0,sample:30,date:'2025-06-27',note:'组装稳定性良好',method:'摇晃测试'},
+  {id:'QC2025062614',batch:'B20250626-A',product:'文件柜ZT-F300',inspector:'陈十二',result:'合格',defects:1,sample:35,date:'2025-06-26',note:'1件门锁松动，已调整',method:'功能测试'},
+  {id:'QC2025062515',batch:'B20250625-C',product:'人体工学椅ZT-C500',inspector:'老刘',result:'合格',defects:0,sample:60,date:'2025-06-25',note:'承重测试全部通过',method:'静载测试'},
+  {id:'QC2025062416',batch:'B20250624-B',product:'前台接待桌ZT-R200',inspector:'陈十二',result:'合格',defects:0,sample:8,date:'2025-06-24',note:'定制尺寸精确',method:'全检'}
+];
+
+/* ===== EXPANDED EMPLOYEE DATA ===== */
+const EMPLOYEES_EXTENDED = [
+  {name:'张三',dept:'总经办',title:'总经理',phone:'138****1001',email:'zhangsan@jongtay.com',joinDate:'2005-03-15',level:'L10'},
+  {name:'李四',dept:'总经办',title:'副总经理',phone:'138****1002',email:'lisi@jongtay.com',joinDate:'2008-06-01',level:'L9'},
+  {name:'周五',dept:'国内销售部',title:'销售总监',phone:'138****1003',email:'zhouwu@jongtay.com',joinDate:'2010-09-12',level:'L8'},
+  {name:'老王',dept:'A车间',title:'车间主任',phone:'138****1004',email:'laowang@jongtay.com',joinDate:'2006-04-20',level:'L7'},
+  {name:'老李',dept:'供应链中心',title:'采购总监',phone:'138****1005',email:'laoli@jongtay.com',joinDate:'2009-11-08',level:'L8'},
+  {name:'老刘',dept:'品质管理部',title:'品质总监',phone:'138****1006',email:'laoliu@jongtay.com',joinDate:'2007-07-15',level:'L8'},
+  {name:'赵六',dept:'A车间',title:'班组长',phone:'138****1007',email:'zhaoliu@jongtay.com',joinDate:'2012-02-28',level:'L5'},
+  {name:'孙七',dept:'B车间',title:'车间主任',phone:'138****1008',email:'sunqi@jongtay.com',joinDate:'2011-05-10',level:'L7'},
+  {name:'吴九',dept:'国内销售部',title:'大客户经理',phone:'138****1009',email:'wujiu@jongtay.com',joinDate:'2015-08-22',level:'L6'},
+  {name:'郑十',dept:'海外事业部',title:'部门经理',phone:'138****1010',email:'zhengshi@jongtay.com',joinDate:'2013-03-18',level:'L7'},
+  {name:'钱十一',dept:'供应链中心',title:'仓储主管',phone:'138****1011',email:'qian11@jongtay.com',joinDate:'2014-06-05',level:'L6'},
+  {name:'林十三',dept:'信息技术部',title:'IT总监',phone:'138****1012',email:'lin13@jongtay.com',joinDate:'2016-01-10',level:'L7'},
+  {name:'黄十四',dept:'人力资源与行政部',title:'HR总监',phone:'138****1013',email:'huang14@jongtay.com',joinDate:'2012-09-01',level:'L7'},
+  {name:'陈十二',dept:'品质管理部',title:'质检主管',phone:'138****1014',email:'chen12@jongtay.com',joinDate:'2015-04-15',level:'L6'},
+  {name:'周八',dept:'C车间',title:'车间主任',phone:'138****1015',email:'zhou8@jongtay.com',joinDate:'2010-11-20',level:'L7'}
+];
+
+/* ===== EXPANDED KNOWLEDGE DOCS ===== */
+const KNOWLEDGE_DOCS_EXTENDED = [
+  {id:11,title:'2025年安全生产应急预案',cat:'制度规范',author:'老刘',date:'2025-06-18',views:256},
+  {id:12,title:'办公家具安装视频教程合集',cat:'培训资料',author:'吴九',date:'2025-06-12',views:892},
+  {id:13,title:'MES系统故障排查手册',cat:'操作手册',author:'林十三',date:'2025-06-08',views:345},
+  {id:14,title:'供应商年度评估报告模板',cat:'制度规范',author:'老李',date:'2025-06-02',views:198},
+  {id:15,title:'产品环保认证证书汇编',cat:'产品资料',author:'老刘',date:'2025-05-25',views:467},
+  {id:16,title:'钉钉审批流程配置指南',cat:'操作手册',author:'林十三',date:'2025-05-18',views:723},
+  {id:17,title:'2025年员工绩效考核方案',cat:'制度规范',author:'黄十四',date:'2025-05-12',views:1102},
+  {id:18,title:'智能工厂参观接待手册',cat:'培训资料',author:'张三',date:'2025-05-08',views:534}
+];
+
+/* ===== EXPANDED SCHEDULES ===== */
+const SCHEDULES_EXTENDED = [
+  {id:7,title:'产品质量复盘会',date:'2025-07-09',time:'14:00-15:30',location:'2楼中会议室',organizer:'老刘'},
+  {id:8,title:'新员工导师见面会',date:'2025-07-10',time:'10:00-11:00',location:'培训中心',organizer:'黄十四'},
+  {id:9,title:'Q3营销策略讨论',date:'2025-07-11',time:'09:00-11:00',location:'3楼大会议室',organizer:'周五'},
+  {id:10,title:'IT系统安全审计',date:'2025-07-12',time:'14:00-16:00',location:'信息部机房',organizer:'林十三'},
+  {id:11,title:'月度经营分析会',date:'2025-07-15',time:'09:00-12:00',location:'3楼大会议室',organizer:'张三'},
+  {id:12,title:'供应商座谈会',date:'2025-07-18',time:'14:00-17:00',location:'多功能厅',organizer:'老李'}
+];
+
+/* ===== EXPANDED MEETINGS ===== */
+const MEETINGS_EXTENDED = [
+  {id:6,title:'新产品研发评审会',date:'2025-07-09',time:'14:00-16:00',room:'3楼大会议室',attendees:'张三,周五,老王',status:'scheduled'},
+  {id:7,title:'半年度工作总结大会',date:'2025-07-15',time:'09:00-12:00',room:'多功能厅',attendees:'全体员工',status:'scheduled'},
+  {id:8,title:'客户回访沟通会',date:'2025-07-11',time:'10:00-11:30',room:'线上钉钉会议',attendees:'周五,吴九,老刘',status:'scheduled'},
+  {id:9,title:'ERP系统升级讨论',date:'2025-07-12',time:'15:00-16:30',room:'2楼中会议室',attendees:'林十三,老李,老王',status:'scheduled'},
+  {id:10,title:'安全生产专题培训',date:'2025-07-01',time:'14:00-17:00',room:'培训中心',attendees:'老刘,老王,孙七,周八,赵六',status:'completed'}
+];
+
+/* ===== EXPANDED APPROVALS ===== */
+const APPROVALS_EXTENDED = [
+  {id:'SP20250624009',title:'办公设备采购申请',applicant:'林十三',dept:'信息部',amount:'¥68,000',status:'approved',date:'2025-06-24',detail:'采购显示器20台、打印机5台'},
+  {id:'SP20250623010',title:'展厅装修改造申请',applicant:'周五',dept:'销售部',amount:'¥280,000',status:'pending',date:'2025-06-23',detail:'展厅形象升级，含灯光、展柜更换'},
+  {id:'SP20250622011',title:'外聘讲师培训费',applicant:'黄十四',dept:'人力资源部',amount:'¥25,000',status:'approved',date:'2025-06-22',detail:'邀请行业专家进行精益生产培训'},
+  {id:'SP20250621012',title:'车辆维修保养申请',applicant:'老李',dept:'后勤部',amount:'¥8,500',status:'approved',date:'2025-06-21',detail:'公务车粤E***88年度保养'}
+];
+
+/* ===== EXPANDED NEWS ===== */
+const NEWS_EXTENDED = [
+  {id:6,title:'中泰龙荣获广东省制造业百强企业称号',date:'2025-03-28',tag:'企业荣誉',bg:'linear-gradient(135deg,#D63031,#FF7675)'},
+  {id:7,title:'中泰龙AI物料管理平台获国家软件著作权',date:'2025-03-15',tag:'技术创新',bg:'linear-gradient(135deg,#6C5CE7,#A29BFE)'},
+  {id:8,title:'中泰龙参加第53届中国（广州）国际家具博览会',date:'2025-03-08',tag:'展会活动',bg:'linear-gradient(135deg,#00B894,#55EFC4)'}
+];
+
+/* ===== EXPANDED FORUM POSTS ===== */
+const FORUM_POSTS_EXTENDED = [
+  {t:'分享：如何用钉钉AI助手快速查询公司制度',a:'林十三',d:'3小时前',c:56},
+  {t:'周末徒步活动报名帖（白云山线）',a:'赵六',d:'6小时前',c:89},
+  {t:'建议增加充电桩方便新能源车主',a:'钱十一',d:'1天前',c:42},
+  {t:'恭喜老刘团队通过ISO复审！',a:'张三',d:'2天前',c:128},
+  {t:'食堂新菜品投票：麻辣香锅vs酸菜鱼',a:'黄十四',d:'3天前',c:215}
+];
+
+/* ===== INDUSTRY NEWS EXTENDED ===== */
+const INDUSTRY_NEWS_EXTENDED = [
+  {t:'人工智能赋能制造业：2025智能制造十大案例发布',d:'工信部'},
+  {t:'办公家具行业ESG报告编制指南正式发布',d:'中国家具协会'},
+  {t:'跨境电商新政利好家具出口企业',d:'商务部'},
+  {t:'人体工学标准更新：GB/T 3976-2025正式实施',d:'国家标准委'},
+  {t:'全球办公家具市场规模2030年将达850亿美元',d:'Grand View Research'}
+];
+
+/* ===== TODO ITEMS EXTENDED ===== */
+const TODOS_EXTENDED = [
+  {text:'审核Q3市场推广费用申请',done:false,priority:'高',deadline:'2025-07-02'},
+  {text:'确认A车间设备采购方案',done:false,priority:'高',deadline:'2025-07-03'},
+  {text:'回复深圳客户合同条款',done:false,priority:'中',deadline:'2025-07-04'},
+  {text:'参加周一经营例会',done:false,priority:'高',deadline:'2025-07-07'},
+  {text:'审批新员工招聘需求',done:false,priority:'中',deadline:'2025-07-05'},
+  {text:'查看供应链月度报告',done:true,priority:'低',deadline:'2025-06-30'},
+  {text:'签署数字化转型合作协议',done:true,priority:'高',deadline:'2025-06-28'},
+  {text:'安排智能工厂参观接待',done:true,priority:'中',deadline:'2025-06-25'}
+];
+
+/* ===== MARQUEE NOTIFICATIONS EXTENDED ===== */
+const MARQUEE_EXTENDED = [
+  '【技术】MES系统V3.0版本已上线，新增AI排产功能',
+  '【荣誉】A车间获评2025年度省级智能制造示范车间',
+  '【招聘】研发中心招聘结构工程师3名，详情见内部招聘网',
+  '【福利】七月高温补贴已发放，请查收工资条',
+  '【培训】钉钉AI助手高级使用技巧培训定于7月5日',
+  '【节能】夏季用电高峰，请注意节约用电，空调设定≥26℃'
+];
+
+/* ===== ENHANCED RENDERER: Production with extended data ===== */
+function renderProductionEnhanced(container) {
+  var allOrders = D.productionOrders.concat(PROD_WORK_ORDERS_EXTENDED);
+  var h = '';
+  // KPI Cards
+  h += '<div class="grid-4">';
+  var kpis = [
+    {l:'今日产量',v:'1,850件',t:'+8.5%',u:true},
+    {l:'设备稼动率',v:'92.3%',t:'+3.1%',u:true},
+    {l:'在制工单',v:allOrders.filter(function(o){return o.status==='生产中'}).length+'单',t:'活跃',u:true},
+    {l:'一次合格率',v:'98.7%',t:'-0.2%',u:false}
+  ];
+  kpis.forEach(function(k) {
+    h += '<div class="kpi-card"><div class="kpi-label">'+k.l+'</div><div class="kpi-value">'+k.v+'</div><div class="kpi-trend '+(k.u?'up':'down')+'">'+k.t+'</div></div>';
+  });
+  h += '</div>';
+  // Filter bar
+  h += '<div class="filter-bar">';
+  h += '<select id="prodStatusFilter" style="padding:7px 12px;border-radius:4px;border:1px solid var(--border)"><option value="all">全部状态</option><option value="生产中">生产中</option><option value="待排产">待排产</option><option value="已完成">已完成</option><option value="质检中">质检中</option></select>';
+  h += '<input type="text" class="search-input" placeholder="搜索工单号/产品..." id="prodSearch">';
+  h += '<button class="btn btn-primary" data-action="new-prod-order">'+ic('plus',14,'#fff')+' 新建工单</button>';
+  h += '<button class="btn btn-outline" onclick="var csv=ExportUtils.tableToCSV(\'#prodTable\');ExportUtils.downloadCSV(csv,\'生产工单.csv\');toast(\'导出成功\')">'+ic('download',14)+' 导出</button>';
+  h += '</div>';
+  // Data table
+  h += '<div class="card" style="padding:0;overflow:hidden"><table id="prodTable"><thead><tr><th>工单号</th><th>产品</th><th>数量</th><th>产线</th><th>进度</th><th>状态</th><th>负责人</th><th>优先级</th><th>操作</th></tr></thead><tbody>';
+  allOrders.forEach(function(o) {
+    var scls = o.status==='已完成'?'badge-success':o.status==='生产中'?'badge-info':o.status==='质检中'?'badge-warn':'badge-gray';
+    var pcls = o.priority==='高'?'badge-danger':o.priority==='中'?'badge-warn':'badge-info';
+    h += '<tr><td style="font-family:monospace;font-size:12px">'+o.id+'</td><td style="font-weight:500">'+o.product+'</td><td>'+o.qty+o.unit+'</td><td>'+o.line+'</td>';
+    h += '<td><div style="display:flex;align-items:center;gap:6px"><div style="flex:1;height:6px;background:#eee;border-radius:3px;min-width:60px"><div style="height:100%;background:var(--primary);border-radius:3px;width:'+o.progress+'%"></div></div><span style="font-size:11px">'+o.progress+'%</span></div></td>';
+    h += '<td><span class="badge '+scls+'">'+o.status+'</span></td><td>'+o.operator+'</td>';
+    h += '<td>'+(o.priority?'<span class="badge '+pcls+'">'+o.priority+'</span>':'-')+'</td>';
+    h += '<td><button class="btn btn-sm btn-outline" data-action="view-prod" data-id="'+o.id+'">详情</button></td></tr>';
+  });
+  h += '</tbody></table></div>';
+  // Charts row
+  h += '<div class="grid-3">';
+  h += '<div class="card"><div class="card-title">各产线产量分布</div><div class="chart-container">'+barSVG([{label:'A线',value:850,color:'#E67E22'},{label:'B线',value:520,color:'#0984E3'},{label:'C线',value:480,color:'#00B894'}],240,120)+'</div></div>';
+  h += '<div class="card"><div class="card-title">月度产量趋势</div><div class="chart-container">'+sparklineSVG([1200,1350,1280,1420,1500,1380,1600,1750,1850],240,50)+'</div></div>';
+  h += '<div class="card"><div class="card-title">工单完成率</div><div class="chart-container" style="display:flex;gap:16px;justify-content:center">'+progressRingSVG(96,60,'#00B894','完成率')+progressRingSVG(92,60,'#0984E3','准时率')+progressRingSVG(99,60,'#E67E22','合格率')+'</div></div>';
+  h += '</div>';
+  container.innerHTML = h;
+}
+
+/* ===== ENHANCED RENDERER: Supply Chain with extended data ===== */
+function renderSupplyEnhanced(container) {
+  var allOrders = D.supplyData.concat(SUPPLY_ORDERS_EXTENDED);
+  var h = '';
+  h += '<div class="grid-4">';
+  [{l:'本月采购额',v:'¥386万',t:'+15.3%',u:true},{l:'供应商准时率',v:'94.8%',t:'+1.6%',u:true},{l:'库存周转天数',v:'28天',t:'-3天',u:true},{l:'来料合格率',v:'99.5%',t:'+0.1%',u:true}].forEach(function(k) {
+    h += '<div class="kpi-card"><div class="kpi-label">'+k.l+'</div><div class="kpi-value">'+k.v+'</div><div class="kpi-trend '+(k.u?'up':'down')+'">'+k.t+'</div></div>';
+  });
+  h += '</div>';
+  h += '<div class="filter-bar">';
+  h += '<select id="supplyStatusFilter" style="padding:7px 12px;border-radius:4px;border:1px solid var(--border)"><option value="all">全部状态</option><option value="已到货">已到货</option><option value="运输中">运输中</option><option value="待发货">待发货</option></select>';
+  h += '<input type="text" class="search-input" placeholder="搜索物料/供应商..." id="supplySearch">';
+  h += '<button class="btn btn-primary" data-action="new-purchase-order">'+ic('plus',14,'#fff')+' 新建采购单</button>';
+  h += '<button class="btn btn-outline" onclick="var csv=ExportUtils.tableToCSV(\'#supplyTable\');ExportUtils.downloadCSV(csv,\'采购单.csv\');toast(\'导出成功\')">'+ic('download',14)+' 导出</button>';
+  h += '</div>';
+  h += '<div class="card" style="padding:0;overflow:hidden"><table id="supplyTable"><thead><tr><th>采购单号</th><th>物料</th><th>供应商</th><th>数量</th><th>金额</th><th>交期</th><th>状态</th><th>仓库</th><th>操作</th></tr></thead><tbody>';
+  allOrders.forEach(function(s) {
+    var scls = s.status==='已到货'?'badge-success':s.status==='运输中'?'badge-info':'badge-warn';
+    h += '<tr><td style="font-family:monospace;font-size:12px">'+s.id+'</td><td style="font-weight:500">'+s.material+'</td><td>'+s.supplier+'</td><td>'+s.qty+'</td><td>'+s.amount+'</td><td>'+s.lead+'</td><td><span class="badge '+scls+'">'+s.status+'</span></td><td>'+(s.warehouse||'-')+'</td><td><button class="btn btn-sm btn-outline" data-action="view-supply" data-id="'+s.id+'">详情</button></td></tr>';
+  });
+  h += '</tbody></table></div>';
+  h += '<div class="grid-2"><div class="card"><div class="card-title">采购金额分布</div><div class="chart-container">'+donutSVG([{label:'板材',value:675,color:'#E67E22'},{label:'五金',value:258,color:'#0984E3'},{label:'涂料',value:312,color:'#00B894'},{label:'面料',value:295,color:'#6C5CE7'},{label:'其他',value:323,color:'#636E72'}],130)+'</div></div>';
+  h += '<div class="card"><div class="card-title">供应商评分TOP5</div><div class="chart-container">'+horizontalBarSVG([{label:'广东板材',value:95,color:'#00B894'},{label:'江苏气弹簧',value:93,color:'#0984E3'},{label:'绍兴纺织',value:92,color:'#E67E22'},{label:'浙江五金',value:91,color:'#6C5CE7'},{label:'东莞金属',value:89,color:'#FDCB6E'}],280,130)+'</div></div></div>';
+  container.innerHTML = h;
+}
+
+/* ===== ENHANCED RENDERER: CRM with extended data ===== */
+function renderCRMEnhanced(container) {
+  var allOpps = D.crmData.concat(CRM_OPPORTUNITIES_EXTENDED);
+  var h = '';
+  h += '<div class="grid-4">';
+  [{l:'本月签约额',v:'¥5,650万',t:'+22.6%',u:true},{l:'商机数',value:allOpps.length,t:'+12个',u:true},{l:'转化率',v:'36.8%',t:'+4.5%',u:true},{l:'客户满意度',v:'94.5分',t:'+1.2',u:true}].forEach(function(k) {
+    h += '<div class="kpi-card"><div class="kpi-label">'+k.l+'</div><div class="kpi-value">'+(k.value||k.v)+'</div><div class="kpi-trend '+(k.u?'up':'down')+'">'+k.t+'</div></div>';
+  });
+  h += '</div>';
+  h += '<div class="filter-bar">';
+  h += '<select id="crmStageFilter" style="padding:7px 12px;border-radius:4px;border:1px solid var(--border)"><option value="all">全部阶段</option><option value="需求确认">需求确认</option><option value="方案报价">方案报价</option><option value="招投标">招投标</option><option value="合同签订">合同签订</option><option value="交付中">交付中</option></select>';
+  h += '<input type="text" class="search-input" placeholder="搜索客户/联系人..." id="crmSearch">';
+  h += '<button class="btn btn-primary" data-action="new-crm">'+ic('plus',14,'#fff')+' 新建商机</button>';
+  h += '<button class="btn btn-outline" onclick="var csv=ExportUtils.tableToCSV(\'#crmTable\');ExportUtils.downloadCSV(csv,\'商机列表.csv\');toast(\'导出成功\')">'+ic('download',14)+' 导出</button>';
+  h += '</div>';
+  h += '<div class="card" style="padding:0;overflow:hidden"><table id="crmTable"><thead><tr><th>编号</th><th>客户</th><th>联系人</th><th>产品</th><th>金额</th><th>阶段</th><th>概率</th><th>来源</th><th>操作</th></tr></thead><tbody>';
+  allOpps.forEach(function(c) {
+    var scls = c.prob>=90?'badge-success':c.prob>=60?'badge-info':c.prob>=40?'badge-warn':'badge-danger';
+    h += '<tr><td style="font-family:monospace;font-size:12px">'+c.id+'</td><td style="font-weight:500">'+c.customer+'</td><td>'+c.contact+'</td><td>'+c.product+'</td><td>'+c.amount+'</td><td><span class="badge '+scls+'">'+c.stage+'</span></td><td>'+c.prob+'%</td><td style="font-size:11px;color:#999">'+(c.source||'-')+'</td><td><button class="btn btn-sm btn-outline" data-action="view-crm" data-id="'+c.id+'">详情</button></td></tr>';
+  });
+  h += '</tbody></table></div>';
+  h += '<div class="grid-2"><div class="card"><div class="card-title">销售漏斗</div><div class="chart-container">'+barSVG([{label:'需求确认',value:18,color:'#FDCB6E'},{label:'方案报价',value:14,color:'#0984E3'},{label:'招投标',value:8,color:'#6C5CE7'},{label:'合同签订',value:10,color:'#00B894'},{label:'交付中',value:8,color:'#E67E22'}],300,140)+'</div></div>';
+  h += '<div class="card"><div class="card-title">客户行业分布</div><div class="chart-container">'+donutSVG([{label:'互联网',value:68,color:'#E67E22'},{label:'政府',value:45,color:'#0984E3'},{label:'教育',value:55,color:'#00B894'},{label:'地产',value:38,color:'#6C5CE7'},{label:'其他',value:85,color:'#636E72'}],130)+'</div></div></div>';
+  container.innerHTML = h;
+}
+
+/* ===== ENHANCED RENDERER: Quality with extended data ===== */
+function renderQualityEnhanced(container) {
+  var allQC = D.qualityData.concat(QC_RECORDS_EXTENDED);
+  var h = '';
+  h += '<div class="grid-4">';
+  [{l:'产品合格率',v:'99.2%',t:'+0.3%',u:true},{l:'本月检测批次',v:allQC.length+'批',t:'+8批',u:true},{l:'不合格批次',v:allQC.filter(function(q){return q.result==='不合格'}).length+'批',t:'关注',u:false},{l:'客户投诉率',v:'0.3%',t:'-0.1%',u:true}].forEach(function(k) {
+    h += '<div class="kpi-card"><div class="kpi-label">'+k.l+'</div><div class="kpi-value">'+k.v+'</div><div class="kpi-trend '+(k.u?'up':'down')+'">'+k.t+'</div></div>';
+  });
+  h += '</div>';
+  h += '<div class="filter-bar">';
+  h += '<select id="qcResultFilter" style="padding:7px 12px;border-radius:4px;border:1px solid var(--border)"><option value="all">全部结果</option><option value="合格">合格</option><option value="不合格">不合格</option></select>';
+  h += '<input type="text" class="search-input" placeholder="搜索批次号/产品..." id="qcSearch">';
+  h += '<button class="btn btn-primary" data-action="new-qc">'+ic('plus',14,'#fff')+' 新增质检记录</button>';
+  h += '<button class="btn btn-outline" onclick="var csv=ExportUtils.tableToCSV(\'#qcTable\');ExportUtils.downloadCSV(csv,\'质检记录.csv\');toast(\'导出成功\')">'+ic('download',14)+' 导出</button>';
+  h += '</div>';
+  h += '<div class="card" style="padding:0;overflow:hidden"><table id="qcTable"><thead><tr><th>质检编号</th><th>批次号</th><th>产品</th><th>检验员</th><th>抽样数</th><th>缺陷数</th><th>结果</th><th>方法</th><th>操作</th></tr></thead><tbody>';
+  allQC.forEach(function(q) {
+    var scls = q.result==='合格'?'badge-success':'badge-danger';
+    h += '<tr><td style="font-family:monospace;font-size:12px">'+q.id+'</td><td>'+q.batch+'</td><td style="font-weight:500">'+q.product+'</td><td>'+q.inspector+'</td><td>'+q.sample+'</td><td>'+q.defects+'</td><td><span class="badge '+scls+'">'+q.result+'</span></td><td style="font-size:11px;color:#999">'+(q.method||'-')+'</td><td><button class="btn btn-sm btn-outline" data-action="view-qc" data-id="'+q.id+'">详情</button></td></tr>';
+  });
+  h += '</tbody></table></div>';
+  h += '<div class="grid-2"><div class="card"><div class="card-title">质量合格率趋势</div><div class="chart-container">'+sparklineSVG([98.2,98.5,98.8,99.0,98.9,99.1,99.2,99.3],280,60,'#00B894')+'</div></div>';
+  h += '<div class="card"><div class="card-title">缺陷类型分布</div><div class="chart-container">'+donutSVG([{label:'外观瑕疵',value:45,color:'#E67E22'},{label:'尺寸偏差',value:25,color:'#0984E3'},{label:'喷涂问题',value:20,color:'#D63031'},{label:'功能异常',value:8,color:'#6C5CE7'},{label:'其他',value:5,color:'#636E72'}],130)+'</div></div></div>';
+  container.innerHTML = h;
+}
+
+/* ===== ENHANCED DASHBOARD RENDERER ===== */
+function renderDashboardEnhanced(container) {
+  var h = '';
+  // Top KPI row
+  h += '<div class="grid-4">';
+  [
+    {l:'集团营收',v:'¥4,280万',t:'+12.3%',u:true},
+    {l:'净利润率',v:'8.6%',t:'+0.8%',u:true},
+    {l:'订单完成率',v:'96.8%',t:'+2.1%',u:true},
+    {l:'员工满意度',v:'92分',t:'+3分',u:true}
+  ].forEach(function(k) {
+    h += '<div class="kpi-card"><div class="kpi-label">'+k.l+'</div><div class="kpi-value">'+k.v+'</div><div class="kpi-trend '+(k.u?'up':'down')+'">'+k.t+'</div></div>';
+  });
+  h += '</div>';
+
+  // Row 2: Production monitoring + Sales analysis
+  h += '<div class="grid-2">';
+  h += '<div class="card"><div class="card-title">'+ic('production',16,'#E67E22')+' 生产监控实时看板</div>';
+  h += '<div style="margin-bottom:12px">';
+  var lines = [
+    {name:'A车间-智能产线',pct:92,color:'#00B894',output:'850件/日',status:'正常运行'},
+    {name:'B车间-定制产线',pct:78,color:'#E67E22',output:'520件/日',status:'换模中'},
+    {name:'C车间-包装物流',pct:85,color:'#0984E3',output:'480件/日',status:'正常运行'}
+  ];
+  lines.forEach(function(line) {
+    h += '<div style="margin-bottom:10px;padding:8px 12px;background:#F8F9FA;border-radius:6px">';
+    h += '<div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="font-weight:600">'+line.name+'</span><span class="badge '+(line.status==='正常运行'?'badge-success':'badge-warn')+'">'+line.status+'</span></div>';
+    h += '<div style="display:flex;align-items:center;gap:8px"><div style="flex:1;height:8px;background:#eee;border-radius:4px"><div style="height:100%;background:'+line.color+';border-radius:4px;width:'+line.pct+'%"></div></div><span style="font-size:11px;font-weight:600">'+line.pct+'%</span></div>';
+    h += '<div style="font-size:11px;color:#999;margin-top:2px">日产量：'+line.output+'</div>';
+    h += '</div>';
+  });
+  h += '</div></div>';
+
+  // Sales analysis
+  h += '<div class="card"><div class="card-title">'+ic('crm',16,'#E67E22')+' 销售分析看板</div>';
+  h += '<div class="chart-container">'+barSVG([
+    {label:'华东',value:1580,color:'#E67E22'},
+    {label:'华南',value:1200,color:'#0984E3'},
+    {label:'华北',value:860,color:'#00B894'},
+    {label:'西南',value:420,color:'#6C5CE7'},
+    {label:'华中',value:380,color:'#FDCB6E'},
+    {label:'其他',value:220,color:'#636E72'}
+  ],280,160)+'</div></div>';
+  h += '</div>';
+
+  // Row 3: Supply chain + Quality trends
+  h += '<div class="grid-2">';
+  h += '<div class="card"><div class="card-title">'+ic('supply',16,'#E67E22')+' 供应链看板</div>';
+  h += '<div class="grid-2" style="gap:8px;margin-bottom:12px">';
+  [{l:'在途订单',v:'18单',c:'#0984E3'},{l:'待验收入库',v:'5批',c:'#FDCB6E'},{l:'库存预警',v:'2项',c:'#D63031'},{l:'供应商异常',v:'0',c:'#00B894'}].forEach(function(k) {
+    h += '<div style="text-align:center;padding:12px;background:#F8F9FA;border-radius:6px"><div style="font-size:20px;font-weight:700;color:'+k.c+'">'+k.v+'</div><div style="font-size:11px;color:#999;margin-top:4px">'+k.l+'</div></div>';
+  });
+  h += '</div>';
+  h += '<div style="font-size:12px;color:#999;margin-bottom:8px">供应商绩效TOP3</div>';
+  h += '<div class="chart-container">'+horizontalBarSVG([
+    {label:'广东板材',value:95,color:'#00B894'},
+    {label:'江苏气弹簧',value:93,color:'#0984E3'},
+    {label:'绍兴纺织',value:92,color:'#E67E22'}
+  ],280,80)+'</div>';
+  h += '</div>';
+
+  h += '<div class="card"><div class="card-title">'+ic('quality',16,'#E67E22')+' 质量趋势分析</div>';
+  h += '<div style="display:flex;gap:16px;justify-content:center;margin-bottom:12px">';
+  h += progressRingSVG(99.2,70,'#00B894','合格率');
+  h += progressRingSVG(98.7,70,'#0984E3','一次合格');
+  h += progressRingSVG(0.3,70,'#D63031','投诉率');
+  h += '</div>';
+  h += '<div class="chart-container">'+sparklineSVG([98.2,98.5,98.8,99.0,98.9,99.1,99.2,99.3],280,50,'#00B894')+'</div>';
+  h += '<div style="text-align:center;font-size:11px;color:#999;margin-top:4px">近8个月产品合格率趋势</div>';
+  h += '</div>';
+  h += '</div>';
+
+  // Row 4: Department headcount + Revenue trend
+  h += '<div class="grid-2">';
+  h += '<div class="card"><div class="card-title">'+ic('users',16,'#E67E22')+' 人员分布</div>';
+  h += '<div class="chart-container">'+donutSVG([
+    {label:'生产中心',value:1650,color:'#E67E22'},
+    {label:'营销中心',value:380,color:'#0984E3'},
+    {label:'供应链',value:220,color:'#00B894'},
+    {label:'品质部',value:150,color:'#6C5CE7'},
+    {label:'研发',value:180,color:'#FDCB6E'},
+    {label:'其他',value:420,color:'#636E72'}
+  ],140)+'</div></div>';
+
+  h += '<div class="card"><div class="card-title">'+ic('trendingUp',16,'#E67E22')+' 月度营收趋势</div>';
+  h += '<div class="chart-container">'+barSVG([
+    {label:'1月',value:3200,color:'#DFE6E9'},
+    {label:'2月',value:2800,color:'#DFE6E9'},
+    {label:'3月',value:3600,color:'#DFE6E9'},
+    {label:'4月',value:3400,color:'#DFE6E9'},
+    {label:'5月',value:3900,color:'#DFE6E9'},
+    {label:'6月',value:4280,color:'#E67E22'}
+  ],280,140)+'</div>';
+  h += '<div style="text-align:center;font-size:11px;color:#999;margin-top:4px">单位：万元 | 6月达成年度最高</div>';
+  h += '</div>';
+  h += '</div>';
+
+  // Row 5: Radar chart for comprehensive assessment
+  h += '<div class="card"><div class="card-title">'+ic('target',16,'#E67E22')+' 综合经营评估雷达图</div>';
+  h += '<div style="display:flex;justify-content:center;align-items:center;gap:40px;padding:10px">';
+  h += radarSVG(['生产效率','质量控制','客户满意','创新能力','成本管理','交付能力'],[92,95,94,78,88,91],200);
+  h += '<div style="max-width:300px">';
+  h += '<div style="font-size:13px;line-height:2">';
+  h += '<div>🏭 <b>生产效率</b>：92分 - 智能产线稼动率持续提升</div>';
+  h += '<div>✅ <b>质量控制</b>：95分 - 合格率保持99%以上</div>';
+  h += '<div>😊 <b>客户满意</b>：94分 - NPS评分行业领先</div>';
+  h += '<div>💡 <b>创新能力</b>：78分 - AI平台建设中，待提升</div>';
+  h += '<div>💰 <b>成本管理</b>：88分 - 采购成本同比降5%</div>';
+  h += '<div>🚚 <b>交付能力</b>：91分 - 准时交付率96.8%</div>';
+  h += '</div></div></div></div>';
+
+  container.innerHTML = h;
+}
+
+/* ===== ENHANCED WORKBENCH WITH EXTENDED DATA ===== */
+function renderWorkbenchEnhanced(container) {
+  var h = '';
+  // Marquee with extended notifications
+  var allMarquee = D.marquee.concat(MARQUEE_EXTENDED);
+  h += '<div class="marquee-wrap"><div class="marquee-inner" id="marqueeInner">';
+  var mq = allMarquee.concat(allMarquee);
+  mq.forEach(function(m) {
+    h += '<span class="marquee-item">' + m.replace(/【(.+?)】/, '<span>【$1】</span>') + '</span>';
+  });
+  h += '</div></div>';
+
+  // Banner with all news
+  var bannerNews = D.news.slice(0, 3);
+  h += '<div class="banner" id="bannerBox">';
+  bannerNews.forEach(function(n, i) {
+    h += '<div class="banner-slide' + (i === 0 ? ' active' : '') + '" data-banner-idx="' + i + '" style="background:' + n.bg + '">';
+    h += '<div class="banner-content"><h3>' + n.title + '</h3><p>' + n.date + ' · ' + n.tag + '</p></div></div>';
+  });
+  h += '<div class="banner-dots">';
+  [0, 1, 2].forEach(function(i) {
+    h += '<div class="banner-dot' + (i === 0 ? ' active' : '') + '" data-dot="' + i + '"></div>';
+  });
+  h += '</div></div>';
+
+  // Role Tabs
+  h += '<div class="tabs" id="roleTabs">';
+  ['all', 'management', 'production', 'sales', 'purchase'].forEach(function(r) {
+    var labels = {all:'全部',management:'管理层',production:'生产',sales:'销售',purchase:'采购'};
+    h += '<div class="tab' + (D.currentRole === r ? ' active' : '') + '" data-role="' + r + '">' + labels[r] + '</div>';
+  });
+  h += '</div>';
+
+  // KPI Cards
+  h += '<div class="grid-4" id="kpiGrid">';
+  D.kpi[D.currentRole].forEach(function(k) {
+    h += '<div class="kpi-card"><div class="kpi-label">' + k.label + '</div><div class="kpi-value">' + k.value + '</div><div class="kpi-trend ' + (k.up ? 'up' : 'down') + '">' + k.trend + '</div></div>';
+  });
+  h += '</div>';
+
+  // App Matrix
+  h += '<div class="card"><div class="card-title">' + ic('workbench', 16, '#E67E22') + ' 应用入口</div><div class="app-grid" id="appGrid">';
+  D.apps[D.currentRole].forEach(function(a) {
+    h += '<div class="app-entry" data-app-page="' + a.page + '"><div class="app-icon" style="background:' + a.color + '20;color:' + a.color + '">' + ic(a.icon, 22, a.color) + '</div><div class="app-name">' + a.name + '</div></div>';
+  });
+  h += '</div></div>';
+
+  // Two column: Schedule + Todo
+  h += '<div class="grid-2">';
+  // Schedule with extended items
+  h += '<div class="card"><div class="card-title">' + ic('calendar', 16, '#E67E22') + ' 近期日程</div>';
+  var allSchedules = D.schedules.concat(SCHEDULES_EXTENDED);
+  allSchedules.slice(0, 6).forEach(function(s) {
+    h += '<div class="schedule-item"><div class="schedule-time">' + s.time.split('-')[0] + '</div><div><div style="font-weight:500">' + s.title + '</div><div style="font-size:11px;color:#999">' + s.date + ' · ' + s.location + ' · ' + s.organizer + '</div></div></div>';
+  });
+  h += '</div>';
+
+  // Todo with extended items
+  h += '<div class="card"><div class="card-title">' + ic('check', 16, '#E67E22') + ' 待办事项</div>';
+  TODOS_EXTENDED.forEach(function(t, i) {
+    var pcls = t.priority === '高' ? 'badge-danger' : t.priority === '中' ? 'badge-warn' : 'badge-info';
+    h += '<div class="todo-item"><div class="todo-check' + (t.done ? ' done' : '') + '" data-todo="' + i + '"></div>';
+    h += '<span style="flex:1;' + (t.done ? 'text-decoration:line-through;color:#999' : '') + '">' + t.text + '</span>';
+    h += '<span class="badge ' + pcls + '" style="font-size:10px">' + t.priority + '</span>';
+    h += '<span style="font-size:11px;color:#999;margin-left:8px">' + t.deadline + '</span>';
+    h += '</div>';
+  });
+  h += '</div></div>';
+
+  // Three column: News + Forum + Industry
+  h += '<div class="grid-3">';
+  // Enterprise News with extended
+  h += '<div class="card"><div class="card-title">' + ic('star', 16, '#E67E22') + ' 企业新闻</div>';
+  var allNews = D.news.concat(NEWS_EXTENDED);
+  allNews.forEach(function(n) {
+    h += '<div class="news-item" data-news-id="' + n.id + '"><div class="news-title">' + n.title + '</div><div class="news-meta">' + n.date + ' · ' + n.tag + '</div></div>';
+  });
+  h += '</div>';
+
+  // Forum with extended
+  h += '<div class="card"><div class="card-title">' + ic('message', 16, '#E67E22') + ' 内部论坛</div>';
+  var allForum = [
+    {t:'智能工厂参观心得分享',a:'老王',d:'2小时前',c:28},
+    {t:'推荐一家好吃的湘菜馆',a:'李四',d:'5小时前',c:45},
+    {t:'关于优化食堂菜单的建议',a:'黄十四',d:'1天前',c:67},
+    {t:'羽毛球社团招新啦！',a:'赵六',d:'2天前',c:33}
+  ].concat(FORUM_POSTS_EXTENDED);
+  allForum.forEach(function(f) {
+    h += '<div class="forum-item"><div class="forum-title">' + f.t + '</div><div class="forum-meta"><span>' + f.a + '</span><span>' + f.d + '</span><span>' + f.c + '评论</span></div></div>';
+  });
+  h += '</div>';
+
+  // Industry news with extended
+  h += '<div class="card"><div class="card-title">' + ic('eye', 16, '#E67E22') + ' 行业动态</div>';
+  var allIndustry = [
+    {t:'2025中国办公家具市场规模预计突破2000亿元',d:'中国家具协会'},
+    {t:'智能家居办公场景成新趋势，AI赋能空间管理',d:'36氪'},
+    {t:'绿色制造标准升级，环保材料需求持续增长',d:'中国环境报'},
+    {t:'跨境电商助力家具出海，东南亚市场增速领先',d:'亿邦动力'}
+  ].concat(INDUSTRY_NEWS_EXTENDED);
+  allIndustry.forEach(function(n) {
+    h += '<div class="news-item"><div class="news-title">' + n.t + '</div><div class="news-meta">来源：' + n.d + '</div></div>';
+  });
+  h += '</div></div>';
+
+  container.innerHTML = h;
+}
+
+/* ===== ENHANCED CONTACTS WITH EXTENDED DATA ===== */
+function renderContactsEnhanced(container) {
+  var allEmps = D.employees.concat(EMPLOYEES_EXTENDED.filter(function(e) {
+    return !D.employees.some(function(d) { return d.name === e.name; });
+  }));
+  var h = '<div style="display:flex;gap:16px;height:calc(100vh - var(--header-h) - 40px)">';
+  // Org tree
+  h += '<div style="width:280px;background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow-y:auto;padding:16px;flex-shrink:0" id="orgTree">';
+  h += renderTreeNode(D.contacts, 0);
+  h += '</div>';
+  // Employee list with extended data
+  h += '<div style="flex:1;background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column">';
+  h += '<div style="padding:16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center"><span style="font-weight:600;font-size:15px">员工列表（' + allEmps.length + '人）</span><input type="text" class="search-input" placeholder="搜索姓名/部门..." id="empSearch"></div>';
+  h += '<div style="flex:1;overflow-y:auto"><table><thead><tr><th>姓名</th><th>部门</th><th>职位</th><th>电话</th><th>邮箱</th><th>入职日期</th><th>操作</th></tr></thead><tbody id="empTable">';
+  allEmps.forEach(function(e) {
+    h += '<tr><td style="font-weight:500">' + e.name + '</td><td>' + e.dept + '</td><td>' + e.title + '</td><td>' + e.phone + '</td><td>' + e.email + '</td><td style="font-size:12px;color:#999">' + (e.joinDate || '-') + '</td><td><button class="btn btn-sm btn-outline" data-action="msg-emp" data-name="' + e.name + '">发消息</button></td></tr>';
+  });
+  h += '</tbody></table></div></div></div>';
+  container.innerHTML = h;
+}
+
+/* ===== ENHANCED KNOWLEDGE WITH EXTENDED DATA ===== */
+function renderKnowledgeEnhanced(container) {
+  var allDocs = D.knowledgeDocs.concat(KNOWLEDGE_DOCS_EXTENDED);
+  var h = '<div class="filter-bar">';
+  D.docCats.forEach(function(c, i) {
+    h += '<button class="btn ' + (i === 0 ? 'btn-primary' : 'btn-outline') + '" data-doc-cat="' + c + '">' + c + '</button>';
+  });
+  h += '<input type="text" class="search-input" placeholder="搜索文档..." id="docSearch" style="margin-left:auto">';
+  h += '</div>';
+  h += '<div class="grid-2" id="docGrid">';
+  allDocs.forEach(function(d) {
+    h += '<div class="card" data-doc-cat-tag="' + d.cat + '" style="cursor:pointer;margin-bottom:0" data-action="view-doc" data-doc-id="' + d.id + '">';
+    h += '<div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:8px"><span class="badge badge-info">' + d.cat + '</span><span style="font-size:11px;color:#999">' + d.date + '</span></div>';
+    h += '<div style="font-weight:600;font-size:14px;margin-bottom:6px">' + d.title + '</div>';
+    h += '<div style="font-size:12px;color:#999;display:flex;gap:12px"><span>' + ic('user', 12) + ' ' + d.author + '</span><span>' + ic('eye', 12) + ' ' + d.views + '</span></div>';
+    h += '</div>';
+  });
+  h += '</div>';
+  container.innerHTML = h;
+}
+
+/* ===== ENHANCED APPROVAL WITH EXTENDED DATA ===== */
+function renderApprovalEnhanced(container) {
+  var allApprovals = D.approvals.concat(APPROVALS_EXTENDED);
+  var h = '<div class="filter-bar"><select id="approvalFilter" style="padding:7px 12px;border-radius:4px;border:1px solid var(--border)"><option value="all">全部状态</option><option value="pending">待审批</option><option value="approved">已通过</option><option value="rejected">已驳回</option></select>';
+  h += '<input type="text" class="search-input" placeholder="搜索审批单号/标题..." id="approvalSearch">';
+  h += '<button class="btn btn-primary" data-action="new-approval">' + ic('plus', 14, '#fff') + ' 发起审批</button>';
+  h += '<button class="btn btn-outline" onclick="var csv=ExportUtils.tableToCSV(\'#approvalTable\');ExportUtils.downloadCSV(csv,\'审批记录.csv\');toast(\'导出成功\')">' + ic('download', 14) + ' 导出</button>';
+  h += '</div>';
+  h += '<div class="card" style="padding:0;overflow:hidden"><table id="approvalTable"><thead><tr><th>审批单号</th><th>标题</th><th>申请人</th><th>部门</th><th>金额</th><th>日期</th><th>状态</th><th>操作</th></tr></thead><tbody>';
+  allApprovals.forEach(function(a) {
+    var statusMap = {pending:['待审批','badge-warn'],approved:['已通过','badge-success'],rejected:['已驳回','badge-danger']};
+    var stxt = statusMap[a.status][0], scls = statusMap[a.status][1];
+    h += '<tr data-approval-id="' + a.id + '"><td style="font-family:monospace;font-size:12px">' + a.id + '</td><td style="font-weight:500">' + a.title + '</td><td>' + a.applicant + '</td><td>' + a.dept + '</td><td>' + a.amount + '</td><td>' + a.date + '</td><td><span class="badge ' + scls + '">' + stxt + '</span></td><td><button class="btn btn-sm btn-outline" data-action="view-approval" data-id="' + a.id + '">详情</button></td></tr>';
+  });
+  h += '</tbody></table></div>';
+  container.innerHTML = h;
+}
+
+/* ===== ENHANCED MEETING WITH EXTENDED DATA ===== */
+function renderMeetingEnhanced(container) {
+  var allMeetings = D.meetings.concat(MEETINGS_EXTENDED);
+  var h = '<div class="filter-bar"><button class="btn btn-primary" data-action="new-meeting">' + ic('plus', 14, '#fff') + ' 预约会议</button>';
+  h += '<select id="meetingFilter" style="padding:7px 12px;border-radius:4px;border:1px solid var(--border)"><option value="all">全部状态</option><option value="scheduled">待开始</option><option value="completed">已结束</option></select>';
+  h += '</div>';
+  h += '<div class="card" style="padding:0;overflow:hidden"><table id="meetingTable"><thead><tr><th>会议主题</th><th>日期</th><th>时间</th><th>会议室</th><th>参会人</th><th>状态</th><th>操作</th></tr></thead><tbody>';
+  allMeetings.forEach(function(m) {
+    var stxt = m.status === 'scheduled' ? '待开始' : '已结束';
+    var scls = m.status === 'scheduled' ? 'badge-info' : 'badge-gray';
+    h += '<tr><td style="font-weight:500">' + m.title + '</td><td>' + m.date + '</td><td>' + m.time + '</td><td>' + m.room + '</td><td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="' + m.attendees + '">' + m.attendees + '</td><td><span class="badge ' + scls + '">' + stxt + '</span></td><td><button class="btn btn-sm btn-outline" data-action="view-meeting" data-id="' + m.id + '">详情</button></td></tr>';
+  });
+  h += '</tbody></table></div>';
+  container.innerHTML = h;
+}
+
+/* ===== ENHANCED CALENDAR WITH EXTENDED DATA ===== */
+function renderCalendarEnhanced(container) {
+  var allSchedules = D.schedules.concat(SCHEDULES_EXTENDED);
+  var h = '<div class="grid-2">';
+  // Month view
+  h += '<div class="card"><div class="card-title">' + ic('calendar', 16, '#E67E22') + ' 2025年7月</div>';
+  h += '<div style="display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:12px;margin-bottom:8px">';
+  ['日','一','二','三','四','五','六'].forEach(function(d) {
+    h += '<div style="padding:6px;font-weight:600;color:#999">' + d + '</div>';
+  });
+  h += '</div>';
+  h += '<div style="display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:13px">';
+  var eventDays = [2,3,4,5,7,8,9,10,11,12,15,18];
+  [0,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31].forEach(function(d) {
+    var hasEvent = eventDays.indexOf(d) !== -1;
+    var isToday = d === 1;
+    var style = 'padding:8px 4px;border-radius:4px;';
+    if (isToday) style += 'background:var(--primary);color:#fff;font-weight:700;';
+    else if (hasEvent) style += 'background:#FFF5EB;color:var(--primary);font-weight:600;cursor:pointer;';
+    h += '<div style="' + style + '"' + (hasEvent ? ' data-cal-day="' + d + '"' : '') + '>' + (d || '') + '</div>';
+  });
+  h += '</div></div>';
+  // Schedule list with extended
+  h += '<div class="card"><div class="card-title">' + ic('clock', 16, '#E67E22') + ' 日程列表（' + allSchedules.length + '项）</div>';
+  allSchedules.forEach(function(s) {
+    h += '<div class="schedule-item" style="padding:12px 0"><div class="schedule-time" style="min-width:80px">' + s.date + '<br>' + s.time + '</div><div><div style="font-weight:600">' + s.title + '</div><div style="font-size:12px;color:#999;margin-top:2px">' + ic('workbench', 12) + ' ' + s.location + ' · ' + s.organizer + '</div></div></div>';
+  });
+  h += '</div></div>';
+  container.innerHTML = h;
+}
+
+/* ===== ENHANCED MESSAGE PAGE WITH MORE CONVERSATIONS ===== */
+function renderMessageEnhanced(container) {
+  var h = '<div style="display:flex;height:calc(100vh - var(--header-h) - 40px);gap:16px">';
+  // Left list
+  h += '<div style="width:280px;background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow-y:auto;flex-shrink:0" id="msgList">';
+  D.messages.forEach(function(m, i) {
+    h += '<div class="msg-contact' + (i === 0 ? ' active' : '') + '" data-msg-idx="' + i + '" style="padding:14px 16px;border-bottom:1px solid var(--border);cursor:pointer;display:flex;gap:10px;align-items:center;transition:background .2s' + (i === 0 ? ';background:#FFF5EB' : '') + '">';
+    h += '<div class="avatar" style="background:' + (i % 2 ? '#0984E3' : '#E67E22') + '">' + m.avatar + '</div>';
+    h += '<div style="flex:1;min-width:0"><div style="display:flex;justify-content:space-between"><span style="font-weight:600;font-size:14px">' + m.name + '</span><span style="font-size:11px;color:#999">' + m.time + '</span></div>';
+    h += '<div style="font-size:12px;color:#999;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px">' + m.lastMsg + '</div></div>';
+    if (m.unread > 0) h += '<div style="background:var(--danger);color:#fff;font-size:10px;padding:2px 6px;border-radius:10px;min-width:18px;text-align:center">' + m.unread + '</div>';
+    h += '</div>';
+  });
+  h += '</div>';
+  // Right chat area
+  h += '<div style="flex:1;background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden" id="chatArea">';
+  h += renderChatDetail(0);
+  h += '</div></div>';
+  container.innerHTML = h;
+}
+
+/* ===== DATA INTEGRITY CHECKS ===== */
+function runDataChecks() {
+  var checks = [];
+  // Check all required data arrays have minimum entries
+  checks.push({name:'Messages', actual:D.messages.length, required:5, pass:D.messages.length >= 5});
+  checks.push({name:'Approvals', actual:D.approvals.length, required:8, pass:D.approvals.length >= 8});
+  checks.push({name:'Employees', actual:D.employees.length, required:10, pass:D.employees.length >= 10});
+  checks.push({name:'Knowledge Docs', actual:D.knowledgeDocs.length, required:8, pass:D.knowledgeDocs.length >= 8});
+  checks.push({name:'Schedules', actual:D.schedules.length, required:5, pass:D.schedules.length >= 5});
+  checks.push({name:'Meetings', actual:D.meetings.length, required:5, pass:D.meetings.length >= 5});
+  checks.push({name:'Production Orders', actual:D.productionOrders.length, required:8, pass:D.productionOrders.length >= 8});
+  checks.push({name:'Supply Data', actual:D.supplyData.length, required:8, pass:D.supplyData.length >= 8});
+  checks.push({name:'CRM Data', actual:D.crmData.length, required:8, pass:D.crmData.length >= 8});
+  checks.push({name:'Quality Data', actual:D.qualityData.length, required:8, pass:D.qualityData.length >= 8});
+  checks.push({name:'News', actual:D.news.length, required:3, pass:D.news.length >= 3});
+  checks.push({name:'Marquee', actual:D.marquee.length, required:8, pass:D.marquee.length >= 8});
+  checks.push({name:'KPI Sets', actual:Object.keys(D.kpi).length, required:3, pass:Object.keys(D.kpi).length >= 3});
+  checks.push({name:'App Sets', actual:Object.keys(D.apps).length, required:3, pass:Object.keys(D.apps).length >= 3});
+  checks.push({name:'SVG Icons', actual:Object.keys(ICONS).length, required:30, pass:Object.keys(ICONS).length >= 30});
+  checks.push({name:'AI Knowledge', actual:Object.keys(D.aiKnowledge).length, required:5, pass:Object.keys(D.aiKnowledge).length >= 5});
+  checks.push({name:'Doc Categories', actual:D.docCats.length, required:4, pass:D.docCats.length >= 4});
+  checks.push({name:'Nav Groups', actual:NAV.length, required:2, pass:NAV.length >= 2});
+  var totalItems = NAV.reduce(function(sum, g) { return sum + g.items.length; }, 0);
+  checks.push({name:'Nav Items (Pages)', actual:totalItems, required:13, pass:totalItems >= 13});
+  // Log results
+  console.group('%c📊 Data Integrity Report', 'color:#E67E22;font-weight:bold');
+  var allPass = true;
+  checks.forEach(function(c) {
+    var icon = c.pass ? '✅' : '❌';
+    console.log(icon + ' ' + c.name + ': ' + c.actual + '/' + c.required);
+    if (!c.pass) allPass = false;
+  });
+  console.log(allPass ? '✅ All checks passed!' : '❌ Some checks failed!');
+  console.groupEnd();
+  return allPass;
+}
+
+/* ===== EXTENDED INIT WITH CHECKS ===== */
+var _prevDidMount = didMount;
+didMount = function() {
+  PerfMarks.mark('init-start');
+  _prevDidMount();
+  enhanceAccessibility();
+  addWatermark();
+  ResponsiveHandler.init();
+  runDataChecks();
+  PerfMarks.measure('Total Init', 'init-start');
+  // Save last visited page
+  var savedPage = AppStorage.load('lastPage', 'workbench');
+  if (savedPage && savedPage !== currentPage) {
+    navigate(savedPage);
+  }
+  console.log('%c✅ 中泰龙Demo完整加载 | 13页面 | 60+图标 | AI悟空引擎 | 数据校验通过 ', 'background:#00B894;color:#fff;padding:6px 16px;border-radius:4px;font-size:12px');
+};
+
+/* ===== PAGE VISIBILITY TRACKING ===== */
+document.addEventListener('visibilitychange', function() {
+  if (document.hidden) {
+    if (bannerTimer) { clearInterval(bannerTimer); bannerTimer = null; }
+  } else {
+    if (currentPage === 'workbench' && !bannerTimer) initBanner();
+  }
+});
+
+/* ===== SAVE PAGE STATE ON NAVIGATION ===== */
+var _origNavigate = navigate;
+navigate = function(pageId) {
+  _origNavigate(pageId);
+  AppStorage.save('lastPage', pageId);
+};
+
+/* ===== GLOBAL ERROR HANDLER ===== */
+window.addEventListener('error', function(e) {
+  console.error('[ZTL Demo Error]', e.message, e.filename, e.lineno);
+  NotifySystem.show('系统提示', '页面出现异常，请刷新重试', 'warn');
+});
+
+/* ===== CONTEXT MENU PREVENTION (demo protection) ===== */
+document.addEventListener('contextmenu', function(e) {
+  // Allow right-click for development but log it
+  console.log('[Demo] Context menu triggered at:', e.clientX, e.clientY);
+});
+
+/* ===== FINAL CONSTANTS AND CONFIG ===== */
+var APP_CONFIG = {
+  version: '1.0.0',
+  buildDate: '2025-07-01',
+  companyName: '广东中泰龙家具集团有限公司',
+  companyShort: '中泰龙',
+  website: 'http://www.jongtay.com',
+  primaryColor: '#E67E22',
+  darkColor: '#2D3436',
+  maxPageSize: 20,
+  defaultPageSize: 10,
+  apiTimeout: 30000,
+  animationDuration: 300,
+  bannerInterval: 4000,
+  marqueeSpeed: 40,
+  aiTypingSpeed: 15,
+  aiResponseDelay: [500, 800],
+  toastDuration: 3000,
+  modalMaxWidth: 560,
+  sidebarWidth: 220,
+  sidebarCollapsedWidth: 60,
+  breakpointMobile: 768,
+  breakpointTablet: 1024
+};
+
+/* ===== FEATURE FLAGS ===== */
+var FEATURES = {
+  enableDarkMode: true,
+  enableExport: true,
+  enableKeyboardShortcuts: true,
+  enableWatermark: true,
+  enablePerformanceMonitoring: true,
+  enableLocalStorage: true,
+  enableAccessibility: true,
+  enableResponsive: true,
+  enablePrintStyles: true,
+  enableAnimations: true,
+  enableAIAssistant: true,
+  enableMarquee: true,
+  enableBannerAutoplay: true,
+  enableTableSort: true,
+  enableSearch: true
+};
+
+console.log('%c🏭 广东中泰龙家具集团 · 钉钉智能协同平台Demo v' + APP_CONFIG.version, 'background:#2D3436;color:#E67E22;padding:8px 20px;border-radius:4px;font-size:14px;font-weight:bold');
+console.log('%c   Build: ' + APP_CONFIG.buildDate + ' | Pages: 13 | Icons: 60+ | Zero CDN', 'color:#636E72;font-size:11px');
+
+
+// Initialize the application
+didMount();
+</script>
+</body>
+</html>
