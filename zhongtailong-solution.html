@@ -45,6 +45,8 @@ section:nth-child(even){background:var(--white)}
 .miss{color:var(--gray)}
 .tag-ding;color:#E60012;padding:2px 10px;border-radius:4px;font-size:12px;font-weight:600;margin-right:6px}
 .tag-fei{display:inline-block;background:#F0F0F0;color:#888;padding:2px 10px;border-radius:4px;font-size:12px;font-weight:600;margin-right:6px}
+.compare-table th.col-wb{background:#0052D9}
+.tag-wb{display:inline-block;background:#E8F0FE;color:#0052D9;padding:2px 10px;border-radius:4px;font-size:12px;font-weight:600;margin-right:6px}
 /* 架构图 */
 .arch-box{background:var(--white);border:2px solid var(--border);border-radius:14px;padding:40px 30px;margin-top:20px;position:relative}
 .arch-layer{border:2px dashed var(--border);border-radius:10px;padding:18px;margin-bottom:16px;position:relative}
@@ -169,15 +171,16 @@ section:nth-child(even){background:var(--white)}
 <!-- ====== 第二章：钉钉AI平台优势 vs 飞书 ====== -->
 <section>
 <div class="container">
-<div class="section-title">钉钉AI平台差异化优势</div>
-<div class="section-desc">六大维度全面对比，钉钉在制造业场景下具备显著竞争优势</div>
+<div class="section-title">三大平台差异化对比</div>
+<div class="section-desc">钉钉 vs 飞书 vs WorkBuddy，六大维度全面评估制造业适配度</div>
 
 <table class="compare-table">
 <thead>
 <tr>
-<th style="width:16%">对比维度</th>
-<th class="col-ding" style="width:42%">🔵 钉钉 AI 平台</th>
-<th class="col-fei" style="width:42%">⚪ 飞书</th>
+<th style="width:12%">对比维度</th>
+<th class="col-ding" style="width:30%">🔴 钉钉 AI 平台</th>
+<th class="col-fei" style="width:29%">⚪ 飞书</th>
+<th class="col-wb" style="width:29%">🔵 WorkBuddy</th>
 </tr>
 </thead>
 <tbody>
@@ -199,6 +202,14 @@ section:nth-child(even){background:var(--white)}
 <span class="miss">✗</span> 流程自动化AI能力有限<br>
 <span class="miss">✗</span> 仅公有云部署，数据安全存顾虑
 </td>
+<td>
+<span class="tag-wb">AI Agent工作台</span><br>
+<span class="check">✓</span> 100+领域AI专家并行协作，多Agent自主规划执行<br>
+<span class="check">✓</span> 文档/PPT/调研报告自动生成，支持深度网络调研<br>
+<span class="partial">○</span> 桌面端为主，缺乏企业级IM/审批/OA协同底座<br>
+<span class="miss">✗</span> 不支持对接ERP/MES等业务系统数据源<br>
+<span class="miss">✗</span> 无流程自动化引擎，无法驱动业务审批流转
+</td>
 </tr>
 <tr>
 <td class="dim">低代码平台</td>
@@ -217,6 +228,14 @@ section:nth-child(even){background:var(--white)}
 <span class="partial">○</span> 自动化能力基础，不支持跨应用联动<br>
 <span class="miss">✗</span> 无独立大屏搭建能力<br>
 <span class="miss">✗</span> 高级版有行数限制，大规模使用成本高
+</td>
+<td>
+<span class="tag-wb">无低代码平台</span><br>
+<span class="miss">✗</span> 无独立低代码/零代码应用搭建能力<br>
+<span class="miss">✗</span> 不支持可视化流程引擎和审批流配置<br>
+<span class="miss">✗</span> 无自定义报表和管理驾驶舱搭建<br>
+<span class="miss">✗</span> 依赖腾讯文档基础表格，复杂业务逻辑无法实现<br>
+<span class="miss">✗</span> 需全部定制开发，交付周期长、成本高
 </td>
 </tr>
 <tr>
@@ -237,6 +256,14 @@ section:nth-child(even){background:var(--white)}
 <span class="miss">✗</span> 无鼎捷/数夫预置连接器<br>
 <span class="miss">✗</span> 数据库直连需额外购买企业版
 </td>
+<td>
+<span class="tag-wb">MCP生态扩展</span><br>
+<span class="partial">○</span> MCP协议连接第三方工具，但制造业ERP覆盖极少<br>
+<span class="partial">○</span> 支持企微/腾讯会议等腾讯系产品联动<br>
+<span class="miss">✗</span> 无鼎捷/数夫/三维家等家具行业预置连接器<br>
+<span class="miss">✗</span> 无数据库直连能力，业务数据同步需全量定制<br>
+<span class="miss">✗</span> 消息推送依赖企微，非统一工作台入口
+</td>
 </tr>
 <tr>
 <td class="dim">安全合规</td>
@@ -255,6 +282,14 @@ section:nth-child(even){background:var(--white)}
 <span class="partial">○</span> 防截图仅旗舰版提供<br>
 <span class="partial">○</span> 审计日志保留周期较短<br>
 <span class="miss">✗</span> 不支持国密算法和专属加密
+</td>
+<td>
+<span class="tag-wb">企业版安全</span><br>
+<span class="partial">○</span> 操作留痕+指令溯源，支持审批流嵌入<br>
+<span class="partial">○</span> 企业专享版支持VPC私有化部署<br>
+<span class="partial">○</span> 企业知识管理和模型配置隔离<br>
+<span class="miss">✗</span> 无DLP数据防泄漏和全局水印能力<br>
+<span class="miss">✗</span> 无防截图/防复制终端安全管控
 </td>
 </tr>
 <tr>
@@ -275,6 +310,14 @@ section:nth-child(even){background:var(--white)}
 <span class="miss">✗</span> 硬件生态薄弱，缺少工业IoT设备<br>
 <span class="miss">✗</span> 云基础设施依赖第三方
 </td>
+<td>
+<span class="tag-wb">腾讯生态</span><br>
+<span class="partial">○</span> 打通企微/QQ/腾讯文档/腾讯会议等消费级生态<br>
+<span class="partial">○</span> 100+内置Skills覆盖通用办公场景<br>
+<span class="miss">✗</span> 制造业垂直应用几乎为零，无MES/QMS/EAM<br>
+<span class="miss">✗</span> 无工业硬件生态（考勤机/PDA/IoT网关）<br>
+<span class="miss">✗</span> ISV服务商以通用SaaS为主，缺少行业深耕
+</td>
 </tr>
 <tr>
 <td class="dim">成本效益</td>
@@ -294,6 +337,14 @@ section:nth-child(even){background:var(--white)}
 <span class="partial">○</span> 3000人规模年费预估 ¥38-48万<br>
 <span class="miss">✗</span> 无云厂商联合优惠
 </td>
+<td>
+<span class="tag-wb">WorkBuddy定价</span><br>
+<span class="partial">○</span> 个人专业版 ¥58/人/月，轻量办公可用<br>
+<span class="partial">○</span> 企业旗舰版 ¥198/人/月（含AI+管理功能）<br>
+<span class="partial">○</span> 企业专享版 ¥316/人/月（100席起，VPC部署）<br>
+<span class="miss">✗</span> 3000人规模年费预估 ¥71-114万（按人头计费）<br>
+<span class="miss">✗</span> 无低代码/连接器/审批等OA模块，需另购补齐
+</td>
 </tr>
 </tbody>
 </table>
@@ -301,7 +352,7 @@ section:nth-child(even){background:var(--white)}
 <div style="margin-top:30px;padding:24px;background:#E8F4FD;border-radius:12px;border-left:4px solid #1677FF">
 <h3 style="color:#1677FF;margin-bottom:10px">💡 核心结论</h3>
 <p style="font-size:15px;color:var(--dark)">
-对于中泰龙这类<strong>已有鼎捷ERP/MES/WMS系统的办公家具制造企业</strong>，钉钉在系统集成（预置鼎捷连接器）、AI深度赋能（千问办公AI对接业务数据）、低代码复杂度（宜搭制造业模板）、安全合规（等保三级+国密）四个关键维度上显著优于飞书。同等功能配置下，<strong>钉钉TCO较飞书节省约25%-30%</strong>，且落地周期更短。
+对于中泰龙这类<strong>已有鼎捷ERP/MES/WMS系统的办公家具制造企业</strong>，钉钉是唯一同时具备<strong>企业协同底座（IM/OA/审批）+ 低代码平台（宜搭）+ 业务系统集成（鼎捷连接器）+ AI深度赋能（千问办公AI）</strong>的一体化平台。飞书在协同体验上有优势但制造业生态薄弱；WorkBuddy作为AI Agent工作台在内容生成和个人提效上表现突出，但<strong>缺乏企业级协同底座和低代码能力</strong>，无法独立支撑3000人制造企业的数字化转型需求。同等功能配置下，<strong>钉钉TCO较飞书节省约25%-30%，较WorkBuddy+补齐方案节省50%以上</strong>。
 </p>
 </div>
 </div>
