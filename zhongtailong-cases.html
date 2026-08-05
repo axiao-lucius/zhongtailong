@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>家居行业标杆案例手册 — 中泰龙集团</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:#1a1a2e;color:#fff;min-height:100vh;line-height:1.7}
+a{color:#E67E22;text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* Header */
+.header{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);padding:48px 20px 32px;text-align:center;border-bottom:1px solid rgba(230,126,34,0.3)}
+.header .back{display:inline-block;margin-bottom:16px;font-size:14px;color:#999;transition:color .2s}
+.header .back:hover{color:#E67E22;text-decoration:none}
+.header h1{font-size:36px;font-weight:700;background:linear-gradient(135deg,#E67E22,#F39C12);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+.header .subtitle{font-size:16px;color:#aaa}
+.header .stats{display:flex;justify-content:center;gap:32px;margin-top:24px;flex-wrap:wrap}
+.header .stat{text-align:center}
+.header .stat-num{font-size:28px;font-weight:700;color:#E67E22}
+.header .stat-label{font-size:13px;color:#888}
+
+/* Container */
+.container{max-width:1100px;margin:0 auto;padding:40px 20px}
+
+/* Section Title */
+.section-title{font-size:24px;font-weight:600;margin-bottom:24px;padding-left:16px;border-left:4px solid #E67E22}
+
+/* Case Cards */
+.cases-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;margin-bottom:48px}
+.case-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:28px 24px;transition:all .3s ease;position:relative;overflow:hidden}
+.case-card:hover{transform:translateY(-3px);border-color:rgba(230,126,34,0.4);box-shadow:0 8px 32px rgba(230,126,34,0.12)}
+.case-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#E67E22,#F39C12);opacity:0;transition:opacity .3s}
+.case-card:hover::before{opacity:1}
+.case-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.case-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.case-name{font-size:20px;font-weight:600}
+.case-tag{display:inline-block;font-size:11px;padding:2px 10px;border-radius:12px;margin-left:8px;vertical-align:middle}
+.tag-strategy{background:rgba(230,126,34,0.2);color:#E67E22}
+.tag-lowcode{background:rgba(46,204,113,0.2);color:#2ecc71}
+.tag-manufacture{background:rgba(52,152,219,0.2);color:#3498db}
+.tag-retail{background:rgba(155,89,182,0.2);color:#9b59b6}
+.tag-ai{background:rgba(231,76,60,0.2);color:#e74c3c}
+.tag-integration{background:rgba(149,165,166,0.2);color:#95a5a6}
+.tag-grassroots{background:rgba(241,196,15,0.2);color:#f1c40f}
+
+.case-scenes{margin-bottom:16px}
+.case-scenes h4{font-size:13px;color:#888;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px}
+.scene-item{font-size:14px;color:#ccc;padding:4px 0;padding-left:16px;position:relative}
+.scene-item::before{content:'›';position:absolute;left:0;color:#E67E22;font-weight:700}
+
+.case-products{margin-bottom:16px}
+.case-products h4{font-size:13px;color:#888;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px}
+.product-tags{display:flex;flex-wrap:wrap;gap:6px}
+.product-tag{font-size:12px;padding:3px 10px;border-radius:6px;background:rgba(255,255,255,0.06);color:#bbb;border:1px solid rgba(255,255,255,0.08)}
+
+.case-ref{display:flex;align-items:center;gap:8px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06)}
+.case-ref h4{font-size:13px;color:#888;white-space:nowrap}
+.stars{color:#E67E22;font-size:14px;letter-spacing:2px}
+.ref-note{font-size:12px;color:#777;margin-left:auto}
+
+/* Matrix Table */
+.matrix-wrap{overflow-x:auto;margin-bottom:48px;border-radius:12px;border:1px solid rgba(255,255,255,0.08)}
+table.matrix{width:100%;border-collapse:collapse;font-size:14px;min-width:700px}
+table.matrix th{background:rgba(230,126,34,0.15);color:#E67E22;padding:14px 12px;text-align:left;font-weight:600;white-space:nowrap}
+table.matrix td{padding:12px;border-bottom:1px solid rgba(255,255,255,0.05);color:#ccc}
+table.matrix tr:hover td{background:rgba(255,255,255,0.03)}
+table.matrix .check{color:#2ecc71;font-weight:700;font-size:16px}
+table.matrix .empty{color:#444}
+
+/* Source Note */
+.source-note{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:20px 24px;margin-bottom:48px;font-size:13px;color:#888;line-height:1.8}
+.source-note strong{color:#bbb}
+
+/* Footer */
+.footer{text-align:center;padding:32px 20px;font-size:13px;color:#555;border-top:1px solid rgba(255,255,255,0.05)}
+
+/* Responsive */
+@media(max-width:640px){
+  .header h1{font-size:26px}
+  .cases-grid{grid-template-columns:1fr}
+  .header .stats{gap:20px}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a class="back" href="index.html">← 返回方案总览</a>
+  <h1>家居行业标杆案例手册</h1>
+  <div class="subtitle">钉钉赋能家居产业链数字化转型 · 7大真实案例 · 10+应用场景</div>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">7</div><div class="stat-label">标杆案例</div></div>
+    <div class="stat"><div class="stat-num">10+</div><div class="stat-label">应用场景</div></div>
+    <div class="stat"><div class="stat-num">6</div><div class="stat-label">钉钉产品矩阵</div></div>
+    <div class="stat"><div class="stat-num">100%</div><div class="stat-label">真实来源可查</div></div>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="section-title">标杆案例详情</div>
+<div class="cases-grid">
+
+<!-- 案例1：顾家家居 -->
+<div class="case-card">
+  <div class="case-header">
+    <div class="case-icon" style="background:rgba(230,126,34,0.15)">🏠</div>
+    <div>
+      <div class="case-name">顾家家居 <span class="case-tag tag-strategy">战略合作</span></div>
+    </div>
+  </div>
+  <div class="case-scenes">
+    <h4>核心应用场景</h4>
+    <div class="scene-item">管理数智化改革：战略拆解→组织绩效→任务在线化</div>
+    <div class="scene-item">AI全家桶：AI文档/表格/脑图/Teambition AI项目管理</div>
+    <div class="scene-item">经销商数字化协同平台：统一入口，三在线</div>
+    <div class="scene-item">Fun-ASR语音识别专属训练：门店导购精准识别行业术语</div>
+    <div class="scene-item">8000+张AI表格推动全链敏捷进化</div>
+  </div>
+  <div class="case-products">
+    <h4>钉钉产品</h4>
+    <div class="product-tags">
+      <span class="product-tag">PaaS底座</span>
+      <span class="product-tag">AI全家桶</span>
+      <span class="product-tag">人事管理</span>
+      <span class="product-tag">经销商协同</span>
+      <span class="product-tag">Fun-ASR</span>
+      <span class="product-tag">AI表格</span>
+    </div>
+  </div>
+  <div class="case-ref">
+    <h4>中泰龙参考价值</h4>
+    <span class="stars">★★★★★</span>
+    <span class="ref-note">大型家居集团·多品牌·经销商体系</span>
+  </div>
+</div>
+
+<!-- 案例2：联邦家私 -->
+<div class="case-card">
+  <div class="case-header">
+    <div class="case-icon" style="background:rgba(46,204,113,0.15)">🔧</div>
+    <div>
+      <div class="case-name">联邦家私 <span class="case-tag tag-lowcode">宜搭低代码</span></div>
+    </div>
+  </div>
+  <div class="case-scenes">
+    <h4>核心应用场景</h4>
+    <div class="scene-item">质量问题登记系统：售后问题全流程提报跟踪</div>
+    <div class="scene-item">服务满意度系统：客户反馈闭环管理</div>
+    <div class="scene-item">打通信息孤岛：售后数据与生产/销售联动</div>
+    <div class="scene-item">一周上线：低代码快速交付</div>
+  </div>
+  <div class="case-products">
+    <h4>钉钉产品</h4>
+    <div class="product-tags">
+      <span class="product-tag">宜搭低代码</span>
+    </div>
+  </div>
+  <div class="case-ref">
+    <h4>中泰龙参考价值</h4>
+    <span class="stars">★★★★☆</span>
+    <span class="ref-note">家具售后通用痛点·快速搭建</span>
+  </div>
+</div>
+
+<!-- 案例3：亚度家居 -->
+<div class="case-card">
+  <div class="case-header">
+    <div class="case-icon" style="background:rgba(52,152,219,0.15)">🏭</div>
+    <div>
+      <div class="case-name">亚度家居 <span class="case-tag tag-manufacture">制造全流程</span></div>
+    </div>
+  </div>
+  <div class="case-scenes">
+    <h4>核心应用场景</h4>
+    <div class="scene-item">设备上钉：扫码点检→报修→领料→工序确认</div>
+    <div class="scene-item">工业互联网二级标识解析：消费者扫码溯源</div>
+    <div class="scene-item">上下游协同：订单/客户/产品自动捕获→供应链预警</div>
+    <div class="scene-item">自研工业互联网平台嵌入钉钉统一入口</div>
+  </div>
+  <div class="case-products">
+    <h4>钉钉产品</h4>
+    <div class="product-tags">
+      <span class="product-tag">开放生态</span>
+      <span class="product-tag">设备上钉</span>
+      <span class="product-tag">门户集成</span>
+      <span class="product-tag">标识解析</span>
+    </div>
+  </div>
+  <div class="case-ref">
+    <h4>中泰龙参考价值</h4>
+    <span class="stars">★★★★★</span>
+    <span class="ref-note">家具制造标杆·智慧产业园可复用</span>
+  </div>
+</div>
+
+<!-- 案例4：居然之家 -->
+<div class="case-card">
+  <div class="case-header">
+    <div class="case-icon" style="background:rgba(155,89,182,0.15)">🏬</div>
+    <div>
+      <div class="case-name">居然之家 <span class="case-tag tag-retail">全产业链</span></div>
+    </div>
+  </div>
+  <div class="case-scenes">
+    <h4>核心应用场景</h4>
+    <div class="scene-item">宜搭搭建400+管理和财务应用，效率提升60%</div>
+    <div class="scene-item">统一移动办公门户：OA+工单系统</div>
+    <div class="scene-item">直营商场+经销商内外部伙伴管理</div>
+    <div class="scene-item">音视频会议支撑跨区域协作</div>
+  </div>
+  <div class="case-products">
+    <h4>钉钉产品</h4>
+    <div class="product-tags">
+      <span class="product-tag">专属钉钉</span>
+      <span class="product-tag">宜搭</span>
+      <span class="product-tag">音视频会议</span>
+    </div>
+  </div>
+  <div class="case-ref">
+    <h4>中泰龙参考价值</h4>
+    <span class="stars">★★★★☆</span>
+    <span class="ref-note">大型流通企业·专属部署适合IPO</span>
+  </div>
+</div>
+
+<!-- 案例5：金牌家居 -->
+<div class="case-card">
+  <div class="case-header">
+    <div class="case-icon" style="background:rgba(231,76,60,0.15)">🤖</div>
+    <div>
+      <div class="case-name">金牌家居 <span class="case-tag tag-ai">AI助理</span></div>
+    </div>
+  </div>
+  <div class="case-scenes">
+    <h4>核心应用场景</h4>
+    <div class="scene-item">AI助理链接4000家经销商、2万+合作伙伴</div>
+    <div class="scene-item">全球市场（北美/澳洲/东南亚）协同管理</div>
+    <div class="scene-item">定制家居头部品牌AI赋能经销商模式</div>
+  </div>
+  <div class="case-products">
+    <h4>钉钉产品</h4>
+    <div class="product-tags">
+      <span class="product-tag">钉钉AI助理</span>
+    </div>
+  </div>
+  <div class="case-ref">
+    <h4>中泰龙参考价值</h4>
+    <span class="stars">★★★★☆</span>
+    <span class="ref-note">定制家居头部·AI赋能经销商</span>
+  </div>
+</div>
+
+<!-- 案例6：嘉瑞福家具 -->
+<div class="case-card">
+  <div class="case-header">
+    <div class="case-icon" style="background:rgba(149,165,166,0.15)">🪑</div>
+    <div>
+      <div class="case-name">嘉瑞福家具 <span class="case-tag tag-integration">系统集成</span></div>
+    </div>
+  </div>
+  <div class="case-scenes">
+    <h4>核心应用场景</h4>
+    <div class="scene-item">统一对接十多个内部系统，单点登录</div>
+    <div class="scene-item">金蝶K3审批流迁移至钉钉移动端，回传ERP</div>
+    <div class="scene-item">门禁+考勤一体化：车牌号绑定防中途离厂</div>
+  </div>
+  <div class="case-products">
+    <h4>钉钉产品</h4>
+    <div class="product-tags">
+      <span class="product-tag">开放接口</span>
+      <span class="product-tag">专业版考勤</span>
+      <span class="product-tag">门户集成</span>
+    </div>
+  </div>
+  <div class="case-ref">
+    <h4>中泰龙参考价值</h4>
+    <span class="stars">★★★☆☆</span>
+    <span class="ref-note">办公家具制造·系统集成直接适用</span>
+  </div>
+</div>
+
+<!-- 案例7：奢意家居 -->
+<div class="case-card">
+  <div class="case-header">
+    <div class="case-icon" style="background:rgba(241,196,15,0.15)">💡</div>
+    <div>
+      <div class="case-name">奢意家居 <span class="case-tag tag-grassroots"> grassroots转型</span></div>
+    </div>
+  </div>
+  <div class="case-scenes">
+    <h4>核心应用场景</h4>
+    <div class="scene-item">老板自学成为钉钉开发者</div>
+    <div class="scene-item">自主完成工厂数字化转型</div>
+    <div class="scene-item">体现钉钉在家居行业的渗透深度</div>
+  </div>
+  <div class="case-products">
+    <h4>钉钉产品</h4>
+    <div class="product-tags">
+      <span class="product-tag">钉钉低代码</span>
+      <span class="product-tag">宜搭</span>
+    </div>
+  </div>
+  <div class="case-ref">
+    <h4>中泰龙参考价值</h4>
+    <span class="stars">★★☆☆☆</span>
+    <span class="ref-note">规模较小·行业渗透佐证</span>
+  </div>
+</div>
+
+</div><!-- end cases-grid -->
+
+<div class="section-title">应用场景汇总矩阵</div>
+<div class="matrix-wrap">
+<table class="matrix">
+<thead>
+<tr>
+  <th>应用场景</th>
+  <th>顾家家居</th>
+  <th>联邦家私</th>
+  <th>亚度家居</th>
+  <th>居然之家</th>
+  <th>金牌家居</th>
+  <th>嘉瑞福</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>AI智能创作/分析</td>
+  <td class="check">✓</td>
+  <td class="empty">—</td>
+  <td class="empty">—</td>
+  <td class="empty">—</td>
+  <td class="check">✓</td>
+  <td class="empty">—</td>
+</tr>
+<tr>
+  <td>经销商协同平台</td>
+  <td class="check">✓</td>
+  <td class="empty">—</td>
+  <td class="empty">—</td>
+  <td class="check">✓</td>
+  <td class="check">✓</td>
+  <td class="empty">—</td>
+</tr>
+<tr>
+  <td>宜搭低代码应用</td>
+  <td class="empty">—</td>
+  <td class="check">✓</td>
+  <td class="empty">—</td>
+  <td class="check">✓</td>
+  <td class="empty">—</td>
+  <td class="empty">—</td>
+</tr>
+<tr>
+  <td>生产工序数字化</td>
+  <td class="empty">—</td>
+  <td class="empty">—</td>
+  <td class="check">✓</td>
+  <td class="empty">—</td>
+  <td class="empty">—</td>
+  <td class="empty">—</td>
+</tr>
+<tr>
+  <td>设备管理/点上钉</td>
+  <td class="empty">—</td>
+  <td class="empty">—</td>
+  <td class="check">✓</td>
+  <td class="empty">—</td>
+  <td class="empty">—</td>
+  <td class="empty">—</td>
+</tr>
+<tr>
+  <td>售后质量管理</td>
+  <td class="empty">—</td>
+  <td class="check">✓</td>
+  <td class="empty">—</td>
+  <td class="empty">—</td>
+  <td class="empty">—</td>
+  <td class="empty">—</td>
+</tr>
+<tr>
+  <td>系统集成/单点登录</td>
+  <td class="empty">—</td>
+  <td class="empty">—</td>
+  <td class="check">✓</td>
+  <td class="empty">—</td>
+  <td class="empty">—</td>
+  <td class="check">✓</td>
+</tr>
+<tr>
+  <td>专属钉钉部署</td>
+  <td class="empty">—</td>
+  <td class="empty">—</td>
+  <td class="empty">—</td>
+  <td class="check">✓</td>
+  <td class="empty">—</td>
+  <td class="empty">—</td>
+</tr>
+<tr>
+  <td>语音识别行业定制</td>
+  <td class="check">✓</td>
+  <td class="empty">—</td>
+  <td class="empty">—</td>
+  <td class="empty">—</td>
+  <td class="empty">—</td>
+  <td class="empty">—</td>
+</tr>
+<tr>
+  <td>消费互信/标识解析</td>
+  <td class="empty">—</td>
+  <td class="empty">—</td>
+  <td class="check">✓</td>
+  <td class="empty">—</td>
+  <td class="empty">—</td>
+  <td class="empty">—</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="source-note">
+  <strong>数据来源说明：</strong>以上7个案例均有公开可查的真实来源，包括钉钉官方发布、阿里云开发者社区、权威媒体报道（搜狐、东方财富、中国日报、极客公园、凤凰网等）。已排除 dingtalk.com/qidian/ 下的AI生成模板页面（"完美家居""绿源家居"等内容高度雷同的SEO页面）。<br><br>
+  <strong>案例时间跨度：</strong>2021年（联邦家私）至2026年（顾家家居AI表格最新进展），覆盖家居行业数字化转型的完整演进历程。<br><br>
+  <strong>与中泰龙关联：</strong>参考价值评级基于中泰龙集团的业务特征（办公家具制造、多品牌运营、双园区、IPO筹备、经销商体系）进行匹配评估。
+</div>
+
+</div><!-- end container -->
+
+<div class="footer">
+  <p>由钉钉千问办公AI自动生成 · 2026年8月5日</p>
+  <p style="margin-top:8px"><a href="index.html">← 返回方案总览</a> · <a href="https://github.com/axiao-lucius/zhongtailong" target="_blank">GitHub仓库</a></p>
+</div>
+
+</body>
+</html>
