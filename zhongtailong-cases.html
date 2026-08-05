@@ -5,82 +5,105 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>家居行业标杆案例手册 — 中泰龙集团</title>
 <style>
+:root{
+  --brand-red:#E60012;
+  --brand-dark-red:#8B0000;
+  --brand-silver:#C0C0C0;
+  --brand-light:#F5F5F5;
+  --bg:#FAFAFA;
+  --surface:#FFFFFF;
+  --text-1:#1A1A1A;
+  --text-2:#4A4A4A;
+  --text-3:#888888;
+  --border:rgba(0,0,0,.08);
+}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:#1a1a2e;color:#fff;min-height:100vh;line-height:1.7}
-a{color:#E67E22;text-decoration:none}
-a:hover{text-decoration:underline}
+body{font-family:"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--text-1);min-height:100vh;line-height:1.7}
+a{color:var(--brand-red);text-decoration:none;transition:color .2s}
+a:hover{color:var(--brand-dark-red)}
 
 /* Header */
-.header{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);padding:48px 20px 32px;text-align:center;border-bottom:1px solid rgba(230,126,34,0.3)}
-.header .back{display:inline-block;margin-bottom:16px;font-size:14px;color:#999;transition:color .2s}
-.header .back:hover{color:#E67E22;text-decoration:none}
-.header h1{font-size:36px;font-weight:700;background:linear-gradient(135deg,#E67E22,#F39C12);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
-.header .subtitle{font-size:16px;color:#aaa}
-.header .stats{display:flex;justify-content:center;gap:32px;margin-top:24px;flex-wrap:wrap}
+.header{background:linear-gradient(135deg,var(--brand-red) 0%,var(--brand-dark-red) 100%);padding:56px 20px 40px;text-align:center;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;top:-50%;right:-20%;width:600px;height:600px;background:radial-gradient(circle,rgba(255,255,255,.08) 0%,transparent 70%);pointer-events:none}
+.header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--brand-silver),#fff,var(--brand-silver))}
+.header .back{display:inline-block;margin-bottom:20px;font-size:14px;color:rgba(255,255,255,.7);transition:color .2s}
+.header .back:hover{color:#fff;text-decoration:none}
+.header h1{font-size:38px;font-weight:800;color:#fff;margin-bottom:8px;letter-spacing:2px}
+.header .subtitle{font-size:16px;color:rgba(255,255,255,.85);max-width:600px;margin:0 auto}
+.header .stats{display:flex;justify-content:center;gap:40px;margin-top:32px;flex-wrap:wrap}
 .header .stat{text-align:center}
-.header .stat-num{font-size:28px;font-weight:700;color:#E67E22}
-.header .stat-label{font-size:13px;color:#888}
+.header .stat-num{font-size:32px;font-weight:800;color:#fff}
+.header .stat-label{font-size:13px;color:rgba(255,255,255,.7);margin-top:4px}
+
+/* Brand Bar */
+.brand-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:16px 20px;display:flex;align-items:center;justify-content:center;gap:12px;font-size:14px;color:var(--text-2)}
+.brand-bar .logo-text{font-weight:800;font-size:18px;color:var(--brand-red);letter-spacing:3px}
+.brand-bar .divider{width:1px;height:20px;background:var(--border)}
 
 /* Container */
-.container{max-width:1100px;margin:0 auto;padding:40px 20px}
+.container{max-width:1100px;margin:0 auto;padding:48px 20px}
 
 /* Section Title */
-.section-title{font-size:24px;font-weight:600;margin-bottom:24px;padding-left:16px;border-left:4px solid #E67E22}
+.section-title{font-size:26px;font-weight:700;margin-bottom:28px;padding-left:18px;border-left:5px solid var(--brand-red);color:var(--text-1);display:flex;align-items:center;gap:12px}
+.section-title .en{font-size:13px;color:var(--text-3);font-weight:400;letter-spacing:1px;text-transform:uppercase}
 
 /* Case Cards */
-.cases-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;margin-bottom:48px}
-.case-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:28px 24px;transition:all .3s ease;position:relative;overflow:hidden}
-.case-card:hover{transform:translateY(-3px);border-color:rgba(230,126,34,0.4);box-shadow:0 8px 32px rgba(230,126,34,0.12)}
-.case-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#E67E22,#F39C12);opacity:0;transition:opacity .3s}
+.cases-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:24px;margin-bottom:56px}
+.case-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:28px 24px;transition:all .3s ease;position:relative;overflow:hidden}
+.case-card:hover{transform:translateY(-4px);border-color:var(--brand-red);box-shadow:0 12px 40px rgba(230,0,18,.1)}
+.case-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--brand-red),var(--brand-dark-red));opacity:0;transition:opacity .3s}
 .case-card:hover::before{opacity:1}
-.case-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
-.case-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
-.case-name{font-size:20px;font-weight:600}
-.case-tag{display:inline-block;font-size:11px;padding:2px 10px;border-radius:12px;margin-left:8px;vertical-align:middle}
-.tag-strategy{background:rgba(230,126,34,0.2);color:#E67E22}
-.tag-lowcode{background:rgba(46,204,113,0.2);color:#2ecc71}
-.tag-manufacture{background:rgba(52,152,219,0.2);color:#3498db}
-.tag-retail{background:rgba(155,89,182,0.2);color:#9b59b6}
-.tag-ai{background:rgba(231,76,60,0.2);color:#e74c3c}
-.tag-integration{background:rgba(149,165,166,0.2);color:#95a5a6}
-.tag-grassroots{background:rgba(241,196,15,0.2);color:#f1c40f}
+.case-header{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.case-icon{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;background:linear-gradient(135deg,rgba(230,0,18,.08),rgba(139,0,0,.06))}
+.case-name{font-size:20px;font-weight:700;color:var(--text-1)}
+.case-tag{display:inline-block;font-size:11px;padding:3px 10px;border-radius:4px;margin-left:8px;vertical-align:middle;font-weight:600;letter-spacing:.5px}
+.tag-strategy{background:rgba(230,0,18,.1);color:var(--brand-red)}
+.tag-lowcode{background:rgba(0,120,60,.1);color:#00783c}
+.tag-manufacture{background:rgba(0,80,160,.1);color:#0050a0}
+.tag-retail{background:rgba(120,60,160,.1);color:#783ca0}
+.tag-ai{background:rgba(200,60,0,.1);color:#c83c00}
+.tag-integration{background:rgba(100,100,100,.1);color:#646464}
+.tag-grassroots{background:rgba(180,140,0,.1);color:#b48c00}
 
 .case-scenes{margin-bottom:16px}
-.case-scenes h4{font-size:13px;color:#888;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px}
-.scene-item{font-size:14px;color:#ccc;padding:4px 0;padding-left:16px;position:relative}
-.scene-item::before{content:'›';position:absolute;left:0;color:#E67E22;font-weight:700}
+.case-scenes h4{font-size:12px;color:var(--text-3);margin-bottom:8px;text-transform:uppercase;letter-spacing:1.5px;font-weight:600}
+.scene-item{font-size:14px;color:var(--text-2);padding:5px 0 5px 18px;position:relative;line-height:1.6}
+.scene-item::before{content:'';position:absolute;left:0;top:12px;width:8px;height:8px;border-radius:2px;background:var(--brand-red);opacity:.6}
 
 .case-products{margin-bottom:16px}
-.case-products h4{font-size:13px;color:#888;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px}
+.case-products h4{font-size:12px;color:var(--text-3);margin-bottom:8px;text-transform:uppercase;letter-spacing:1.5px;font-weight:600}
 .product-tags{display:flex;flex-wrap:wrap;gap:6px}
-.product-tag{font-size:12px;padding:3px 10px;border-radius:6px;background:rgba(255,255,255,0.06);color:#bbb;border:1px solid rgba(255,255,255,0.08)}
+.product-tag{font-size:12px;padding:4px 12px;border-radius:4px;background:var(--brand-light);color:var(--text-2);border:1px solid var(--border);font-weight:500}
 
-.case-ref{display:flex;align-items:center;gap:8px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06)}
-.case-ref h4{font-size:13px;color:#888;white-space:nowrap}
-.stars{color:#E67E22;font-size:14px;letter-spacing:2px}
-.ref-note{font-size:12px;color:#777;margin-left:auto}
+.case-ref{display:flex;align-items:center;gap:10px;padding-top:14px;border-top:1px solid var(--border)}
+.case-ref h4{font-size:12px;color:var(--text-3);white-space:nowrap;font-weight:600}
+.stars{color:var(--brand-red);font-size:15px;letter-spacing:2px}
+.ref-note{font-size:12px;color:var(--text-3);margin-left:auto}
 
 /* Matrix Table */
-.matrix-wrap{overflow-x:auto;margin-bottom:48px;border-radius:12px;border:1px solid rgba(255,255,255,0.08)}
-table.matrix{width:100%;border-collapse:collapse;font-size:14px;min-width:700px}
-table.matrix th{background:rgba(230,126,34,0.15);color:#E67E22;padding:14px 12px;text-align:left;font-weight:600;white-space:nowrap}
-table.matrix td{padding:12px;border-bottom:1px solid rgba(255,255,255,0.05);color:#ccc}
-table.matrix tr:hover td{background:rgba(255,255,255,0.03)}
-table.matrix .check{color:#2ecc71;font-weight:700;font-size:16px}
-table.matrix .empty{color:#444}
+.matrix-wrap{overflow-x:auto;margin-bottom:56px;border-radius:12px;border:1px solid var(--border);background:var(--surface)}
+table.matrix{width:100%;border-collapse:collapse;font-size:14px;min-width:720px}
+table.matrix th{background:var(--brand-red);color:#fff;padding:16px 14px;text-align:left;font-weight:600;white-space:nowrap;font-size:13px;letter-spacing:.5px}
+table.matrix td{padding:14px;border-bottom:1px solid var(--border);color:var(--text-2)}
+table.matrix tr:last-child td{border-bottom:none}
+table.matrix tr:hover td{background:rgba(230,0,18,.03)}
+table.matrix .check{color:var(--brand-red);font-weight:700;font-size:18px}
+table.matrix .empty{color:#ddd}
 
 /* Source Note */
-.source-note{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:20px 24px;margin-bottom:48px;font-size:13px;color:#888;line-height:1.8}
-.source-note strong{color:#bbb}
+.source-note{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--brand-red);border-radius:8px;padding:24px 28px;margin-bottom:56px;font-size:14px;color:var(--text-2);line-height:1.9}
+.source-note strong{color:var(--text-1)}
 
 /* Footer */
-.footer{text-align:center;padding:32px 20px;font-size:13px;color:#555;border-top:1px solid rgba(255,255,255,0.05)}
+.footer{text-align:center;padding:40px 20px;font-size:13px;color:var(--text-3);border-top:1px solid var(--border);background:var(--surface)}
+.footer a{color:var(--brand-red)}
 
 /* Responsive */
 @media(max-width:640px){
   .header h1{font-size:26px}
   .cases-grid{grid-template-columns:1fr}
-  .header .stats{gap:20px}
+  .header .stats{gap:24px}
+  .header .stat-num{font-size:26px}
 }
 </style>
 </head>
@@ -98,15 +121,21 @@ table.matrix .empty{color:#444}
   </div>
 </div>
 
+<div class="brand-bar">
+  <span class="logo-text">JONGTAY</span>
+  <span class="divider"></span>
+  <span>中泰龙集团 · 家居行业案例集</span>
+</div>
+
 <div class="container">
 
-<div class="section-title">标杆案例详情</div>
+<div class="section-title">标杆案例详情 <span class="en">Benchmark Cases</span></div>
 <div class="cases-grid">
 
 <!-- 案例1：顾家家居 -->
 <div class="case-card">
   <div class="case-header">
-    <div class="case-icon" style="background:rgba(230,126,34,0.15)">🏠</div>
+    <div class="case-icon">🏠</div>
     <div>
       <div class="case-name">顾家家居 <span class="case-tag tag-strategy">战略合作</span></div>
     </div>
@@ -140,7 +169,7 @@ table.matrix .empty{color:#444}
 <!-- 案例2：联邦家私 -->
 <div class="case-card">
   <div class="case-header">
-    <div class="case-icon" style="background:rgba(46,204,113,0.15)">🔧</div>
+    <div class="case-icon">🔧</div>
     <div>
       <div class="case-name">联邦家私 <span class="case-tag tag-lowcode">宜搭低代码</span></div>
     </div>
@@ -168,7 +197,7 @@ table.matrix .empty{color:#444}
 <!-- 案例3：亚度家居 -->
 <div class="case-card">
   <div class="case-header">
-    <div class="case-icon" style="background:rgba(52,152,219,0.15)">🏭</div>
+    <div class="case-icon">🏭</div>
     <div>
       <div class="case-name">亚度家居 <span class="case-tag tag-manufacture">制造全流程</span></div>
     </div>
@@ -199,7 +228,7 @@ table.matrix .empty{color:#444}
 <!-- 案例4：居然之家 -->
 <div class="case-card">
   <div class="case-header">
-    <div class="case-icon" style="background:rgba(155,89,182,0.15)">🏬</div>
+    <div class="case-icon">🏬</div>
     <div>
       <div class="case-name">居然之家 <span class="case-tag tag-retail">全产业链</span></div>
     </div>
@@ -229,7 +258,7 @@ table.matrix .empty{color:#444}
 <!-- 案例5：金牌家居 -->
 <div class="case-card">
   <div class="case-header">
-    <div class="case-icon" style="background:rgba(231,76,60,0.15)">🤖</div>
+    <div class="case-icon">🤖</div>
     <div>
       <div class="case-name">金牌家居 <span class="case-tag tag-ai">AI助理</span></div>
     </div>
@@ -256,7 +285,7 @@ table.matrix .empty{color:#444}
 <!-- 案例6：嘉瑞福家具 -->
 <div class="case-card">
   <div class="case-header">
-    <div class="case-icon" style="background:rgba(149,165,166,0.15)">🪑</div>
+    <div class="case-icon">🪑</div>
     <div>
       <div class="case-name">嘉瑞福家具 <span class="case-tag tag-integration">系统集成</span></div>
     </div>
@@ -285,7 +314,7 @@ table.matrix .empty{color:#444}
 <!-- 案例7：奢意家居 -->
 <div class="case-card">
   <div class="case-header">
-    <div class="case-icon" style="background:rgba(241,196,15,0.15)">💡</div>
+    <div class="case-icon">💡</div>
     <div>
       <div class="case-name">奢意家居 <span class="case-tag tag-grassroots"> grassroots转型</span></div>
     </div>
@@ -312,7 +341,7 @@ table.matrix .empty{color:#444}
 
 </div><!-- end cases-grid -->
 
-<div class="section-title">应用场景汇总矩阵</div>
+<div class="section-title">应用场景汇总矩阵 <span class="en">Application Matrix</span></div>
 <div class="matrix-wrap">
 <table class="matrix">
 <thead>
